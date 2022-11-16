@@ -6,9 +6,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{077407DE-6156-4EE8-AB98-7B704720F360}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{F9E8393A-CC3A-40EF-8ED4-E0BE349F271E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTestProject", "ServiceTestProject\ServiceTestProject.csproj", "{F9E8393A-CC3A-40EF-8ED4-E0BE349F271E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceAPI", "DeviceAPI\DeviceAPI.csproj", "{B5480687-6BF1-41E3-95BE-773B75A5B9A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoAPI", "MonoAPI\MonoAPI.csproj", "{B5480687-6BF1-41E3-95BE-773B75A5B9A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
