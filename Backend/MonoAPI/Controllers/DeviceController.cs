@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Interfaces;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
@@ -8,8 +9,11 @@ namespace MonoAPI.Controllers;
 [Route("[controller]")]
 public class DeviceController : ControllerBase
 {
-    public DeviceController()
+    private readonly IDeviceService _service;
+
+    public DeviceController(IDeviceService service)
     {
+        _service = service;
     }
 
     [HttpGet]
@@ -17,5 +21,12 @@ public class DeviceController : ControllerBase
     {
 
         return Ok(new List<Device>());
-    } 
+    }
+
+    [HttpGet]
+    [Route("rebuildDB")]
+    public void RebuildDB()
+    {
+        _service.RebuildDB();
+    }
 }
