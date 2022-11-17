@@ -72,6 +72,13 @@ public interface IDeviceRepository
     /// <returns>Device with updated user</returns>
     Device UpdateUserOnDevice(int userId, int deviceId);
 
+    /// <summary>
+    /// Gets all assigned Devices from userId
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns>List of assigned devices on user</returns>
+    List<Device> AssignedDevices(int userId);
+
     //Rebuild Database
     /// <summary>
     /// Rebuillds the database

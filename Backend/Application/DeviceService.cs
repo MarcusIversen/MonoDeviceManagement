@@ -53,6 +53,11 @@ public class DeviceService : IDeviceService
         throw new NotImplementedException();
     }
 
+    public List<Device> AssignedDevices(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public void RebuildDB()
     {
         _repository.RebuildDB();

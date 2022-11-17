@@ -52,6 +52,11 @@ public class DeviceRepository : IDeviceRepository
         throw new NotImplementedException();
     }
 
+    public List<Device> AssignedDevices(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public void RebuildDB()
     {
         _context.Database.EnsureDeleted();
