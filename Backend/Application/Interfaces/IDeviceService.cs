@@ -54,7 +54,7 @@ public interface IDeviceService
     /// </summary>
     /// <param name="userId"></param>
     /// <param name="deviceId"></param>
-    void AddUserToDevice(int userId, int deviceId);
+    Device AddUserToDevice(int userId, int deviceId);
     
     // Remove user from device
     /// <summary>
@@ -62,7 +62,7 @@ public interface IDeviceService
     /// </summary>
     /// <param name="userId"></param>
     /// <param name="deviceId"></param>
-    void DeleteUserFromDevice(int userId, int deviceId);
+    Device DeleteUserFromDevice(int userId, int deviceId);
     
     // Update user on device
     /// <summary>

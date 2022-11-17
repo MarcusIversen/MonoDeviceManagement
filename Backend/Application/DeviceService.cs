@@ -38,12 +38,12 @@ public class DeviceService : IDeviceService
         throw new NotImplementedException();
     }
 
-    public void AddUserToDevice(int userId, int deviceId)
+    public Device AddUserToDevice(int userId, int deviceId)
     {
         throw new NotImplementedException();
     }
 
-    public void DeleteUserFromDevice(int userId, int deviceId)
+    public Device DeleteUserFromDevice(int userId, int deviceId)
     {
         throw new NotImplementedException();
     }
