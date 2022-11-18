@@ -5,6 +5,13 @@ namespace Infrastructure;
 
 public class UserRepository : IUserRepository
 {
+    private DatabaseContext _context;
+
+    public UserRepository(DatabaseContext context)
+    {
+        _context = context;
+    }
+
     public User AddUser(User user)
     {
         throw new NotImplementedException();

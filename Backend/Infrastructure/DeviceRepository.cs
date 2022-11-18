@@ -17,14 +17,14 @@ public class DeviceRepository : IDeviceRepository
         throw new NotImplementedException();
     }
 
-    public List<Device> GetDevices()
+    public IEnumerable<Device> GetDevices()
     {
-        throw new NotImplementedException();
+        return _context.Devices.ToList();
     }
 
     public Device GetDevice(int deviceId)
     {
-        throw new NotImplementedException();
+        return _context.Devices.FirstOrDefault(d => d.Id == deviceId);
     }
 
     public Device UpdateDevice(int deviceId, Device device)
@@ -34,7 +34,10 @@ public class DeviceRepository : IDeviceRepository
 
     public Device DeleteDevice(int deviceId)
     {
-        throw new NotImplementedException();
+        var device = _context.Devices.FirstOrDefault(d => d.Id == deviceId);
+        _context.Devices.Remove(device);
+        _context.SaveChanges();
+        return device;
     }
 
     public Device AddUserToDevice(int userId, int deviceId)
@@ -52,7 +55,7 @@ public class DeviceRepository : IDeviceRepository
         throw new NotImplementedException();
     }
 
-    public List<Device> AssignedDevices(int userId)
+    public IEnumerable<Device> AssignedDevices(int userId)
     {
         throw new NotImplementedException();
     }

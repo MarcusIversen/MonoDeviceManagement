@@ -20,12 +20,13 @@ public class DeviceService : IDeviceService
 
     public List<Device> GetDevices()
     {
-        throw new NotImplementedException();
+        return _repository.GetDevices().ToList();
     }
 
     public Device GetDevice(int deviceId)
     {
-        throw new NotImplementedException();
+        if (deviceId == null || deviceId < 1) throw new ArgumentException("DeviceId cannot be less than 1 or null");
+        return _repository.GetDevice(deviceId);
     }
 
     public Device UpdateDevice(int deviceId, PutDeviceDTO device)
@@ -35,7 +36,7 @@ public class DeviceService : IDeviceService
 
     public Device DeleteDevice(int deviceId)
     {
-        throw new NotImplementedException();
+        return _repository.DeleteDevice(deviceId);
     }
 
     public Device AddUserToDevice(int userId, int deviceId)
@@ -61,5 +62,11 @@ public class DeviceService : IDeviceService
     public void RebuildDB()
     {
         _repository.RebuildDB();
+    }
+    
+    // Use to throws errors
+    private void ThrowsIfInvalid(Device device)
+    {
+        if (device.Id == null || device.Id < 1) throw new ArgumentException("DeviceId cannot be less than 1 or null");
     }
 }
