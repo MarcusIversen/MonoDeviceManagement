@@ -1,16 +1,24 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using AutoMapper;
 using Domain;
+using FluentValidation;
 
 namespace Application;
 
 public class DeviceService : IDeviceService
 {
-    private readonly IDeviceRepository _repository;
+    private IDeviceRepository _repository;
+    private IMapper _mapper;
+    private IValidator<PostDeviceDTO> _postDeviceValidator;
+    private IValidator<PutDeviceDTO> _putDeviceValidator;
 
-    public DeviceService(IDeviceRepository repository)
+    public DeviceService(IDeviceRepository repository, IMapper mapper, IValidator<PostDeviceDTO> postDeviceValidator, IValidator<PutDeviceDTO> putDeviceValidator)
     {
         _repository = repository;
+        _mapper = mapper;
+        _postDeviceValidator = postDeviceValidator;
+        _putDeviceValidator = putDeviceValidator;
     }
 
     public Device AddDevice(PostDeviceDTO device)

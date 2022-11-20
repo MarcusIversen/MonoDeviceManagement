@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Interfaces;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
@@ -8,10 +9,13 @@ namespace MonoAPI.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    public UserController()
+    private IUserService _service;
+
+    public UserController(IUserService service)
     {
+        _service = service;
     }
-    
+
     [HttpGet]
     public IActionResult GetDevices()
     {

@@ -79,6 +79,13 @@ public interface IDeviceRepository
     /// <returns>List of assigned devices on user</returns>
     IEnumerable<Device> AssignedDevices(int userId);
 
+    /// <summary>
+    /// Check to see if the is already in the database based on the device id and device serialNumber
+    /// </summary>
+    /// <param name="device"></param>
+    /// <returns>True if device is already in the database otherwise false</returns>
+    bool ExistingDevice(Device device);
+
     //Rebuild Database
     /// <summary>
     /// Rebuillds the database

@@ -9,7 +9,7 @@ namespace MonoAPI.Controllers;
 [Route("[controller]")]
 public class DeviceController : ControllerBase
 {
-    private readonly IDeviceService _service;
+    private IDeviceService _service;
 
     public DeviceController(IDeviceService service)
     {

@@ -14,6 +14,7 @@ public class DeviceRepository : IDeviceRepository
 
     public Device AddDevice(Device device)
     {
+        ExistingDevice(device);
         throw new NotImplementedException();
     }
 
@@ -58,6 +59,11 @@ public class DeviceRepository : IDeviceRepository
     public IEnumerable<Device> AssignedDevices(int userId)
     {
         throw new NotImplementedException();
+    }
+
+    public bool ExistingDevice(Device device)
+    {
+        return _context.Devices.Any(d => d.Id == device.Id || d.SerialNumber == device.SerialNumber);
     }
 
     public void RebuildDB()
