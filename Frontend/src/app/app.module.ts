@@ -8,13 +8,27 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatDividerModule} from "@angular/material/divider";
-import { SideNavComponent } from './side-nav/side-nav.component';
+import { SideNavAdminComponent } from './side-nav-admin/side-nav-admin.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SideNavUserComponent } from './side-nav-user/side-nav-user.component';
+import { DeviceOverviewComponent } from './UserPages/device-overview/device-overview.component';
+import { DeviceRegistrationComponent } from './UserPages/device-registration/device-registration.component';
+import { ProfileInfoComponent } from './UserPages/profile-info/profile-info.component';
+import { ContactInfoComponent } from './UserPages/contact-info/contact-info.component';
+import { SupportComponent } from './UserPages/support/support.component';
+import { NotFoundComponent } from './UserPages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavComponent
+    SideNavAdminComponent,
+    SideNavUserComponent,
+    DeviceOverviewComponent,
+    DeviceRegistrationComponent,
+    ProfileInfoComponent,
+    ContactInfoComponent,
+    SupportComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

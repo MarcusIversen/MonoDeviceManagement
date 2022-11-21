@@ -1,14 +1,14 @@
 import {Component, ViewChild} from '@angular/core';
-import {Router} from "@angular/router";
 import {MatSidenav} from "@angular/material/sidenav";
+import {Router} from "@angular/router";
 import {BreakpointObserver} from "@angular/cdk/layout";
 
 @Component({
-  selector: 'app-side-nav',
-  templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.scss']
+  selector: 'app-side-nav-user',
+  templateUrl: './side-nav-user.component.html',
+  styleUrls: ['./side-nav-user.component.scss']
 })
-export class SideNavComponent {
+export class SideNavUserComponent {
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -26,4 +26,5 @@ export class SideNavComponent {
       }
     });
   }
+
 }
