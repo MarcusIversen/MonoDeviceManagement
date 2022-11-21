@@ -22,6 +22,13 @@ public class DeviceController : ControllerBase
 
         return Ok(new List<Device>());
     }
+    
+    [HttpGet("{serialNumber}")]
+    public IActionResult GetDeviceBySerialNumber(string serialNumber)
+    {
+
+        return Ok(_service.GetDevice(serialNumber));
+    }
 
     [HttpGet]
     [Route("rebuildDB")]

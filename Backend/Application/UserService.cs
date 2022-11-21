@@ -13,9 +13,9 @@ public class UserService : IUserService
     private IUserRepository _repository;
     private IMapper _mapper;
     private IValidator<PostUserDTO> _postUserValidator;
-    private IValidator<PutUserValidator> _putUserValidator;
+    private IValidator<PutUserDTO> _putUserValidator;
 
-    public UserService(IUserRepository repository, IMapper mapper, IValidator<PostUserDTO> postUserValidator, IValidator<PutUserValidator> putUserValidator)
+    public UserService(IUserRepository repository, IMapper mapper, IValidator<PostUserDTO> postUserValidator, IValidator<PutUserDTO> putUserValidator)
     {
         _repository = repository;
         _mapper = mapper;

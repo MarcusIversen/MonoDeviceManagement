@@ -23,7 +23,14 @@ public class DeviceService : IDeviceService
 
     public Device AddDevice(PostDeviceDTO device)
     {
-        throw new NotImplementedException();
+        ThrowsIfPostDeviceIsInvalid(_mapper.Map<Device>(device));
+        if (_repository.GetDevices().FirstOrDefault(d=> d.SerialNumber == device.SerialNumber) != null || _repository.GetDevices().FirstOrDefault(d=> d.SerialNumber == device.SerialNumber) != default)
+        {
+            throw new ArgumentException("Device already exist");
+        }
+        var validate = _postDeviceValidator.Validate(device);
+        if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
+        return _repository.AddDevice(_mapper.Map<Device>(device));
     }
 
     public List<Device> GetDevices()
@@ -36,15 +43,27 @@ public class DeviceService : IDeviceService
         if (deviceId == null || deviceId < 1) throw new ArgumentException("DeviceId cannot be less than 1 or null");
         return _repository.GetDevice(deviceId);
     }
+    
+    public Device GetDevice(string serialNumber)
+    {
+        if (string.IsNullOrEmpty(serialNumber)) throw new ArgumentException("SerialNumber cannot be empty or null");
+        return _repository.GetDevice(serialNumber);
+    }
 
     public Device UpdateDevice(int deviceId, PutDeviceDTO device)
     {
-        throw new NotImplementedException();
+        ThrowsIfPutDeviceIsInvalid(_mapper.Map<Device>(device));
+        if (deviceId != device.Id) throw new ArgumentException("Id in the body and route are different");
+        var validate = _putDeviceValidator.Validate(device);
+        if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
+
+        return _repository.UpdateDevice(deviceId, _mapper.Map<Device>(device));
     }
 
     public Device DeleteDevice(int deviceId)
     {
-        return _repository.DeleteDevice(deviceId);
+        if (deviceId == null || deviceId < 1) throw new ArgumentException("Device id cannot be null or less than 1");
+            return _repository.DeleteDevice(deviceId);
     }
 
     public Device AddUserToDevice(int userId, int deviceId)
@@ -73,8 +92,17 @@ public class DeviceService : IDeviceService
     }
     
     // Use to throws errors
-    private void ThrowsIfInvalid(Device device)
+    private void ThrowsIfPostDeviceIsInvalid(Device device)
     {
-        if (device.Id == null || device.Id < 1) throw new ArgumentException("DeviceId cannot be less than 1 or null");
+        if (device.DeviceName == null || device.DeviceName == "") throw new ArgumentException("Device name cannot be empty or null");
+        if (device.SerialNumber == null || device.SerialNumber == "") throw new ArgumentException("Device serialNumber cannot be empty or null");
+        if (device.Amount == null || device.Amount < 1) throw new ArgumentException("Device amount cannot be null or less than 0");
+    }
+    private void ThrowsIfPutDeviceIsInvalid(Device device)
+    {
+        if (device.DeviceName == null || device.DeviceName == "") throw new ArgumentException("Device name cannot be empty or null");
+        if (device.SerialNumber == null || device.SerialNumber == "") throw new ArgumentException("Device serialNumber cannot be empty or null");
+        if (device.Amount == null || device.Amount < 1) throw new ArgumentException("Device amount cannot be null or less than 0");
+        if (device.Id == null || device.Id < 1) throw new ArgumentException("Device id cannot be null or less than 1");
     }
 }

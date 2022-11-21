@@ -28,6 +28,13 @@ public interface IDeviceService
     /// <param name="deviceId"></param>
     /// <returns>User with the given deviceId</returns>
     Device GetDevice(int deviceId);
+    
+    /// <summary>
+    /// Gets the device with the given serialNumber
+    /// </summary>
+    /// <param name="serialNumber"></param>
+    /// <returns>Device with the given serialNumber</returns>
+    Device GetDevice(string serialNumber);
 
     // Update 
     /// <summary>

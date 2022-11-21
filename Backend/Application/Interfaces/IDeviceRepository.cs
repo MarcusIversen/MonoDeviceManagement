@@ -25,8 +25,15 @@ public interface IDeviceRepository
     /// Gets the device with the given deviceId
     /// </summary>
     /// <param name="deviceId"></param>
-    /// <returns>User with the given deviceId</returns>
+    /// <returns>Device with the given serialNumber</returns>
     Device GetDevice(int deviceId);
+    
+    /// <summary>
+    /// Gets the device with the given serialNumber
+    /// </summary>
+    /// <param name="serialNumber"></param>
+    /// <returns>Device with the given serialNumber</returns>
+    Device GetDevice(string serialNumber);
 
     // Update 
     /// <summary>
@@ -78,13 +85,6 @@ public interface IDeviceRepository
     /// <param name="userId"></param>
     /// <returns>List of assigned devices on user</returns>
     IEnumerable<Device> AssignedDevices(int userId);
-
-    /// <summary>
-    /// Check to see if the is already in the database based on the device id and device serialNumber
-    /// </summary>
-    /// <param name="device"></param>
-    /// <returns>True if device is already in the database otherwise false</returns>
-    bool ExistingDevice(Device device);
 
     //Rebuild Database
     /// <summary>
