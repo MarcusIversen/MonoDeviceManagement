@@ -17,7 +17,6 @@ public class DeviceRepository : IDeviceRepository
         _context.Devices.Add(device);
         _context.SaveChanges();
         return device;
-
     }
 
     public IEnumerable<Device> GetDevices()

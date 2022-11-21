@@ -25,26 +25,59 @@ public class UserService : IUserService
 
     public User AddUser(PostUserDTO user)
     {
-        throw new NotImplementedException();
+        ThrowsIfPostUserIsInvalid(_mapper.Map<User>(user));
+        if (_repository.GetUsers().FirstOrDefault(u=> u.Email == user.Email) != null)
+        {
+            throw new ArgumentException("Email already exist");
+        }
+        var validate = _postUserValidator.Validate(user);
+        if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
+        return _repository.AddUser(_mapper.Map<User>(user));
     }
 
     public List<User> GetUsers()
     {
-        throw new NotImplementedException();
+        return _repository.GetUsers().ToList();
     }
 
     public User GetUser(int userId)
     {
-        throw new NotImplementedException();
+        if (userId == null || userId < 1) throw new ArgumentException("UserId cannot be less than 1 or null");
+        return _repository.GetUser(userId);
     }
 
     public User UpdateUser(int userId, PutUserDTO user)
     {
-        throw new NotImplementedException();
+        ThrowsIfPutUserIsInvalid(_mapper.Map<User>(user));
+        if (userId != user.Id) throw new ArgumentException("Id in the body and route are different");
+        var validate = _putUserValidator.Validate(user);
+        if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
+
+        return _repository.UpdateUser(userId, _mapper.Map<User>(user));
     }
 
     public User DeleteUser(int userId)
     {
-        throw new NotImplementedException();
+        if (userId == null || userId < 1) throw new ArgumentException("User id cannot be null or less than 1");
+        return _repository.DeleteUser(userId);
+    }
+    
+    //Used to throw errors
+    private void ThrowsIfPostUserIsInvalid(User user)
+    {
+        if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be empty or null");
+        if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be empty or null");
+        if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be empty or null");
+        if (string.IsNullOrEmpty(user.WorkNumber)) throw new ArgumentException("Work number cannot be empty or null");
+        //TODO Add Hash?       
+        //TODO Add Salt?       
+    }
+    //Used to throw errors
+    private void ThrowsIfPutUserIsInvalid(User user)
+    {
+        if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be empty or null");
+        if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be empty or null");
+        if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be empty or null");
+        if (string.IsNullOrEmpty(user.WorkNumber)) throw new ArgumentException("Work number cannot be empty or null");
     }
 }

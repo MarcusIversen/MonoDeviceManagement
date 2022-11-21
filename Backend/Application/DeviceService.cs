@@ -91,7 +91,7 @@ public class DeviceService : IDeviceService
         _repository.RebuildDB();
     }
     
-    // Use to throws errors
+    // Used to throw errors
     private void ThrowsIfPostDeviceIsInvalid(Device device)
     {
         if (device.DeviceName == null || device.DeviceName == "") throw new ArgumentException("Device name cannot be empty or null");

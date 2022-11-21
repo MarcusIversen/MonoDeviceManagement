@@ -69,7 +69,6 @@ public class DeviceServiceTest
         // Assert
         Assert.NotNull(service);
         Assert.True(service is DeviceService);
-
     }
     
     [Theory]
@@ -155,7 +154,6 @@ public class DeviceServiceTest
         Assert.Equal("DeviceId cannot be less than 1 or null", ex.Message);
         
         mockRepository.Verify(r => r.GetDevice(deviceId), Times.Never);
-
     }
     
     [Theory]
