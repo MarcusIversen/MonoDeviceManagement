@@ -15,6 +15,7 @@ public class UserController : ControllerBase
     {
         _service = service;
     }
+    
 
     [HttpGet]
     public IActionResult GetDevices()
