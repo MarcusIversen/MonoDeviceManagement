@@ -22,27 +22,42 @@
 
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button">
-      <mat-icon>home</mat-icon>
-      <span>Home</span>
+    <button mat-button class="menu-button" routerLink="/administrator/enheder">
+      <mat-icon>devices</mat-icon>
+      <span>Enheder</span>
     </button>
-    <button mat-button class="menu-button">
-      <mat-icon>person</mat-icon>
-      <span>Profile</span>
+    <button mat-button class="menu-button" routerLink="/administrator/enheds-registrering">
+      <mat-icon>dvr</mat-icon>
+      <span>Registrering</span>
     </button>
-    <button mat-button class="menu-button">
-      <mat-icon>info</mat-icon>
-      <span>About</span>
+    <button mat-button class="menu-button" routerLink="/administrator/brugere">
+      <mat-icon>people</mat-icon>
+      <span>Brugere</span>
     </button>
-    <button mat-button class="menu-button">
+    <button mat-button class="menu-button" routerLink="/administrator/bruger-logins">
+      <mat-icon>lock</mat-icon>
+      <span>Login</span>
+    </button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <button mat-button class="menu-button" routerLink="/administrator/hjaelp">
       <mat-icon>help</mat-icon>
-      <span>Info</span>
+      <span>Hjælp</span>
     </button>
+
 
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content mat-elevation-z8">
-      Main Content
+      <router-outlet></router-outlet>
     </div>
 
   </mat-sidenav-content>

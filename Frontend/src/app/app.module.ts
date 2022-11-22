@@ -17,6 +17,8 @@ import { ProfileInfoComponent } from './UserPages/profile-info/profile-info.comp
 import { ContactInfoComponent } from './UserPages/contact-info/contact-info.component';
 import { SupportComponent } from './UserPages/support/support.component';
 import { NotFoundComponent } from './UserPages/not-found/not-found.component';
+import { AdminLoginOverviewComponent } from './AdminPages/admin-login-overview/admin-login-overview.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { NotFoundComponent } from './UserPages/not-found/not-found.component';
     ProfileInfoComponent,
     ContactInfoComponent,
     SupportComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AdminLoginOverviewComponent
   ],
   imports: [
     BrowserModule,

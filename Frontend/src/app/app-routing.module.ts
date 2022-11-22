@@ -9,18 +9,31 @@ import {ProfileInfoComponent} from "./UserPages/profile-info/profile-info.compon
 import {ContactInfoComponent} from "./UserPages/contact-info/contact-info.component";
 import {SupportComponent} from "./UserPages/support/support.component";
 import {NotFoundComponent} from "./UserPages/not-found/not-found.component";
+import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
+import {AdminLoginOverviewComponent} from "./AdminPages/admin-login-overview/admin-login-overview.component";
+import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
+import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
+import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.component";
 
 
 
 const routes: Routes=[
-  {path: 'admin', component: SideNavAdminComponent}, //Admin login
-  {path: 'user', component: SideNavUserComponent}, //User login
-  {path: 'user', component: SideNavUserComponent, children:[
-      {path: 'devices', component: DeviceOverviewComponent}, // When you click devices as user
-      {path: 'deviceRegistration', component: DeviceRegistrationComponent}, //When you click registrering as user
-      {path: 'profileInfo', component: ProfileInfoComponent}, //When you click profil info as user
-      {path: 'contactInfo', component: ContactInfoComponent}, //When you click kontakt info as user
-      {path: 'support', component: SupportComponent}, //When you click support as user
+  {path: '', component: SideNavAdminComponent}, //Admin login
+  {path: 'administrator', component: SideNavAdminComponent, children:[
+      {path: 'enheder', component: AdminDeviceOverviewComponent},
+      {path: 'enheds-registrering', component: AdminDeviceRegistrationComponent},
+      {path: 'brugere', component: UserOverviewComponent},
+      {path: 'bruger-logins', component: AdminLoginOverviewComponent},
+      {path: 'hjaelp', component: AdminSupportComponent}
+    ]
+  },
+  {path: 'bruger', component: SideNavUserComponent}, //User login
+  {path: 'bruger', component: SideNavUserComponent, children:[
+      {path: 'enheder', component: DeviceOverviewComponent}, // When you click enheder as user
+      {path: 'enheds-registrering', component: DeviceRegistrationComponent}, //When you click registrering as user
+      {path: 'profil-information', component: ProfileInfoComponent}, //When you click profil info as user
+      {path: 'kontakt-information', component: ContactInfoComponent}, //When you click kontakt info as user
+      {path: 'hjaelp', component: SupportComponent}, //When you click support as user
       {path: '**', component: NotFoundComponent} //When you write a non-existing earl after /user/..
     ]
   },

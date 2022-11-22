@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-device-registration',
+  selector: 'app-admin-device-registration',
   templateUrl: './device-registration.component.html',
   styleUrls: ['./device-registration.component.scss']
 })
