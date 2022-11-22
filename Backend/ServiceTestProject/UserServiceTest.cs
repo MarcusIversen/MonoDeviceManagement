@@ -3,6 +3,7 @@ using Application.DTOs;
 using Application.Interfaces;
 using Application.Validators;
 using AutoMapper;
+using BCrypt.Net;
 using Domain;
 using Moq;
 
@@ -230,15 +231,34 @@ public class UserServiceTest
         mockRepository.Verify(r => r.UpdateUser(id, It.IsAny<User>()), Times.Once);
     }
     
-    [Fact]
-    public void InvalidUserUpdateTest()
+    [Theory]
+    [InlineData(0, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]        //Invalid user with id 0 
+    [InlineData(-1, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]        //Invalid user with id -1 
+    [InlineData(null, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]        //Invalid user with id null
+    public void InvalidUserUpdateTest(int userId, string email, string firstName, string lastName, string salt, string hash, string role, string workNumber, string expectedMessage)
     {
-        //Arrange
+        // Arrange
+        User user = new User{Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", Salt = "123123", Hash = "123123", Role = "Admin", WorkNumber = "12345678"};
+        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password = user.Salt+user.Hash, Role = user.Role, WorkNumber = user.WorkNumber};
         
-        //Act
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PutUserDTO, User>();
+        }).CreateMapper();
         
-        //Assert
+        var postUserValidator = new PostUserValidator();
+        var putUserValidator = new PutUserValidator();
+        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        
+        // Act 
+        var action = () => service.UpdateUser(userId, dto);
 
+        // Assert
+        var ex = Assert.Throws<ArgumentException>(action);
+        
+        Assert.Equal(expectedMessage, ex.Message);
+        mockRepository.Verify(r=> r.UpdateUser(userId, user),Times.Never);
     }
     
     [Theory]

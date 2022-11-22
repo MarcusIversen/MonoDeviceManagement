@@ -79,5 +79,6 @@ public class UserService : IUserService
         if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be empty or null");
         if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be empty or null");
         if (string.IsNullOrEmpty(user.WorkNumber)) throw new ArgumentException("Work number cannot be empty or null");
+        if (user.Id == null || user.Id < 1) throw new ArgumentException("Device id cannot be null or less than 1");
     }
 }
