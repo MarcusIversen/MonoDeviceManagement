@@ -25,7 +25,7 @@ public class UserService : IUserService
 
     public User AddUser(PostUserDTO user)
     {
-        ThrowsIfPostUserIsInvalid(_mapper.Map<User>(user));
+        ThrowsIfPostUserIsInvalid(user);
         if (_repository.GetUsers().FirstOrDefault(u=> u.Email == user.Email) != null)
         {
             throw new ArgumentException("Email already exist");
@@ -48,7 +48,7 @@ public class UserService : IUserService
 
     public User UpdateUser(int userId, PutUserDTO user)
     {
-        ThrowsIfPutUserIsInvalid(_mapper.Map<User>(user));
+        ThrowsIfPutUserIsInvalid(user);
         if (userId != user.Id) throw new ArgumentException("Id in the body and route are different");
         var validate = _putUserValidator.Validate(user);
         if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
@@ -63,17 +63,17 @@ public class UserService : IUserService
     }
     
     //Used to throw errors
-    private void ThrowsIfPostUserIsInvalid(User user)
+    private void ThrowsIfPostUserIsInvalid(PostUserDTO user)
     {
         if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be empty or null");
         if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be empty or null");
         if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be empty or null");
         if (string.IsNullOrEmpty(user.WorkNumber)) throw new ArgumentException("Work number cannot be empty or null");
-        //TODO Add Hash?       
-        //TODO Add Salt?       
+        if (string.IsNullOrEmpty(user.Role)) throw new ArgumentException("Role cannot be empty or null");
+        if (string.IsNullOrEmpty(user.Password)) throw new ArgumentException("Password cannot be empty or null");
     }
     //Used to throw errors
-    private void ThrowsIfPutUserIsInvalid(User user)
+    private void ThrowsIfPutUserIsInvalid(PutUserDTO user)
     {
         if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be empty or null");
         if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be empty or null");

@@ -233,8 +233,9 @@ public class UserServiceTest
     
     [Theory]
     [InlineData(0, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]        //Invalid user with id 0 
-    [InlineData(-1, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]        //Invalid user with id -1 
-    [InlineData(null, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]        //Invalid user with id null
+    [InlineData(-1, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]       //Invalid user with id -1 
+    [InlineData(null, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]     //Invalid user with id null
+    [InlineData(1, "null", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]     //Invalid user with id null
     public void InvalidUserUpdateTest(int userId, string email, string firstName, string lastName, string salt, string hash, string role, string workNumber, string expectedMessage)
     {
         // Arrange

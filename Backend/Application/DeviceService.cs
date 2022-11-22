@@ -23,7 +23,7 @@ public class DeviceService : IDeviceService
 
     public Device AddDevice(PostDeviceDTO device)
     {
-        ThrowsIfPostDeviceIsInvalid(_mapper.Map<Device>(device));
+        ThrowsIfPostDeviceIsInvalid(device);
         if (_repository.GetDevices().FirstOrDefault(d=> d.SerialNumber == device.SerialNumber) != null || _repository.GetDevices().FirstOrDefault(d=> d.SerialNumber == device.SerialNumber) != default)
         {
             throw new ArgumentException("Device already exist");
@@ -52,7 +52,7 @@ public class DeviceService : IDeviceService
 
     public Device UpdateDevice(int deviceId, PutDeviceDTO device)
     {
-        ThrowsIfPutDeviceIsInvalid(_mapper.Map<Device>(device));
+        ThrowsIfPutDeviceIsInvalid(device);
         if (deviceId != device.Id) throw new ArgumentException("Id in the body and route are different");
         var validate = _putDeviceValidator.Validate(device);
         if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
@@ -92,16 +92,16 @@ public class DeviceService : IDeviceService
     }
     
     // Used to throw errors
-    private void ThrowsIfPostDeviceIsInvalid(Device device)
+    private void ThrowsIfPostDeviceIsInvalid(PostDeviceDTO device)
     {
-        if (device.DeviceName == null || device.DeviceName == "") throw new ArgumentException("Device name cannot be empty or null");
-        if (device.SerialNumber == null || device.SerialNumber == "") throw new ArgumentException("Device serialNumber cannot be empty or null");
+        if (string.IsNullOrEmpty(device.DeviceName)) throw new ArgumentException("Device name cannot be empty or null");
+        if (string.IsNullOrEmpty(device.SerialNumber)) throw new ArgumentException("Device serialNumber cannot be empty or null");
         if (device.Amount == null || device.Amount < 1) throw new ArgumentException("Device amount cannot be null or less than 0");
     }
-    private void ThrowsIfPutDeviceIsInvalid(Device device)
+    private void ThrowsIfPutDeviceIsInvalid(PutDeviceDTO device)
     {
-        if (device.DeviceName == null || device.DeviceName == "") throw new ArgumentException("Device name cannot be empty or null");
-        if (device.SerialNumber == null || device.SerialNumber == "") throw new ArgumentException("Device serialNumber cannot be empty or null");
+        if (string.IsNullOrEmpty(device.DeviceName)) throw new ArgumentException("Device name cannot be empty or null");
+        if (string.IsNullOrEmpty(device.SerialNumber)) throw new ArgumentException("Device serialNumber cannot be empty or null");
         if (device.Amount == null || device.Amount < 1) throw new ArgumentException("Device amount cannot be null or less than 0");
         if (device.Id == null || device.Id < 1) throw new ArgumentException("Device id cannot be null or less than 1");
     }
