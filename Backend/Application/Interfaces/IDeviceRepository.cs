@@ -19,14 +19,21 @@ public interface IDeviceRepository
     /// Gets all devices from database
     /// </summary>
     /// <returns>List of devices</returns>
-    List<Device> GetDevices();
+    IEnumerable<Device> GetDevices();
     
     /// <summary>
     /// Gets the device with the given deviceId
     /// </summary>
     /// <param name="deviceId"></param>
-    /// <returns>User with the given deviceId</returns>
+    /// <returns>Device with the given serialNumber</returns>
     Device GetDevice(int deviceId);
+    
+    /// <summary>
+    /// Gets the device with the given serialNumber
+    /// </summary>
+    /// <param name="serialNumber"></param>
+    /// <returns>Device with the given serialNumber</returns>
+    Device GetDevice(string serialNumber);
 
     // Update 
     /// <summary>
@@ -77,7 +84,7 @@ public interface IDeviceRepository
     /// </summary>
     /// <param name="userId"></param>
     /// <returns>List of assigned devices on user</returns>
-    List<Device> AssignedDevices(int userId);
+    IEnumerable<Device> AssignedDevices(int userId);
 
     //Rebuild Database
     /// <summary>

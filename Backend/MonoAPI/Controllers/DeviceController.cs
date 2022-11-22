@@ -9,7 +9,7 @@ namespace MonoAPI.Controllers;
 [Route("[controller]")]
 public class DeviceController : ControllerBase
 {
-    private readonly IDeviceService _service;
+    private IDeviceService _service;
 
     public DeviceController(IDeviceService service)
     {
@@ -21,6 +21,13 @@ public class DeviceController : ControllerBase
     {
 
         return Ok(new List<Device>());
+    }
+    
+    [HttpGet("{serialNumber}")]
+    public IActionResult GetDeviceBySerialNumber(string serialNumber)
+    {
+
+        return Ok(_service.GetDevice(serialNumber));
     }
 
     [HttpGet]

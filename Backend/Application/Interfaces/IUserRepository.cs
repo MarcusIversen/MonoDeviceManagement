@@ -18,7 +18,7 @@ public interface IUserRepository
     /// Gets all users from database
     /// </summary>
     /// <returns>List of users</returns>
-    List<User> GetUsers();
+    IEnumerable<User> GetUsers();
     
     /// <summary>
     /// Gets the user with the given userId
