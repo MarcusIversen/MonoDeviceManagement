@@ -87,7 +87,7 @@ public class UserServiceTest
         var putUserValidator = new PutUserValidator();
         
         IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
-        //mockRepository.Setup(u => u.GetUsers()).Returns(fakeRepo);
+        mockRepository.Setup(u => u.GetUsers()).Returns(fakeRepo);
         
         //Act
         var actual = service.GetUsers();
@@ -98,15 +98,37 @@ public class UserServiceTest
         mockRepository.Verify(r => r.GetUsers(), Times.Once);
     }
     
-    [Fact]
-    public void GetUserById()
+    [Theory]
+    [InlineData(1, 1)]      //Valid user
+    [InlineData(2, 2)]      //Valid user
+    public void GetValidUserTest(int userId, int expectedValueId)
     {
-        //Arrange
-        
-        //Act
-        
-        //Assert
+        // Arrange
+        User user1 = new User { Id = userId, Email = "andy@mail.com", FirstName = "Andy", LastName = "Nguyen", WorkNumber = "12345678", Hash = "Hash", Salt = "Salt"};
+        User user2 = new User { Id = 3, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", WorkNumber = "87654321", Hash = "Hash", Salt = "Salt"};
 
+        var fakeRepo = new List<User>();
+        fakeRepo.Add(user1);
+        fakeRepo.Add(user2);
+        
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostUserDTO, User>();
+        }).CreateMapper();
+        
+        var postUserValidator = new PostUserValidator();
+        var putUserValidator = new PutUserValidator();
+        
+        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        mockRepository.Setup(r => r.GetUser(userId)).Returns(fakeRepo.Find(u => u.Id == userId));
+        
+        // Act 
+        var actual = service.GetUser(userId);
+
+        // Assert 
+        Assert.Equal(expectedValueId, actual.Id);
+        mockRepository.Verify(r => r.GetUser(userId), Times.Once);
     }
     
     [Theory]
@@ -169,15 +191,43 @@ public class UserServiceTest
 
     }
     
-    [Fact]
-    public void UpdateUserTest()
+    [Theory]
+    [InlineData(1 , "Andy")]
+    public void UpdateValidUserTest(int id, string firstName)
     {
-        //Arrange
-        
-        //Act
-        
-        //Assert
+        // Arrange
+        User user = new User{Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", Salt = "123123", Hash = "123123", Role = "Admin", WorkNumber = "12345678"};
 
+        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password = user.Salt+user.Hash, Role = user.Role, WorkNumber = user.WorkNumber};
+
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PutUserDTO, User>();
+        }).CreateMapper();
+        
+        var postUserValidator = new PostUserValidator();
+        var putUserValidator = new PutUserValidator();
+        
+        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+
+        mockRepository.Setup(r => r.UpdateUser(id, It.IsAny<User>())).Returns(user);
+
+        // Act 
+        dto.FirstName = firstName;
+        User updateUser = service.UpdateUser(id, dto);
+
+        // Assert
+        Assert.Equal(user, updateUser);
+        Assert.Equal(user.Id, updateUser.Id);
+        Assert.Equal(user.Email, updateUser.Email);
+        Assert.Equal(user.FirstName, updateUser.FirstName);
+        Assert.Equal(user.LastName, updateUser.LastName);
+        Assert.Equal(user.Role, updateUser.Role);
+        Assert.Equal(user.WorkNumber, updateUser.WorkNumber);
+        Assert.Equal(user.Salt, updateUser.Salt);
+        Assert.Equal(user.Hash, updateUser.Hash);
+        mockRepository.Verify(r => r.UpdateUser(id, It.IsAny<User>()), Times.Once);
     }
     
     [Fact]

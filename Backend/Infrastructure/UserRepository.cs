@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public List<User> GetUsers()
+    public IEnumerable<User> GetUsers()
     {
         return _context.Users.ToList();
     }
