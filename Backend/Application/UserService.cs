@@ -48,10 +48,10 @@ public class UserService : IUserService
 
     public User UpdateUser(int userId, PutUserDTO user)
     {
-        ThrowsIfPutUserIsInvalid(user);
-        if (userId != user.Id) throw new ArgumentException("Id in the body and route are different");
+        //ThrowsIfPutUserIsInvalid(user);
         var validate = _putUserValidator.Validate(user);
-        if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
+        if (!validate.IsValid) throw new ArgumentException(validate.ToString());
+        if (userId != user.Id) throw new ArgumentException("Id in the body and route are different");
 
         return _repository.UpdateUser(userId, _mapper.Map<User>(user));
     }
@@ -72,13 +72,14 @@ public class UserService : IUserService
         if (string.IsNullOrEmpty(user.Role)) throw new ArgumentException("Role cannot be empty or null");
         if (string.IsNullOrEmpty(user.Password)) throw new ArgumentException("Password cannot be empty or null");
     }
-    //Used to throw errors
     private void ThrowsIfPutUserIsInvalid(PutUserDTO user)
     {
         if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be empty or null");
         if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be empty or null");
         if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be empty or null");
-        if (string.IsNullOrEmpty(user.WorkNumber)) throw new ArgumentException("Work number cannot be empty or null");
-        if (user.Id == null || user.Id < 1) throw new ArgumentException("Device id cannot be null or less than 1");
+        if (string.IsNullOrEmpty(user.WorkNumber)) throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 8");
+        if (string.IsNullOrEmpty(user.Role)) throw new ArgumentException("Role cannot be empty or null");
+        if (string.IsNullOrEmpty(user.Password)) throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 8");
+        if (user.Id == null || user.Id < 1) throw new ArgumentException("Id cannot be null or less than 1");
     }
 }

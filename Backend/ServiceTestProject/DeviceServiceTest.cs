@@ -265,8 +265,8 @@ public class DeviceServiceTest
     public void UpdateValidDeviceTest(int id, string deviceName)
     {
         // Arrange
-        PutDeviceDTO dto = new PutDeviceDTO {Id = 1, DeviceName = "Laptop", Amount = 1, SerialNumber = "2" };
-        Device device = new Device{Id = dto.Id, DeviceName = dto.DeviceName, Amount = dto.Amount, SerialNumber = dto.SerialNumber};
+        Device device = new Device{Id = id, DeviceName = "Laptop", Amount = 2, SerialNumber = "34"};
+        PutDeviceDTO dto = new PutDeviceDTO {Id = device.Id, DeviceName = device.DeviceName, Amount = device.Amount, SerialNumber = device.SerialNumber };
 
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>

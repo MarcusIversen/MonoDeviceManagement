@@ -232,15 +232,30 @@ public class UserServiceTest
     }
     
     [Theory]
-    [InlineData(0, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]        //Invalid user with id 0 
-    [InlineData(-1, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]       //Invalid user with id -1 
-    [InlineData(null, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]     //Invalid user with id null
-    [InlineData(1, "null", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "User ID cant be null or less than 1")]     //Invalid user with id null
+    [InlineData(0, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "Id cannot be null or less than 1")]                                                 //Invalid user with id 0 
+    [InlineData(-1, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "Id cannot be null or less than 1")]                                                //Invalid user with id -1 
+    [InlineData(null, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "Id cannot be null or less than 1")]                                              //Invalid user with id null
+    [InlineData(1, null, "Kristian", "Hansen", "123123", "123", "admin", "12345678", "Email cannot be null or empty")]                                                                     //Invalid null email
+    [InlineData(1, "", "Kristian", "Hansen", "123123", "123", "admin", "12345678", "Email cannot be null or empty")]                                                                       //Invalid empty email
+    [InlineData(1, "kristian@mail.dk", null, "Hansen", "123123", "123", "admin", "12345678", "First name cannot be null or empty")]                                                        //Invalid null first name
+    [InlineData(1, "kristian@mail.dk", "", "Hansen", "123123", "123", "admin", "12345678", "First name cannot be null or empty")]                                                          //Invalid empty first name
+    [InlineData(1, "kristian@mail.dk", "Kristian", null, "123123", "123", "admin", "12345678", "Last name cannot be null or empty")]                                                       //Invalid null last name
+    [InlineData(1, "kristian@mail.dk", "Kristian", "", "123123", "123", "admin", "12345678", "Last name cannot be null or empty")]                                                         //Invalid empty last name
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", null, "1267676763", "admin", "12345678", "Password cannot be null, empty and must have a minimum length greater than 8")]     //Invalid null salt //TODO Den her fejler fordi den tror at password er over 8 karakter lang 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "", "2323232", "admin", "12345678", "Password cannot be null, empty and must have a minimum length greater than 8")]          //Invalid empty salt 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "1", "33", "admin", "12345678", "Password cannot be null, empty and must have a minimum length greater than 8")]              //Invalid salt + hast minimum length less than 8 //TODO Den her fejler fordi den tror at password er over 8 karakter lang 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "33424232", null, "admin", "12345678", "Password cannot be null, empty and must have a minimum length greater than 8")]       //Invalid null hash 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "231231", "", "admin", "12345678", "Password cannot be null, empty and must have a minimum length greater than 8")]           //Invalid empty hash 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "33424232", "3434", null, "12345678", "Role cannot be null or empty")]                                                        //Invalid null role 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "231231", "3432", "", "12345678", "Role cannot be null or empty")]                                                            //Invalid empty role 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "33424232", "3434", "admin", null, "Work number cannot be null, empty and must have a minimum length greater than 8")]        //Invalid null work number 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "231231", "3432", "admin", "", "Work number cannot be null, empty and must have a minimum length greater than 8")]            //Invalid empty work number 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "231231", "342", "admin", "343", "Work number cannot be null, empty and must have a minimum length greater than 8")]          //Invalid role minimum length less than 8  //TODO Den her fejler fordi den tror at work number er over 8 karakter lang 
     public void InvalidUserUpdateTest(int userId, string email, string firstName, string lastName, string salt, string hash, string role, string workNumber, string expectedMessage)
     {
         // Arrange
-        User user = new User{Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", Salt = "123123", Hash = "123123", Role = "Admin", WorkNumber = "12345678"};
-        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password = user.Salt+user.Hash, Role = user.Role, WorkNumber = user.WorkNumber};
+        User user = new User{Id = userId, Email = email, FirstName = firstName, LastName = lastName, Salt = salt, Hash = hash, Role = role, WorkNumber = workNumber};
+        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password = user.Salt + user.Hash, Role = user.Role, WorkNumber = user.WorkNumber};
         
         Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
         var mapper = new MapperConfiguration(config =>
