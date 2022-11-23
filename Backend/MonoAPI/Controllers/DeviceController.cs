@@ -1,10 +1,11 @@
 ﻿using Application.Interfaces;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
 
-
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class DeviceController : ControllerBase
