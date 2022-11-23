@@ -24,10 +24,6 @@ public class DeviceService : IDeviceService
     public Device AddDevice(PostDeviceDTO device)
     {
         ThrowsIfPostDeviceIsInvalid(device);
-        if (_repository.GetDevices().FirstOrDefault(d=> d.SerialNumber == device.SerialNumber) != null || _repository.GetDevices().FirstOrDefault(d=> d.SerialNumber == device.SerialNumber) != default)
-        {
-            throw new ArgumentException("Device already exist");
-        }
         var validate = _postDeviceValidator.Validate(device);
         if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
         return _repository.AddDevice(_mapper.Map<Device>(device));
@@ -64,21 +60,6 @@ public class DeviceService : IDeviceService
     {
         if (deviceId == null || deviceId < 1) throw new ArgumentException("Device id cannot be null or less than 1");
             return _repository.DeleteDevice(deviceId);
-    }
-
-    public Device AddUserToDevice(int userId, int deviceId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Device DeleteUserFromDevice(int userId, int deviceId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Device UpdateUserOnDevice(int userId, int deviceId)
-    {
-        throw new NotImplementedException();
     }
 
     public List<Device> AssignedDevices(int userId)

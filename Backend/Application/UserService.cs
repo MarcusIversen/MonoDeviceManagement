@@ -1,6 +1,5 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
-using Application.Validators;
 using AutoMapper;
 using Domain;
 using FluentValidation;
@@ -31,7 +30,10 @@ public class UserService : IUserService
             throw new ArgumentException("Email already exist");
         }
         var validate = _postUserValidator.Validate(user);
-        if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
+        if (!validate.IsValid)
+        {
+            throw new ArgumentException(validate.ToString());
+        }
         return _repository.AddUser(_mapper.Map<User>(user));
     }
 
@@ -48,7 +50,7 @@ public class UserService : IUserService
 
     public User UpdateUser(int userId, PutUserDTO user)
     {
-        //ThrowsIfPutUserIsInvalid(user);
+        ThrowsIfPutUserIsInvalid(user);
         var validate = _putUserValidator.Validate(user);
         if (!validate.IsValid) throw new ArgumentException(validate.ToString());
         if (userId != user.Id) throw new ArgumentException("Id in the body and route are different");
@@ -65,21 +67,21 @@ public class UserService : IUserService
     //Used to throw errors
     private void ThrowsIfPostUserIsInvalid(PostUserDTO user)
     {
-        if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be empty or null");
-        if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be empty or null");
-        if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be empty or null");
-        if (string.IsNullOrEmpty(user.WorkNumber)) throw new ArgumentException("Work number cannot be empty or null");
-        if (string.IsNullOrEmpty(user.Role)) throw new ArgumentException("Role cannot be empty or null");
-        if (string.IsNullOrEmpty(user.Password)) throw new ArgumentException("Password cannot be empty or null");
+        if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be null, empty and must be a valid email");
+        if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be null or empty");
+        if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be null or empty");
+        if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8 ) throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
+        if (string.IsNullOrEmpty(user.Role)) throw new ArgumentException("Role cannot be null or empty");
+        if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8) throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
     }
     private void ThrowsIfPutUserIsInvalid(PutUserDTO user)
     {
-        if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be empty or null");
-        if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be empty or null");
-        if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be empty or null");
-        if (string.IsNullOrEmpty(user.WorkNumber)) throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 8");
-        if (string.IsNullOrEmpty(user.Role)) throw new ArgumentException("Role cannot be empty or null");
-        if (string.IsNullOrEmpty(user.Password)) throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 8");
+        if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be null, empty and must be a valid email");
+        if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be null or empty");
+        if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be null or empty");
+        if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8 ) throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
+        if (string.IsNullOrEmpty(user.Role)) throw new ArgumentException("Role cannot be null or empty");
+        if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8) throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
         if (user.Id == null || user.Id < 1) throw new ArgumentException("Id cannot be null or less than 1");
     }
 }

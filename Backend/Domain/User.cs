@@ -13,5 +13,5 @@ public class User
     public string WorkNumber { get; set; }
     public string? PrivateNumber { get; set; }
     public string? PrivateMail { get; set; }
-    public List<Device>? Devices { get; set; }
+    public virtual List<Device>? Devices { get; set; }
 }

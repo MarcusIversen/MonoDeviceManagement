@@ -54,32 +54,7 @@ public interface IDeviceService
     Device DeleteDevice(int deviceId);
 
     #endregion
-    
-    // Add user to device
-    /// <summary>
-    /// Adds an user to the given deviceId
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <param name="deviceId"></param>
-    Device AddUserToDevice(int userId, int deviceId);
-    
-    // Remove user from device
-    /// <summary>
-    /// Deletes an user on given deviceId
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <param name="deviceId"></param>
-    Device DeleteUserFromDevice(int userId, int deviceId);
-    
-    // Update user on device
-    /// <summary>
-    /// Updates an user on given deviceId
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <param name="deviceId"></param>
-    /// <returns>Device with updated user</returns>
-    Device UpdateUserOnDevice(int userId, int deviceId);
-    
+
     /// <summary>
     /// Gets all assigned Devices from userId
     /// </summary>

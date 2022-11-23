@@ -181,11 +181,14 @@ public class DeviceServiceTest
         });
         
         // Act 
-        service.AddDevice(dto);
+        var createdDevice = service.AddDevice(dto);
         
         // Assert
         Assert.True(devices.Count == 1);
-        Assert.Equal(device, devices[0]);
+        Assert.Equal(device.Amount, createdDevice.Amount);
+        Assert.Equal(device.Id, createdDevice.Id);
+        Assert.Equal(device.DeviceName, createdDevice.DeviceName);
+        Assert.Equal(device.SerialNumber, createdDevice.SerialNumber);
         mockRepository.Verify(r => r.AddDevice(It.IsAny<Device>()), Times.Once);
     }
     
@@ -229,10 +232,11 @@ public class DeviceServiceTest
         // Arrange
         List<Device> devices = new List<Device>();
         Device existingDevice = new Device { Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Amount = amount };
+        devices.Add(existingDevice);
         
-
-        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, Amount = amount, SerialNumber = existingDevice.SerialNumber };
-        Device device = new Device{Id = existingDevice.Id, DeviceName = dto.DeviceName, Amount = dto.Amount, SerialNumber = dto.SerialNumber};
+        Device device = new Device{Id = existingDevice.Id, DeviceName = existingDevice.DeviceName, Amount = existingDevice.Amount, SerialNumber = existingDevice.SerialNumber};
+        devices.Add(device);
+        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = device.DeviceName, Amount = device.Amount, SerialNumber = device.SerialNumber };
 
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -249,8 +253,6 @@ public class DeviceServiceTest
             return device;
         });
         
-        devices.Add(existingDevice);
-        
         // Act 
         var action = () => service.AddDevice(dto);
 
@@ -258,6 +260,7 @@ public class DeviceServiceTest
         var ex = Assert.Throws<ArgumentException>(action);
         Assert.Equal(expectedMessage, ex.Message);
         mockRepository.Verify(r => r.AddDevice(It.IsAny<Device>()), Times.Never);
+        throw new NotImplementedException();
     }
 
     [Theory]
@@ -328,6 +331,7 @@ public class DeviceServiceTest
         mockRepository.Verify(r=> r.UpdateDevice(deviceId, device),Times.Never);
     }
 
+    //TODO update to existing device serial number 
     [Theory]
     [InlineData(2, "Id in the body and route are different")] //Invalid id not the same
     public void InvalidIdInputExceptionTest(int deviceId, string expectedMessage)
@@ -419,93 +423,6 @@ public class DeviceServiceTest
     }
     
     [Fact]
-    public void AddValidUserOnDeviceTest()
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Theory]
-    [InlineData(-1, 1)]    //Invalid deviceId -1
-    [InlineData(0, 2)]     //Invalid deviceId 0 
-    [InlineData(null, 2)]  //Invalid deviceId null 
-    [InlineData(1, -1)]    //Invalid userId -1 
-    [InlineData(2, 0)]     //Invalid userId 0 
-    [InlineData(2, null)]  //Invalid userId null
-    public void AddInvalidUserOnDeviceTest(int deviceId, int userId)
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Fact]
-    public void DeleteValidUserOnDeviceTest()
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Theory]
-    [InlineData(1, -1)]     //Invalid userId -1
-    [InlineData(2, 0)]      //Invalid userId 0 
-    [InlineData(2, 555)]    //Nonexisting userId
-    [InlineData(2, null)]   //Invalid userId null
-    [InlineData(-1, 1)]     //Invalid deviceId -1
-    [InlineData(0, 1)]      //Invalid deviceId 0 
-    [InlineData(222, 1)]    //Nonexisting deviceId
-    [InlineData(null, 1)]   //Invalid userId null
-    public void DeleteInvalidUserOnDeviceTest(int deviceId, int userId)
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Fact]
-    public void UpdateValidUserOnDeviceTest()
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Theory]
-    [InlineData(-1, 1)]     //Invalid deviceId -1
-    [InlineData(0, 2)]      //Invalid deviceId 0 
-    [InlineData(null, 2)]   //Invalid deviceId null
-    [InlineData(1, -1)]     //Invalid userId -1
-    [InlineData(2, 0)]      //Invalid userId 0
-    [InlineData(2, null)]   //Invalid userId null
-    public void UpdateInvalidUserOnDeviceTest(int deviceId, int userId)
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-
-
-    [Fact]
     public void GetValidAssignedDevicesOnUserTest()
     {
         // Arrange
@@ -526,6 +443,9 @@ public class DeviceServiceTest
         // Assert
         throw new NotImplementedException();
     }
+    
+    
+    
     
     
 }
