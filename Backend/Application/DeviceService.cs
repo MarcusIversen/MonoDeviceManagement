@@ -64,7 +64,8 @@ public class DeviceService : IDeviceService
 
     public List<Device> AssignedDevices(int userId)
     {
-        throw new NotImplementedException();
+        if (userId == null || userId < 1) throw new ArgumentException("User id cannot be null or less than 1");
+        return _repository.GetDevices().Where(d => d.UserId == userId).ToList();
     }
 
     public void RebuildDB()

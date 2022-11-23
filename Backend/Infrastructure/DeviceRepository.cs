@@ -67,11 +67,6 @@ public class DeviceRepository : IDeviceRepository
         return device;
     }
 
-    public IEnumerable<Device> AssignedDevices(int userId)
-    {
-        throw new NotImplementedException();
-    }
-
     private bool ExistingDevice(Device device)
     {
         var dev = _context.Devices.Find(device.SerialNumber);
@@ -79,7 +74,6 @@ public class DeviceRepository : IDeviceRepository
         {
             return true;
         }
-        else
         {
             return false;
         }

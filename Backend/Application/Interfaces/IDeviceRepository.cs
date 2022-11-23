@@ -53,14 +53,7 @@ public interface IDeviceRepository
     Device DeleteDevice(int deviceId);
 
     #endregion
-
-    /// <summary>
-    /// Gets all assigned Devices from userId
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <returns>List of assigned devices on user</returns>
-    IEnumerable<Device> AssignedDevices(int userId);
-
+    
     //Rebuild Database
     /// <summary>
     /// Rebuillds the database
