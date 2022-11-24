@@ -47,7 +47,7 @@ public class AuthenticationService : IAuthenticationService
                 PrivateNumber = dto.PrivateNumber,
                 PrivateMail = dto.PrivateMail
             };
-            _repository.AddUser(user);
+            _repository.CreateUser(user);
             return GenerateToken(user);
         }
 
