@@ -1,11 +1,12 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
 
-[Authorize]
+
 [ApiController]
 [Route("[controller]")]
 public class DeviceController : ControllerBase
@@ -30,6 +31,24 @@ public class DeviceController : ControllerBase
         return Ok(_service.GetDevice(deviceId));
     }
 
+    [HttpPost]
+    public IActionResult CreateDevice(PostDeviceDTO dto)
+    {
+        try
+        {
+            var device = _service.AddDevice(dto);
+            return Created("Device/" + device.Id, device);
+        }
+        catch (ValidationException e)
+        {
+            return BadRequest(e.Message);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
     [HttpPut("{id}")]
     public IActionResult UpdateDevice(int deviceId, PutDeviceDTO dto)
     {
