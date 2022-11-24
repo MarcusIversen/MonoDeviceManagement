@@ -1,5 +1,4 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,7 +9,6 @@ using AutoMapper;
 using Domain;
 using FluentValidation;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Validators;
@@ -19,15 +17,13 @@ public class AuthenticationService : IAuthenticationService
 {
     private readonly AppSettings _appSettings;
     private readonly IUserRepository _repository;
-    private IMapper _mapper;
     private IValidator<PostUserDTO> _postUserValidator;
     
     public AuthenticationService(IUserRepository repository,
-        IOptions<AppSettings> appSettings,IMapper mapper, IValidator<PostUserDTO> postUserValidator)
+        IOptions<AppSettings> appSettings, IValidator<PostUserDTO> postUserValidator)
     {
         _appSettings = appSettings.Value;
         _repository = repository;
-        _mapper = mapper;
         _postUserValidator = postUserValidator;
     }
 
