@@ -176,14 +176,14 @@ public class UserServiceTest
         var putUserValidator = new PutUserValidator();
         
         IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
-        mockRepository.Setup(r => r.AddUser(It.IsAny<User>())).Returns(() =>
+        mockRepository.Setup(r => r.CreateUser(It.IsAny<User>())).Returns(() =>
         {
             users.Add(user1);
             return user1;
         });
         
         //Act
-        var createdUser = service.AddUser(DTO);
+        var createdUser = service.CreateUser(DTO);
 
         //Assert
         Assert.True(users.Count == 1);
@@ -191,7 +191,7 @@ public class UserServiceTest
         Assert.Equal(user1.FirstName, createdUser.FirstName);
         Assert.Equal(user1.LastName, createdUser.LastName);
         Assert.Equal(user1.Id, createdUser.Id);
-        mockRepository.Verify(r=>r.AddUser(It.IsAny<User>()), Times.Once);
+        mockRepository.Verify(r=>r.CreateUser(It.IsAny<User>()), Times.Once);
 
     }
     
@@ -225,12 +225,12 @@ public class UserServiceTest
         IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
         
         //Act
-        var action = () => service.AddUser(dto);
-        var ex = Assert.Throws<ArgumentException>(() => service.AddUser(dto));
+        var action = () => service.CreateUser(dto);
+        var ex = Assert.Throws<ArgumentException>(() => service.CreateUser(dto));
         
         //Assert
         Assert.Equal(expectedMessage, ex.Message);
-        mockRepository.Verify(r=>r.AddUser(It.IsAny<User>()),Times.Never);
+        mockRepository.Verify(r=>r.CreateUser(It.IsAny<User>()),Times.Never);
     }
     
     [Fact]

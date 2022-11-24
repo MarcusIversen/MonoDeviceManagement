@@ -12,7 +12,7 @@ public interface IUserService
     /// </summary>
     /// <param name="user"></param>
     /// <returns>Added user</returns>
-    User AddUser(PostUserDTO user);
+    User CreateUser(PostUserDTO user);
 
     // Read
     /// <summary>

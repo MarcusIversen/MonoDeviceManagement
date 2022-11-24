@@ -22,7 +22,7 @@ public class UserService : IUserService
         _putUserValidator = putUserValidator;
     }
 
-    public User AddUser(PostUserDTO user)
+    public User CreateUser(PostUserDTO user)
     {
         ThrowsIfPostUserIsInvalid(user);
         if (_repository.GetUsers().FirstOrDefault(u=> u.Email == user.Email) != null)
@@ -34,7 +34,7 @@ public class UserService : IUserService
         {
             throw new ArgumentException(validate.ToString());
         }
-        return _repository.AddUser(_mapper.Map<User>(user));
+        return _repository.CreateUser(_mapper.Map<User>(user));
     }
 
     public List<User> GetUsers()

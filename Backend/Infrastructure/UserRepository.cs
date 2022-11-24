@@ -12,7 +12,7 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public User AddUser(User user)
+    public User CreateUser(User user)
     {
         _context.Users.Add(user);
         _context.SaveChanges();
