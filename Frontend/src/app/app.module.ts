@@ -18,6 +18,9 @@ import { ContactInfoComponent } from './UserPages/contact-info/contact-info.comp
 import { SupportComponent } from './UserPages/support/support.component';
 import { NotFoundComponent } from './UserPages/not-found/not-found.component';
 import { AdminLoginOverviewComponent } from './AdminPages/admin-login-overview/admin-login-overview.component';
+import { LoginComponent } from './login/login.component';
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import { AdminLoginOverviewComponent } from './AdminPages/admin-login-overview/a
     ContactInfoComponent,
     SupportComponent,
     NotFoundComponent,
-    AdminLoginOverviewComponent
+    AdminLoginOverviewComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,9 @@ import { AdminLoginOverviewComponent } from './AdminPages/admin-login-overview/a
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,25 +1,46 @@
 ﻿using Application.DTOs;
+using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
-
 
 [ApiController]
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
-    public AuthController()
+
+    private readonly IAuthenticationService _authentication;
+    public AuthController(IAuthenticationService authentication)
     {
-        
+        _authentication = authentication;
     }
 
-    public ActionResult Login(LoginAndRegisterDTO dto)
+    [HttpPost]
+    [Route("login")]
+    public ActionResult Login(LoginDTO dto)
     {
-        return null;
+        try
+        {
+            return Ok(_authentication.Login(dto));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
     
-    public ActionResult Register(LoginAndRegisterDTO dto)
+    [HttpPost]
+    [Route("register")]
+    public ActionResult Register(RegisterDTO dto)
     {
-        return null;
+        try
+        {
+            return Ok(_authentication.Register(dto));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }

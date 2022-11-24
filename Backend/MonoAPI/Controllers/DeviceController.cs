@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
 
-
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class DeviceController : ControllerBase
@@ -72,6 +72,7 @@ public class DeviceController : ControllerBase
         return Ok(_service.DeleteDevice(deviceId));
     }
 
+    [AllowAnonymous ]
     [HttpGet]
     [Route("rebuildDB")]
     public void RebuildDB()

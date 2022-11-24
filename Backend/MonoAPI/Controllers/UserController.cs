@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+using Application.DTOs;
 using Application.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
 
+
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class UserController : ControllerBase

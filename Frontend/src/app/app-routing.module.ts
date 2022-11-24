@@ -14,13 +14,16 @@ import {AdminLoginOverviewComponent} from "./AdminPages/admin-login-overview/adm
 import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
 import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.component";
+import {LoginComponent} from "./login/login.component";
+import {AuthGuardService} from "../services/auth-guard.service";
 
 
 
 const routes: Routes=[
-  {path: '', component: SideNavAdminComponent}, //Admin login
-  {path: 'administrator', component: SideNavAdminComponent, children:[
-      {path: 'enheder', component: AdminDeviceOverviewComponent},
+  {path: '', component: LoginComponent},
+  {path: 'administrator', component: SideNavAdminComponent, canActivate: [AuthGuardService]}, //Admin login
+  {path: 'administrator', component: SideNavAdminComponent, canActivate: [AuthGuardService], children:[
+      {path: 'enheder', component: AdminDeviceOverviewComponent, },
       {path: 'enheds-registrering', component: AdminDeviceRegistrationComponent},
       {path: 'brugere', component: UserOverviewComponent},
       {path: 'bruger-logins', component: AdminLoginOverviewComponent},
