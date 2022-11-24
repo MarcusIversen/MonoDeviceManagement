@@ -1,6 +1,5 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
@@ -32,7 +31,7 @@ public class AuthController : ControllerBase
     
     [HttpPost]
     [Route("register")]
-    public ActionResult Register(RegisterDTO dto)
+    public ActionResult Register(PostUserDTO dto)
     {
         try
         {
