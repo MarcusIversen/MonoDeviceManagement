@@ -35,7 +35,7 @@ public class DeviceRepository : IDeviceRepository
     }
     public Device GetDevice(string serialNumber)
     {
-        return _context.Devices.Find(serialNumber);
+        return _context.Devices.FirstOrDefault(d=>d.SerialNumber == serialNumber);
     }
 
     public Device UpdateDevice(int deviceId, Device device)

@@ -280,9 +280,7 @@ public class DeviceServiceTest
         Device existingDevice = new Device { Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Amount = amount };
         devices.Add(existingDevice);
         
-        Device device = new Device{Id = existingDevice.Id, DeviceName = existingDevice.DeviceName, Amount = existingDevice.Amount, SerialNumber = existingDevice.SerialNumber};
-        devices.Add(device);
-        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = device.DeviceName, Amount = device.Amount, SerialNumber = device.SerialNumber };
+        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = existingDevice.DeviceName, Amount = existingDevice.Amount, SerialNumber = existingDevice.SerialNumber };
 
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -295,8 +293,8 @@ public class DeviceServiceTest
 
         mockRepository.Setup(r => r.AddDevice(It.IsAny<Device>())).Returns(() =>
         {
-            devices.Add(device);
-            return device;
+            devices.Add(existingDevice);
+            return existingDevice;
         });
         
         // Act 
@@ -306,7 +304,6 @@ public class DeviceServiceTest
         var ex = Assert.Throws<ArgumentException>(action);
         Assert.Equal(expectedMessage, ex.Message);
         mockRepository.Verify(r => r.AddDevice(It.IsAny<Device>()), Times.Never);
-        throw new NotImplementedException();
     }
 
     [Theory]

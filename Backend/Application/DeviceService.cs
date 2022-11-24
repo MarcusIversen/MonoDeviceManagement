@@ -23,6 +23,10 @@ public class DeviceService : IDeviceService
 
     public Device AddDevice(PostDeviceDTO device)
     {
+        if (GetDevice(device.SerialNumber) != null || GetDevice(device.SerialNumber) != default)
+        {
+            throw new ArgumentException("Device already exist");
+        }
         ThrowsIfPostDeviceIsInvalid(device);
         var validate = _postDeviceValidator.Validate(device);
         if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
@@ -72,7 +76,7 @@ public class DeviceService : IDeviceService
     {
         _repository.RebuildDB();
     }
-    
+
     // Used to throw errors
     private void ThrowsIfPostDeviceIsInvalid(PostDeviceDTO device)
     {
