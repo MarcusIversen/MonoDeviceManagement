@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {HttpService} from "../../services/http.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent {
   password: any;
 
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpService, private router: Router) {
   }
 
   async login() {
@@ -19,8 +20,11 @@ export class LoginComponent {
       email: this.email,
       password: this.password
     }
-    var token = await this.http.login(dto)
-    localStorage.setItem('token', token)
+    this.http.login(dto).then(token => {
+      console.log(token);
+      localStorage.setItem('token', token)
+      this.router.navigate(['/administrator']);
+    })
 
   }
 }
