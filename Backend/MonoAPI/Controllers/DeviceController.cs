@@ -1,5 +1,6 @@
-﻿using Application.Interfaces;
-using Domain;
+using Application.DTOs;
+using Application.Interfaces;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,15 +22,54 @@ public class DeviceController : ControllerBase
     [HttpGet]
     public IActionResult GetDevices()
     {
-
-        return Ok(new List<Device>());
+        return Ok(_service.GetDevices());
     }
     
-    [HttpGet("{serialNumber}")]
-    public IActionResult GetDeviceBySerialNumber(string serialNumber)
+    [HttpGet("{id}")]
+    public IActionResult GetDeviceBySId(int deviceId)
     {
+        return Ok(_service.GetDevice(deviceId));
+    }
 
-        return Ok(_service.GetDevice(serialNumber));
+    [HttpPost]
+    public IActionResult CreateDevice(PostDeviceDTO dto)
+    {
+        try
+        {
+            var device = _service.AddDevice(dto);
+            return Created("Device/" + device.Id, device);
+        }
+        catch (ValidationException e)
+        {
+            return BadRequest(e.Message);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpPut("{id}")]
+    public IActionResult UpdateDevice(int deviceId, PutDeviceDTO dto)
+    {
+        try
+        {
+            return Ok(_service.UpdateDevice(deviceId, dto));
+        }
+        catch (KeyNotFoundException e)
+        {
+            return NotFound("No device found at id: " + deviceId);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpDelete("{id}")]
+    public IActionResult DeleteDevice(int deviceId)
+    {
+        return Ok(_service.DeleteDevice(deviceId));
     }
 
     [AllowAnonymous ]

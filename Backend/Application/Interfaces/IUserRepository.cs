@@ -11,7 +11,7 @@ public interface IUserRepository
     /// </summary>
     /// <param name="user"></param>
     /// <returns>Added user</returns>
-    User AddUser(User user);
+    User CreateUser(User user);
 
     // Read
     /// <summary>
