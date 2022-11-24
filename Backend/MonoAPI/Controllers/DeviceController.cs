@@ -17,7 +17,7 @@ public class DeviceController : ControllerBase
         _service = service;
     }
 
-    
+    [Authorize ("AdminPolicy")]
     [HttpGet]
     public IActionResult GetDevices()
     {

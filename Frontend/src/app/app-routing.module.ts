@@ -15,14 +15,15 @@ import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-regist
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
 import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.component";
 import {LoginComponent} from "./login/login.component";
-import {AuthGuardService} from "../services/auth-guard.service";
+import {AdminAuthGuardService} from "../services/admin-auth-guard.service";
+import {UserAuthGuardService} from "../services/user-auth-guard.service";
 
 
 
 const routes: Routes=[
   {path: '', component: LoginComponent},
-  {path: 'administrator', component: SideNavAdminComponent, canActivate: [AuthGuardService]}, //Admin login
-  {path: 'administrator', component: SideNavAdminComponent, canActivate: [AuthGuardService], children:[
+  {path: 'administrator', component: SideNavAdminComponent, canActivate: [AdminAuthGuardService]}, //Admin login
+  {path: 'administrator', component: SideNavAdminComponent, canActivate: [AdminAuthGuardService], children:[
       {path: 'enheder', component: AdminDeviceOverviewComponent, },
       {path: 'enheds-registrering', component: AdminDeviceRegistrationComponent},
       {path: 'brugere', component: UserOverviewComponent},
@@ -30,8 +31,8 @@ const routes: Routes=[
       {path: 'hjaelp', component: AdminSupportComponent}
     ]
   },
-  {path: 'bruger', component: SideNavUserComponent}, //User login
-  {path: 'bruger', component: SideNavUserComponent, children:[
+  {path: 'bruger', component: SideNavUserComponent, canActivate: [UserAuthGuardService]}, //User login
+  {path: 'bruger', component: SideNavUserComponent, canActivate: [UserAuthGuardService], children:[
       {path: 'enheder', component: DeviceOverviewComponent}, // When you click enheder as user
       {path: 'enheds-registrering', component: DeviceRegistrationComponent}, //When you click registrering as user
       {path: 'profil-information', component: ProfileInfoComponent}, //When you click profil info as user

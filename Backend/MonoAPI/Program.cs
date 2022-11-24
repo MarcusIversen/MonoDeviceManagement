@@ -73,6 +73,7 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite("Dat
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", (policy) => { policy.RequireRole("admin");});
+    options.AddPolicy("UserPolicy", (policy) => { policy.RequireRole("user");});
 });
 
 builder.Services.AddCors();
