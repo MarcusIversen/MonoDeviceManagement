@@ -21,14 +21,13 @@ public class DeviceController : ControllerBase
     [HttpGet]
     public IActionResult GetDevices()
     {
-
         return Ok(_service.GetDevices());
     }
     
-    [HttpGet("{serialNumber}")]
-    public IActionResult GetDeviceBySerialNumber(string serialNumber)
+    [HttpGet("{id}")]
+    public IActionResult GetDeviceBySId(int deviceId)
     {
-        return Ok(_service.GetDevice(serialNumber));
+        return Ok(_service.GetDevice(deviceId));
     }
 
     [HttpPut("{id}")]
@@ -52,12 +51,6 @@ public class DeviceController : ControllerBase
     public IActionResult DeleteDevice(int deviceId)
     {
         return Ok(_service.DeleteDevice(deviceId));
-    }
-
-    [HttpGet]
-    public IActionResult GetAssignedDevices(int userId)
-    {
-        throw new NotImplementedException();
     }
 
     [HttpGet]
