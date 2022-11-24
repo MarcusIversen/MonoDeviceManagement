@@ -21,5 +21,6 @@ export class LoginComponent {
     }
     var token = await this.http.login(dto)
     localStorage.setItem('token', token)
+
   }
 }

@@ -17,6 +17,7 @@ public class DeviceController : ControllerBase
         _service = service;
     }
 
+    
     [HttpGet]
     public IActionResult GetDevices()
     {
@@ -31,6 +32,7 @@ public class DeviceController : ControllerBase
         return Ok(_service.GetDevice(serialNumber));
     }
 
+    [AllowAnonymous ]
     [HttpGet]
     [Route("rebuildDB")]
     public void RebuildDB()

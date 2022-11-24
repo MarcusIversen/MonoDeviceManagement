@@ -70,6 +70,11 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite("Dat
 
 #endregion
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", (policy) => { policy.RequireRole("admin");});
+});
+
 builder.Services.AddCors();
 
 var app = builder.Build();
