@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
@@ -14,9 +15,13 @@ public class DeviceRepository : IDeviceRepository
 
     public Device AddDevice(Device device)
     {
+        if (ExistingDevice(device))
+        {
+            throw new ArgumentException("Device already exist");
+        }
         _context.Devices.Add(device);
         _context.SaveChanges();
-        return device;
+        return device;    
     }
 
     public IEnumerable<Device> GetDevices()
@@ -30,15 +35,18 @@ public class DeviceRepository : IDeviceRepository
     }
     public Device GetDevice(string serialNumber)
     {
-        return _context.Devices.FirstOrDefault(d => d.SerialNumber == serialNumber);
+        return _context.Devices.FirstOrDefault(d=>d.SerialNumber == serialNumber);
     }
 
     public Device UpdateDevice(int deviceId, Device device)
     {
+        if (ExistingDevice(device))
+        {
+            throw new ArgumentException("Device already exist");
+        }
         var dev = _context.Devices.FirstOrDefault(d => d.Id == deviceId);
         if (dev.Id == deviceId)
         {
-            
             dev.DeviceName = device.DeviceName;
             dev.SerialNumber = device.SerialNumber;
             dev.Amount = device.Amount;
@@ -59,24 +67,16 @@ public class DeviceRepository : IDeviceRepository
         return device;
     }
 
-    public Device AddUserToDevice(int userId, int deviceId)
+    private bool ExistingDevice(Device device)
     {
-        throw new NotImplementedException();
-    }
-
-    public Device DeleteUserFromDevice(int userId, int deviceId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Device UpdateUserOnDevice(int userId, int deviceId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<Device> AssignedDevices(int userId)
-    {
-        throw new NotImplementedException();
+        var dev = _context.Devices.Find(device.SerialNumber);
+        if (dev != null)
+        {
+            return true;
+        }
+        {
+            return false;
+        }
     }
     
 

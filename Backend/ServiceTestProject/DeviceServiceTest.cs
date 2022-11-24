@@ -1,4 +1,5 @@
-﻿using Application;
+﻿using System.Runtime.InteropServices;
+using Application;
 using Application.DTOs;
 using Application.Interfaces;
 using Application.Validators;
@@ -11,6 +12,51 @@ namespace ServiceTestProject;
 public class DeviceServiceTest
 {
     // Member data
+    
+    #region ListOfDevicesWithUser
+
+    public static IEnumerable<Object[]> ListOfDevicesWithUser_TestCase()
+    {
+        User user = new User
+        {
+            Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", Salt = "123123",
+            Hash = "123123", Role = "Admin", WorkNumber = "12345678"
+        };
+        Device device1 = new Device { Id = 1, Amount = 1, DeviceName = "Seed device1", SerialNumber = "1234553", UserId = user.Id};
+        Device device2 = new Device { Id = 2, Amount = 1, DeviceName = "Seed device2", SerialNumber = "1123", UserId = user.Id};
+        Device device3 = new Device { Id = 3, Amount = 1, DeviceName = "Seed device3", SerialNumber = "54543", UserId = user.Id};
+
+        yield return new Object[]
+        {
+            new Device[]
+            {
+            },
+            new List<Device>()
+        };
+        
+        yield return new object[]
+        {
+            new Device[]
+            {
+               device1
+            },
+            new List<Device>() { device1 }
+        };
+        
+        yield return new object[]
+        {
+            new Device[]
+            {
+                device1,
+                device2, 
+                device3
+            },
+            new List<Device>() { device1, device2, device3 }
+        };
+    }
+
+    #endregion
+    
     #region GetAllDevicesTest
 
     public static IEnumerable<Object[]> GetAllDevices_TestCase()
@@ -181,11 +227,14 @@ public class DeviceServiceTest
         });
         
         // Act 
-        service.AddDevice(dto);
+        var createdDevice = service.AddDevice(dto);
         
         // Assert
         Assert.True(devices.Count == 1);
-        Assert.Equal(device, devices[0]);
+        Assert.Equal(device.Amount, createdDevice.Amount);
+        Assert.Equal(device.Id, createdDevice.Id);
+        Assert.Equal(device.DeviceName, createdDevice.DeviceName);
+        Assert.Equal(device.SerialNumber, createdDevice.SerialNumber);
         mockRepository.Verify(r => r.AddDevice(It.IsAny<Device>()), Times.Once);
     }
     
@@ -229,10 +278,9 @@ public class DeviceServiceTest
         // Arrange
         List<Device> devices = new List<Device>();
         Device existingDevice = new Device { Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Amount = amount };
+        devices.Add(existingDevice);
         
-
-        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, Amount = amount, SerialNumber = existingDevice.SerialNumber };
-        Device device = new Device{Id = existingDevice.Id, DeviceName = dto.DeviceName, Amount = dto.Amount, SerialNumber = dto.SerialNumber};
+        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = existingDevice.DeviceName, Amount = existingDevice.Amount, SerialNumber = existingDevice.SerialNumber };
 
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -245,11 +293,9 @@ public class DeviceServiceTest
 
         mockRepository.Setup(r => r.AddDevice(It.IsAny<Device>())).Returns(() =>
         {
-            devices.Add(device);
-            return device;
+            devices.Add(existingDevice);
+            return existingDevice;
         });
-        
-        devices.Add(existingDevice);
         
         // Act 
         var action = () => service.AddDevice(dto);
@@ -265,8 +311,8 @@ public class DeviceServiceTest
     public void UpdateValidDeviceTest(int id, string deviceName)
     {
         // Arrange
-        PutDeviceDTO dto = new PutDeviceDTO {Id = 1, DeviceName = "Laptop", Amount = 1, SerialNumber = "2" };
-        Device device = new Device{Id = dto.Id, DeviceName = dto.DeviceName, Amount = dto.Amount, SerialNumber = dto.SerialNumber};
+        Device device = new Device{Id = id, DeviceName = "Laptop", Amount = 2, SerialNumber = "34"};
+        PutDeviceDTO dto = new PutDeviceDTO {Id = device.Id, DeviceName = device.DeviceName, Amount = device.Amount, SerialNumber = device.SerialNumber };
 
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -328,6 +374,7 @@ public class DeviceServiceTest
         mockRepository.Verify(r=> r.UpdateDevice(deviceId, device),Times.Never);
     }
 
+    //TODO update to existing device serial number 
     [Theory]
     [InlineData(2, "Id in the body and route are different")] //Invalid id not the same
     public void InvalidIdInputExceptionTest(int deviceId, string expectedMessage)
@@ -418,114 +465,59 @@ public class DeviceServiceTest
         mockRepository.Verify(r=>r.DeleteDevice(deviceId),Times.Never);
     }
     
-    [Fact]
-    public void AddValidUserOnDeviceTest()
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
     [Theory]
-    [InlineData(-1, 1)]    //Invalid deviceId -1
-    [InlineData(0, 2)]     //Invalid deviceId 0 
-    [InlineData(null, 2)]  //Invalid deviceId null 
-    [InlineData(1, -1)]    //Invalid userId -1 
-    [InlineData(2, 0)]     //Invalid userId 0 
-    [InlineData(2, null)]  //Invalid userId null
-    public void AddInvalidUserOnDeviceTest(int deviceId, int userId)
+    [MemberData(nameof(ListOfDevicesWithUser_TestCase))]
+    public void GetValidAssignedDevicesOnUserTest(Device[] data, List<Device> expectedResult)
     {
-        // Arrange
+        var fakeRepo = data;
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
         
+        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+        mockRepository.Setup(r => r.GetDevices()).Returns(fakeRepo);
+
         // Act 
-        
+        var actual = service.AssignedDevices(1);
+
         // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Fact]
-    public void DeleteValidUserOnDeviceTest()
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Theory]
-    [InlineData(1, -1)]     //Invalid userId -1
-    [InlineData(2, 0)]      //Invalid userId 0 
-    [InlineData(2, 555)]    //Nonexisting userId
-    [InlineData(2, null)]   //Invalid userId null
-    [InlineData(-1, 1)]     //Invalid deviceId -1
-    [InlineData(0, 1)]      //Invalid deviceId 0 
-    [InlineData(222, 1)]    //Nonexisting deviceId
-    [InlineData(null, 1)]   //Invalid userId null
-    public void DeleteInvalidUserOnDeviceTest(int deviceId, int userId)
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Fact]
-    public void UpdateValidUserOnDeviceTest()
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
-    
-    [Theory]
-    [InlineData(-1, 1)]     //Invalid deviceId -1
-    [InlineData(0, 2)]      //Invalid deviceId 0 
-    [InlineData(null, 2)]   //Invalid deviceId null
-    [InlineData(1, -1)]     //Invalid userId -1
-    [InlineData(2, 0)]      //Invalid userId 0
-    [InlineData(2, null)]   //Invalid userId null
-    public void UpdateInvalidUserOnDeviceTest(int deviceId, int userId)
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
+        Assert.Equal(expectedResult, actual);
+        Assert.True(Enumerable.SequenceEqual(expectedResult, actual));
+        mockRepository.Verify(r => r.GetDevices(), Times.Once);
     }
 
-
-    [Fact]
-    public void GetValidAssignedDevicesOnUserTest()
+    [Theory]
+    [InlineData(null, "User id cannot be null or less than 1")] //User ID is null
+    [InlineData(0, "User id cannot be null or less than 1")]    //User ID is 0
+    [InlineData(-1, "User id cannot be null or less than 1")]   //User ID is -1
+    public void GetInvalidAssignedDevicesOnUserTest(int userId, string expectedMessage)
     {
-        // Arrange
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
         
+        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+
         // Act 
-        
+        var action = ()=> service.AssignedDevices(userId);
+        var ex = Assert.Throws<ArgumentException>(action);
+
         // Assert
-        throw new NotImplementedException();
+        Assert.Equal(expectedMessage, ex.Message);
+        mockRepository.Verify(r => r.GetDevices(), Times.Never);
     }
 
-    [Fact]
-    public void GetInvalidAssignedDevicesOnUserTest()
-    {
-        // Arrange
-        
-        // Act 
-        
-        // Assert
-        throw new NotImplementedException();
-    }
+    
+    
+    
     
     
 }
