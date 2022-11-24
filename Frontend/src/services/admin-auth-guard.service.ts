@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
 import jwtDecode from "jwt-decode";
 
@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
 export class AdminAuthGuardService implements CanActivate {
 
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -24,7 +24,7 @@ export class AdminAuthGuardService implements CanActivate {
         }
       }
     }
-    console.log("U dont have access")
+    this.router.navigate(['bruger'])
     return false;
   }
 }
