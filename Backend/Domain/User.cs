@@ -1,4 +1,6 @@
-﻿namespace Domain;
+﻿using Domain.Enums;
+
+namespace Domain;
 
 public class User
 {
@@ -6,7 +8,7 @@ public class User
     public string Email { get; set; }
     public string Salt { get; set; }
     public string Hash { get; set; }
-    public string Role { get; set; }
+    public Role Role { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string? ProfilePicture { get; set; }

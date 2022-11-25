@@ -78,13 +78,11 @@ public class DeviceService : IDeviceService
     {
         if (string.IsNullOrEmpty(device.DeviceName)) throw new ArgumentException("Device name cannot be empty or null");
         if (string.IsNullOrEmpty(device.SerialNumber)) throw new ArgumentException("Device serialNumber cannot be empty or null");
-        if (device.Amount == null || device.Amount < 1) throw new ArgumentException("Device amount cannot be null or less than 0");
     }
     private void ThrowsIfPutDeviceIsInvalid(PutDeviceDTO device)
     {
         if (string.IsNullOrEmpty(device.DeviceName)) throw new ArgumentException("Device name cannot be empty or null");
         if (string.IsNullOrEmpty(device.SerialNumber)) throw new ArgumentException("Device serialNumber cannot be empty or null");
-        if (device.Amount == null || device.Amount < 1) throw new ArgumentException("Device amount cannot be null or less than 0");
         if (device.Id == null || device.Id < 1) throw new ArgumentException("Device id cannot be null or less than 1");
     }
 }

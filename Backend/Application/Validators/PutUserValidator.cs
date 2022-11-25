@@ -13,5 +13,7 @@ public class PutUserValidator : AbstractValidator<PutUserDTO>
         RuleFor(u => u.FirstName).NotNull().NotEmpty();
         RuleFor(u => u.LastName).NotNull().NotEmpty();
         RuleFor(u => u.WorkNumber).NotNull().NotEmpty().MinimumLength(8);
+        RuleFor(u => u.Role).NotEmpty().IsInEnum();
+
     }
 }
