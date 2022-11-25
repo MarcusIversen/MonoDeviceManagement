@@ -1,6 +1,4 @@
-﻿using Domain.Enums;
-
-namespace Domain;
+﻿namespace Domain;
 
 public class Device
 {
@@ -8,9 +6,9 @@ public class Device
     public string DeviceName { get; set; }
     public string SerialNumber { get; set; }
     public int Amount { get; set; }
-    public Status Status { get; set; }
-    public virtual User? User { get; set; } 
+    public string Status { get; set; }
+    public User? User { get; set; } 
     public int? UserId { get; set; }
-    public string DateOfIssue { get; set; }
-    public string DateOfTurnIn { get; set; }
+    public DateOnly? DateOfIssue { get; set; }
+    public DateOnly? DateOfTurnIn { get; set; }
 }

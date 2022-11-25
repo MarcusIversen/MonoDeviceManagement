@@ -6,14 +6,6 @@ namespace Application.Interfaces;
 public interface IUserService
 {
     #region CRUD
-    // Create
-    /// <summary>
-    /// Adds an user to database
-    /// </summary>
-    /// <param name="user"></param>
-    /// <returns>Added user</returns>
-    User CreateUser(PostUserDTO user);
-
     // Read
     /// <summary>
     /// Gets all users from database

@@ -30,25 +30,7 @@ public class UserController : ControllerBase
     {
         return Ok(_service.GetUser(deviceId));
     }
-    
-    [HttpPost]
-    public IActionResult CreateUser(PostUserDTO dto)
-    {
-        try
-        {
-            var user = _service.CreateUser(dto);
-            return Created("User/" + user.Id, user);
-        }
-        catch (ValidationException e)
-        {
-            return BadRequest(e.Message);
-        }
-        catch (Exception e)
-        {
-            return StatusCode(500, e.Message);
-        }
-    }
-    
+
     [HttpPut("{id}")]
     public IActionResult UpdateUser(int userId, PutUserDTO dto)
     {

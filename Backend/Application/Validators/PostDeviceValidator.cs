@@ -9,6 +9,6 @@ public class PostDeviceValidator : AbstractValidator<PostDeviceDTO>
     {
         RuleFor(d => d.SerialNumber).NotEmpty();
         RuleFor(d => d.DeviceName).NotEmpty();
-        RuleFor(d => d.Status).NotEmpty().IsInEnum();
+        RuleFor(d => d.Status).Matches("InStock|InUse|OutOfOrder");
     }
 }

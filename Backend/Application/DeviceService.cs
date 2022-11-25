@@ -25,7 +25,7 @@ public class DeviceService : IDeviceService
     {
         ThrowsIfPostDeviceIsInvalid(device);
         var validate = _postDeviceValidator.Validate(device);
-        if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
+        if (!validate.IsValid) throw new ValidationException(validate.ToString());
         return _repository.AddDevice(_mapper.Map<Device>(device));
     }
 
