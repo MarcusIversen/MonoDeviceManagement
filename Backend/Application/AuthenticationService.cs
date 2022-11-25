@@ -16,6 +16,7 @@ public class AuthenticationService : IAuthenticationService
 {
     private readonly AppSettings _appSettings;
     private readonly IUserRepository _repository;
+
     private IValidator<PostUserDTO> _postUserValidator;
     
     public AuthenticationService(IUserRepository repository,
@@ -35,7 +36,9 @@ public class AuthenticationService : IAuthenticationService
         catch (KeyNotFoundException e)
         {
             ThrowsIfPostUserIsInvalid(dto);
+
             var validate = _postUserValidator.Validate(dto);
+
             if (!validate.IsValid)
             {
                 throw new ArgumentException(validate.ToString());
