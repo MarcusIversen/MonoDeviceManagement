@@ -1,5 +1,4 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,8 +6,8 @@ using Application.DTOs;
 using Application.Helpers;
 using Application.Interfaces;
 using Domain;
+using FluentValidation;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Validators;
@@ -17,15 +16,18 @@ public class AuthenticationService : IAuthenticationService
 {
     private readonly AppSettings _appSettings;
     private readonly IUserRepository _repository;
+    private IValidator<PostUserDTO> _postDeviceValidator;
     
     public AuthenticationService(IUserRepository repository,
-        IOptions<AppSettings> appSettings)
+        IOptions<AppSettings> appSettings, IValidator<PostUserDTO> postDeviceValidator)
     {
         _appSettings = appSettings.Value;
         _repository = repository;
+        _postDeviceValidator = postDeviceValidator;
+
     }
 
-    public string Register(RegisterDTO dto)
+    public string Register(PostUserDTO dto)
     {
         try
         {
@@ -33,6 +35,12 @@ public class AuthenticationService : IAuthenticationService
         }
         catch (KeyNotFoundException e)
         {
+            ThrowsIfPostUserIsInvalid(dto);
+            var validate = _postDeviceValidator.Validate(dto);
+            if (!validate.IsValid)
+            {
+                throw new ArgumentException(validate.ToString());
+            }
             var salt = RandomNumberGenerator.GetBytes(32).ToString();
             var user = new User
             {
@@ -76,5 +84,15 @@ public class AuthenticationService : IAuthenticationService
         }
 
         throw new Exception("Invalid login");
+    }
+    
+    private void ThrowsIfPostUserIsInvalid(PostUserDTO user)
+    {
+        if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be null, empty and must be a valid email");
+        if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be null or empty");
+        if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be null or empty");
+        if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8 ) throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
+        if (string.IsNullOrEmpty(user.Role)) throw new ArgumentException("Role cannot be null or empty");
+        if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8) throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
     }
 }

@@ -54,8 +54,10 @@ public class UserService : IUserService
         var validate = _putUserValidator.Validate(user);
         if (!validate.IsValid) throw new ArgumentException(validate.ToString());
         if (userId != user.Id) throw new ArgumentException("Id in the body and route are different");
-
-        return _repository.UpdateUser(userId, _mapper.Map<User>(user));
+        User updatedUser = _repository.GetUserByEmail(user.Email);
+        updatedUser.Hash = BCrypt.Net.BCrypt.HashPassword(user.Password + updatedUser.Salt);
+        
+        return _repository.UpdateUser(userId, updatedUser);
     }
 
     public User DeleteUser(int userId)
