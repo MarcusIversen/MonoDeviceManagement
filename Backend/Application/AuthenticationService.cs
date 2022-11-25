@@ -16,15 +16,15 @@ public class AuthenticationService : IAuthenticationService
 {
     private readonly AppSettings _appSettings;
     private readonly IUserRepository _repository;
-    private IValidator<PostUserDTO> _postDeviceValidator;
+
+    private IValidator<PostUserDTO> _postUserValidator;
     
     public AuthenticationService(IUserRepository repository,
-        IOptions<AppSettings> appSettings, IValidator<PostUserDTO> postDeviceValidator)
+        IOptions<AppSettings> appSettings, IValidator<PostUserDTO> postUserValidator)
     {
         _appSettings = appSettings.Value;
         _repository = repository;
-        _postDeviceValidator = postDeviceValidator;
-
+        _postUserValidator = postUserValidator;
     }
 
     public string Register(PostUserDTO dto)
@@ -36,7 +36,9 @@ public class AuthenticationService : IAuthenticationService
         catch (KeyNotFoundException e)
         {
             ThrowsIfPostUserIsInvalid(dto);
-            var validate = _postDeviceValidator.Validate(dto);
+
+            var validate = _postUserValidator.Validate(dto);
+
             if (!validate.IsValid)
             {
                 throw new ArgumentException(validate.ToString());
@@ -61,8 +63,7 @@ public class AuthenticationService : IAuthenticationService
 
         throw new Exception("Email  " + dto.Email + "is already taken");
     }
-
-    public string GenerateToken(User user)
+    private string GenerateToken(User user)
     {
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor

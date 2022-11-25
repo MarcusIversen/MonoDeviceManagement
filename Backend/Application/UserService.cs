@@ -56,7 +56,7 @@ public class UserService : IUserService
         if (userId != user.Id) throw new ArgumentException("Id in the body and route are different");
         User updatedUser = _repository.GetUserByEmail(user.Email);
         updatedUser.Hash = BCrypt.Net.BCrypt.HashPassword(user.Password + updatedUser.Salt);
-        
+
         return _repository.UpdateUser(userId, updatedUser);
     }
 
