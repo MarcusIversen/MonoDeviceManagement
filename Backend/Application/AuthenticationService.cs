@@ -6,7 +6,6 @@ using Application.DTOs;
 using Application.Helpers;
 using Application.Interfaces;
 using Domain;
-using Domain.Enums;
 using FluentValidation;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -94,7 +93,6 @@ public class AuthenticationService : IAuthenticationService
         if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be null or empty");
         if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be null or empty");
         if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8 ) throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
-        if (user.Role == null || user.Role != Role.Admin || user.Role != Role.User) throw new ArgumentException("Role cannot be null");
         if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8) throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
     }
 }

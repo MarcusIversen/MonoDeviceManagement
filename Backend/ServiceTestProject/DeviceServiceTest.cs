@@ -4,7 +4,6 @@ using Application.Interfaces;
 using Application.Validators;
 using AutoMapper;
 using Domain;
-using Domain.Enums;
 using Moq;
 
 namespace ServiceTestProject;
@@ -20,7 +19,7 @@ public class DeviceServiceTest
         User user = new User
         {
             Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", Salt = "123123",
-            Hash = "123123", Role = Role.Admin, WorkNumber = "12345678"
+            Hash = "123123", Role = "Admin", WorkNumber = "12345678"
         };
         Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", UserId = user.Id};
         Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", UserId = user.Id};
@@ -116,7 +115,9 @@ public class DeviceServiceTest
         Assert.NotNull(service);
         Assert.True(service is DeviceService);
     }
-    
+
+    #region Read
+
     [Theory]
     [MemberData(nameof(GetAllDevices_TestCase))]
     public void GetDevices(Device[] data, List<Device> expectedResult)
@@ -142,7 +143,7 @@ public class DeviceServiceTest
         Assert.True(Enumerable.SequenceEqual(expectedResult, actual));
         mockRepository.Verify(r => r.GetDevices(), Times.Once);
     }
-    
+
     [Theory]
     [InlineData(1, 1)]      //Valid device
     [InlineData(2, 2)]      //Valid device
@@ -201,15 +202,18 @@ public class DeviceServiceTest
         
         mockRepository.Verify(r => r.GetDevice(deviceId), Times.Never);
     }
-    
+    #endregion
+
+    #region Create
+
     [Theory]
     [InlineData(1, "device1", "123")]
     public void CreateValidDeviceTest(int deviceId, string deviceName, string serialNumber)
     {
         // Arrange
         List<Device> devices = new List<Device>();
-        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber};
-        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, SerialNumber = serialNumber };
+        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = "InStock"};
+        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, SerialNumber = serialNumber, Status = device.Status};
         
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -266,18 +270,19 @@ public class DeviceServiceTest
         mockRepository.Verify(r => r.AddDevice(device), Times.Never);
     }
     
+    /**
     [Theory]
-    [InlineData(1, "Laptop", "serialTest1", "Device already exist")]                        //Invalid device that already exist
-    [InlineData(1, "Laptop", "123464", "Device already exist")]                             //Invalid device that already exist
+    [InlineData(1, "Laptop", "serialTest1", "Device already exists")]                        //Invalid device that already exist
     public void CreateExistingDeviceTest(int deviceId, string deviceName, string serialNumber, string expectedMessage)
     {
         // Arrange
         List<Device> devices = new List<Device>();
-        Device existingDevice = new Device { Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber };
+        Device existingDevice = new Device { Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = "InStock"};
         devices.Add(existingDevice);
         
-        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = existingDevice.DeviceName, SerialNumber = existingDevice.SerialNumber };
-
+        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = existingDevice.DeviceName, SerialNumber = existingDevice.SerialNumber, Status = existingDevice.Status};
+        Device addDevice = new Device { SerialNumber = existingDevice.SerialNumber };
+        
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
         {
@@ -287,10 +292,10 @@ public class DeviceServiceTest
         var putDeviceValidator = new PutDeviceValidator();
         IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
 
-        mockRepository.Setup(r => r.AddDevice(It.IsAny<Device>())).Returns(() =>
+        mockRepository.Setup(r => r.AddDevice(addDevice)).Returns(() =>
         {
-            devices.Add(existingDevice);
-            return existingDevice;
+            devices.Add(addDevice);
+            return addDevice;
         });
         
         // Act 
@@ -299,16 +304,22 @@ public class DeviceServiceTest
         // Assert
         var ex = Assert.Throws<ArgumentException>(action);
         Assert.Equal(expectedMessage, ex.Message);
-        mockRepository.Verify(r => r.AddDevice(It.IsAny<Device>()), Times.Never);
+        mockRepository.Verify(r => r.AddDevice(addDevice), Times.Never);
     }
+    **/
+
+    #endregion
+    // Create existing exception
+
+    #region Update
 
     [Theory]
     [InlineData(1 , "Computer")]
     public void UpdateValidDeviceTest(int id, string deviceName)
     {
         // Arrange
-        Device device = new Device{Id = id, DeviceName = "Laptop", SerialNumber = "34"};
-        PutDeviceDTO dto = new PutDeviceDTO {Id = device.Id, DeviceName = device.DeviceName, SerialNumber = device.SerialNumber };
+        Device device = new Device { Id = 1, Amount = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "InStock", };
+        PutDeviceDTO dto = new PutDeviceDTO {Id = device.Id, DeviceName = device.DeviceName, SerialNumber = device.SerialNumber, Status = device.Status };
 
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -330,6 +341,7 @@ public class DeviceServiceTest
         Assert.Equal(device.Id, updateDevice.Id);
         Assert.Equal(device.SerialNumber, updateDevice.SerialNumber);
         Assert.Equal(device.DeviceName, updateDevice.DeviceName);
+        Assert.Equal(device.Status, updateDevice.Status);
         mockRepository.Verify(r => r.UpdateDevice(id, It.IsAny<Device>()), Times.Once);
     }
     
@@ -394,6 +406,11 @@ public class DeviceServiceTest
         mockRepository.Verify(r=> r.UpdateDevice(deviceId, device),Times.Never);
     }
 
+    #endregion 
+    // Update existing exception
+
+    #region Delete
+
     [Theory]
     [InlineData(1, 1)] // Delete device with id 1 and expectedListSize 
     public void DeleteValidDeviceTest(int deviceId, int exceptedListSize)
@@ -456,7 +473,11 @@ public class DeviceServiceTest
         Assert.Equal(expectedMessage, ex.Message);
         mockRepository.Verify(r=>r.DeleteDevice(deviceId),Times.Never);
     }
-    
+
+    #endregion
+
+    #region GetAssigned Devices
+
     [Theory]
     [MemberData(nameof(ListOfDevicesWithUser_TestCase))]
     public void GetValidAssignedDevicesOnUserTest(Device[] data, List<Device> expectedResult)
@@ -507,6 +528,8 @@ public class DeviceServiceTest
         mockRepository.Verify(r => r.GetDevices(), Times.Never);
     }
 
+
+    #endregion
     
     
     

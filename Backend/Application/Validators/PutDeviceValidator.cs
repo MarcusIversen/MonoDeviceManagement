@@ -7,9 +7,9 @@ public class PutDeviceValidator : AbstractValidator<PutDeviceDTO>
 {
     public PutDeviceValidator()
     {
-        RuleFor(d => d.Id).NotNull().NotEmpty().GreaterThan(0);
-        RuleFor(d => d.SerialNumber).NotNull().NotEmpty();
-        RuleFor(d => d.DeviceName).NotNull().NotEmpty();
-        RuleFor(d => d.Status).NotEmpty().IsInEnum();
+        RuleFor(d => d.Id).NotEmpty().GreaterThan(0);
+        RuleFor(d => d.SerialNumber).NotEmpty();
+        RuleFor(d => d.DeviceName).NotEmpty();
+        RuleFor(d => d.Status).Matches("InStock|InUse|OutOfOrder");
     }
 }

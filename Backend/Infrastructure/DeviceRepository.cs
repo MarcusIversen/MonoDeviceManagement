@@ -14,10 +14,6 @@ public class DeviceRepository : IDeviceRepository
 
     public Device AddDevice(Device device)
     {
-        if (ExistingDevice(device))
-        {
-            throw new ArgumentException("Device already exist");
-        }
         _context.Devices.Add(device);
         _context.SaveChanges();
         return device;    
@@ -34,23 +30,20 @@ public class DeviceRepository : IDeviceRepository
     }
     public Device GetDevice(string serialNumber)
     {
-        return _context.Devices.FirstOrDefault(d=>d.SerialNumber == serialNumber);
+        return _context.Devices.FirstOrDefault(d=>d.SerialNumber == serialNumber)?? throw new KeyNotFoundException("There is no device with serial number" + serialNumber);
     }
+    
 
     public Device UpdateDevice(int deviceId, Device device)
     {
-        if (ExistingDevice(device))
-        {
-            throw new ArgumentException("Device already exist");
-        }
         var dev = _context.Devices.FirstOrDefault(d => d.Id == deviceId);
         if (dev.Id == deviceId)
         {
             dev.DeviceName = device.DeviceName;
             dev.SerialNumber = device.SerialNumber;
-            dev.Amount = device.Amount;
             dev.User = device.User;
             dev.UserId = device.UserId;
+            dev.Status = device.Status;
             _context.Update(dev);
             _context.SaveChanges();
         }
@@ -65,20 +58,6 @@ public class DeviceRepository : IDeviceRepository
         _context.SaveChanges();
         return device;
     }
-
-    private bool ExistingDevice(Device device)
-    {
-        var dev = _context.Devices.Find(device.SerialNumber);
-        if (dev != null)
-        {
-            return true;
-        }
-        {
-            return false;
-        }
-    }
-    
-
     public void RebuildDB()
     {
         _context.Database.EnsureDeleted();
