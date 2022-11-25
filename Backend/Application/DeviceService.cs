@@ -23,9 +23,9 @@ public class DeviceService : IDeviceService
 
     public Device AddDevice(PostDeviceDTO device)
     {
-        ThrowsIfPostDeviceIsInvalid(device);
+        //ThrowsIfPostDeviceIsInvalid(device);
         var validate = _postDeviceValidator.Validate(device);
-        if (!validate.IsValid) throw new ValidationException(validate.ToString());
+        if (!validate.IsValid) throw new ArgumentException(validate.ToString());
         return _repository.AddDevice(_mapper.Map<Device>(device));
     }
 
@@ -48,10 +48,10 @@ public class DeviceService : IDeviceService
 
     public Device UpdateDevice(int deviceId, PutDeviceDTO device)
     {
-        ThrowsIfPutDeviceIsInvalid(device);
         if (deviceId != device.Id) throw new ArgumentException("Id in the body and route are different");
+        //ThrowsIfPutDeviceIsInvalid(device);
         var validate = _putDeviceValidator.Validate(device);
-        if (!validate.IsValid) throw new ValidationException(validate.Errors.ToList());
+        if (!validate.IsValid) throw new ArgumentException(validate.ToString());
 
         return _repository.UpdateDevice(deviceId, _mapper.Map<Device>(device));
     }
@@ -84,5 +84,6 @@ public class DeviceService : IDeviceService
         if (string.IsNullOrEmpty(device.DeviceName)) throw new ArgumentException("Device name cannot be empty or null");
         if (string.IsNullOrEmpty(device.SerialNumber)) throw new ArgumentException("Device serialNumber cannot be empty or null");
         if (device.Id == null || device.Id < 1) throw new ArgumentException("Device id cannot be null or less than 1");
+        if (device.Status != "I brug" || device.Status != "På lager" || device.Status != "Defekt") throw new ArgumentException("Incorrect device status");
     }
 }

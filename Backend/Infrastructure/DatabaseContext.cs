@@ -52,8 +52,8 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<User>().HasData(user1, user2);
 
         //Device
-        Device device1 = new Device { Id = 1, Amount = 1, DeviceName = "Seed device1", SerialNumber = "1234553", UserId = user1.Id, Status = "InUse" };
-        Device device2 = new Device { Id = 2, Amount = 1, DeviceName = "Seed device2", SerialNumber = "1123", UserId = user2.Id, Status = "InUse"};
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", UserId = user1.Id, Status = "I brug", DateOfIssue = DateOnly.Parse("25-11-2022"), DateOfTurnIn = DateOnly.Parse("25-11-2024")};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", UserId = user2.Id, Status = "Defekt", DateOfIssue = DateOnly.Parse("25-11-2022"), DateOfTurnIn = DateOnly.Parse("25-11-2024")};
         modelBuilder.Entity<Device>().HasData(device1, device2);
         
         #endregion

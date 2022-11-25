@@ -212,7 +212,7 @@ public class DeviceServiceTest
     {
         // Arrange
         List<Device> devices = new List<Device>();
-        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = "InStock"};
+        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = "På lager"};
         PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, SerialNumber = serialNumber, Status = device.Status};
         
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
@@ -318,7 +318,7 @@ public class DeviceServiceTest
     public void UpdateValidDeviceTest(int id, string deviceName)
     {
         // Arrange
-        Device device = new Device { Id = 1, Amount = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "InStock", };
+        Device device = new Device { Id = id, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "På lager"};
         PutDeviceDTO dto = new PutDeviceDTO {Id = device.Id, DeviceName = device.DeviceName, SerialNumber = device.SerialNumber, Status = device.Status };
 
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
@@ -326,10 +326,11 @@ public class DeviceServiceTest
         {
             config.CreateMap<PutDeviceDTO, Device>();
         }).CreateMapper();
+        
         var postDeviceValidator = new PostDeviceValidator();
         var putDeviceValidator = new PutDeviceValidator();
+        
         IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
-
         mockRepository.Setup(r => r.UpdateDevice(id, It.IsAny<Device>())).Returns(device);
 
         // Act 
@@ -346,14 +347,17 @@ public class DeviceServiceTest
     }
     
     [Theory]
-    [InlineData(0, "Laptop", "12345678", "Device id cannot be null or less than 1")]        //Invalid device with id 0 
-    [InlineData(-1, "Computer", "12345678", "Device id cannot be null or less than 1")]     //Invalid device with id -1
-    [InlineData(null, "Computer", "12345678", "Device id cannot be null or less than 1")]   //Invalid device with null as id
-    [InlineData(1, "", "12345678", "Device name cannot be empty or null")]                  //Invalid device with empty deviceName
-    [InlineData(1, null, "12345678", "Device name cannot be empty or null")]                //Invalid device with null as deviceName
-    [InlineData(2, "Monitor", "",  "Device serialNumber cannot be empty or null")]           //Invalid device with empty deviceSerialNumber
-    [InlineData(2, "Monitor", null, "Device serialNumber cannot be empty or null")]         //Invalid device with empty deviceSerialNumber
-    public void InvalidDeviceUpdateTest(int deviceId, string deviceName, string deviceSerialNumber, string expectedMessage)
+    [InlineData(0, "Laptop", "12345678","På lager", "Device id cannot be null or less than 1")]        //Invalid device with id 0 
+    [InlineData(-1, "Computer", "12345678","På lager", "Device id cannot be null or less than 1")]     //Invalid device with id -1
+    [InlineData(null, "Computer", "12345678","På lager", "Device id cannot be null or less than 1")]   //Invalid device with null as id
+    [InlineData(1, "", "12345678","På lager", "Device name cannot be empty or null")]                  //Invalid device with empty deviceName
+    [InlineData(1, null, "12345678","På lager", "Device name cannot be empty or null")]                //Invalid device with null as deviceName
+    [InlineData(2, "Monitor", "","På lager",  "Device serialNumber cannot be empty or null")]          //Invalid device with empty deviceSerialNumber
+    [InlineData(2, "Monitor", null,"På lager", "Device serialNumber cannot be empty or null")]         //Invalid device with null deviceSerialNumber
+    [InlineData(2, "Monitor", "12345678","", "Incorrect device status")]                               //Invalid device with empty status
+    [InlineData(2, "Monitor", "12345678",null, "Incorrect device status")]                             //Invalid device with null status
+    [InlineData(2, "Monitor", "12345678", "I stykker", "Incorrect device status")]                     //Invalid device with invalid status message 
+    public void InvalidDeviceUpdateTest(int deviceId, string deviceName, string deviceSerialNumber, string status, string expectedMessage)
     {
         // Arrange
         Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = deviceSerialNumber};
