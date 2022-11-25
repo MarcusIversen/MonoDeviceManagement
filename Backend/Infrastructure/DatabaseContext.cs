@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
@@ -47,13 +48,13 @@ public class DatabaseContext : DbContext
         #region Seed data
         
         //User
-        User user1 = new User { Id = 1, Email = "Andy@email.com", FirstName = "Andy", LastName = "Lam", Role = "Admin", WorkNumber = "12345678", Hash = "test", Salt = "test", Devices = new List<Device>()};
-        User user2 = new User { Id = 2, Email = "Kris@email.com", FirstName = "Kristian", LastName = "Johnson", Role = "Teacher", WorkNumber = "87654321", Hash = "test", Salt = "test", Devices = new List<Device>()};
+        User user1 = new User { Id = 1, Email = "Andy@email.com", FirstName = "Andy", LastName = "Lam", Role = Role.Admin, WorkNumber = "12345678", Hash = "test", Salt = "test", Devices = new List<Device>()};
+        User user2 = new User { Id = 2, Email = "Kris@email.com", FirstName = "Kristian", LastName = "Johnson", Role = Role.User, WorkNumber = "87654321", Hash = "test", Salt = "test", Devices = new List<Device>()};
         modelBuilder.Entity<User>().HasData(user1, user2);
 
         //Device
-        Device device1 = new Device { Id = 1, Amount = 1, DeviceName = "Seed device1", SerialNumber = "1234553", UserId = user1.Id};
-        Device device2 = new Device { Id = 2, Amount = 1, DeviceName = "Seed device2", SerialNumber = "1123", UserId = user2.Id};
+        Device device1 = new Device { Id = 1, Amount = 1, DeviceName = "Seed device1", SerialNumber = "1234553", UserId = user1.Id, Status = Status.InUse, };
+        Device device2 = new Device { Id = 2, Amount = 1, DeviceName = "Seed device2", SerialNumber = "1123", UserId = user2.Id,Status = Status.InUse};
         modelBuilder.Entity<Device>().HasData(device1, device2);
         
         #endregion

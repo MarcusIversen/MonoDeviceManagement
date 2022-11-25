@@ -12,5 +12,6 @@ public class PostUserValidator : AbstractValidator<PostUserDTO>
         RuleFor(u => u.FirstName).NotEmpty();
         RuleFor(u => u.LastName).NotEmpty();
         RuleFor(u => u.WorkNumber).NotEmpty().MinimumLength(8);
+        RuleFor(u => u.Role).NotEmpty().IsInEnum();
     }
 }
