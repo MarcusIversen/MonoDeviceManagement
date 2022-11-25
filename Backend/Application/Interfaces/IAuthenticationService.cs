@@ -4,6 +4,6 @@ namespace Application.Interfaces;
 
 public interface IAuthenticationService
 {
-    public string Register(RegisterDTO dto);
+    public string Register(PostUserDTO dto);
     public string Login(LoginDTO dto);
 }
