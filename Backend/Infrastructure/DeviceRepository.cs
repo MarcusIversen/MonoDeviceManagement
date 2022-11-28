@@ -30,7 +30,7 @@ public class DeviceRepository : IDeviceRepository
     }
     public Device GetDevice(string serialNumber)
     {
-        return _context.Devices.FirstOrDefault(d=>d.SerialNumber == serialNumber)?? throw new KeyNotFoundException("There is no device with serial number" + serialNumber);
+        return _context.Devices.FirstOrDefault(d=>d.SerialNumber == serialNumber) ?? throw new KeyNotFoundException("There is no device with serial number" + serialNumber);
     }
     
 

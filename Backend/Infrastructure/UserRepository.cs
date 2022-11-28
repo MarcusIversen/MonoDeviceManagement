@@ -35,8 +35,7 @@ public class UserRepository : IUserRepository
 
     public User GetUserByEmail(string email)
     {
-        return _context.Users.FirstOrDefault(u => u.Email == email)
-               ?? throw new KeyNotFoundException("There was no user with email " + email);
+        return _context.Users.FirstOrDefault(u => u.Email == email) ?? throw new KeyNotFoundException("There was no user with email " + email);
     }
 
     public User UpdateUser(int userId, User user)

@@ -44,6 +44,7 @@ public class AuthenticationService : IAuthenticationService
                 throw new ArgumentException(validate.ToString());
             }
             var salt = RandomNumberGenerator.GetBytes(32).ToString();
+            
             var user = new User
             {
                 Email = dto.Email,
@@ -63,6 +64,7 @@ public class AuthenticationService : IAuthenticationService
 
         throw new Exception("Email  " + dto.Email + "is already taken");
     }
+    
     private string GenerateToken(User user)
     {
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
@@ -83,18 +85,39 @@ public class AuthenticationService : IAuthenticationService
         {
             return GenerateToken(user);
         }
-
         throw new Exception("Invalid login");
     }
     
     private void ThrowsIfPostUserIsInvalid(PostUserDTO user)
     {
-        if (string.IsNullOrEmpty(user.Email)) throw new ArgumentException("Email cannot be null, empty and must be a valid email");
-        if (string.IsNullOrEmpty(user.FirstName)) throw new ArgumentException("First name cannot be null or empty");
-        if (string.IsNullOrEmpty(user.LastName)) throw new ArgumentException("Last name cannot be null or empty");
-        if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8 ) throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
-        if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8) throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
-        if (user.Role is not ("Admin" or "User")) throw new ArgumentException("Role cannot be null and must be Admin or User");
+        if (string.IsNullOrEmpty(user.Email))
+        {
+            throw new ArgumentException("Email cannot be null, empty and must be a valid email");
+        }
 
+        if (string.IsNullOrEmpty(user.FirstName))
+        {
+            throw new ArgumentException("First name cannot be null or empty");
+        }
+
+        if (string.IsNullOrEmpty(user.LastName))
+        {
+            throw new ArgumentException("Last name cannot be null or empty");
+        }
+
+        if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8)
+        {
+            throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
+        }
+
+        if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8)
+        {
+            throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
+        }
+
+        if (user.Role is not ("Admin" or "User"))
+        {
+            throw new ArgumentException("Role cannot be null and must be Admin or User");
+        }
     }
 }

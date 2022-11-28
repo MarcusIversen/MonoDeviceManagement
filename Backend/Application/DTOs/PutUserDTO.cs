@@ -9,8 +9,8 @@ public class PutUserDTO
     public string Role { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string? ProfilePicture { get; set; }
     public string WorkNumber { get; set; }
+    public string? ProfilePicture { get; set; }
     public string? PrivateNumber { get; set; }
     public string? PrivateMail { get; set; }
 }

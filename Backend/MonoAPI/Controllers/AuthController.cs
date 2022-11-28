@@ -8,8 +8,8 @@ namespace MonoAPI.Controllers;
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
-
     private readonly IAuthenticationService _authentication;
+    
     public AuthController(IAuthenticationService authentication)
     {
         _authentication = authentication;

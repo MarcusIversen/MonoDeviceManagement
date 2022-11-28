@@ -18,7 +18,7 @@ public class DeviceController : ControllerBase
         _service = service;
     }
 
-    //[Authorize ("AdminPolicy")]
+    //[Authorize ("AdminPolicy")] //TODO DOESNT WORK?
     [HttpGet]
     public IActionResult GetDevices()
     {
@@ -72,7 +72,7 @@ public class DeviceController : ControllerBase
         return Ok(_service.DeleteDevice(id));
     }
 
-    [AllowAnonymous ]
+    [AllowAnonymous] //TODO REMOVE THIS AT SOME POINT
     [HttpGet]
     [Route("rebuildDB")]
     public void RebuildDB()
