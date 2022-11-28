@@ -25,12 +25,14 @@ public class UserService : IUserService
         _putUserValidator = putUserValidator;
         _appSettings = appSettings.Value;
     }
+    
     public UserService(IUserRepository repository, IMapper mapper, IValidator<PutUserDTO> putUserValidator)
     {
         _repository = repository;
         _mapper = mapper;
         _putUserValidator = putUserValidator;
     }
+    
     public List<User> GetUsers()
     {
         return _repository.GetUsers().ToList();

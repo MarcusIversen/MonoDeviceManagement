@@ -33,18 +33,17 @@ public class AuthenticationService : IAuthenticationService
         {
             _repository.GetUserByEmail(dto.Email);
         }
-        catch (KeyNotFoundException e)
+        catch (KeyNotFoundException)
         {
             ThrowsIfPostUserIsInvalid(dto);
 
             var validate = _postUserValidator.Validate(dto);
-
             if (!validate.IsValid)
             {
                 throw new ArgumentException(validate.ToString());
             }
-            var salt = RandomNumberGenerator.GetBytes(32).ToString();
             
+            var salt = RandomNumberGenerator.GetBytes(32).ToString();
             var user = new User
             {
                 Email = dto.Email,

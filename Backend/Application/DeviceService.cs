@@ -110,6 +110,8 @@ public class DeviceService : IDeviceService
             throw new ArgumentException("Incorrect device status");
         }
     }
+    
+    //Used to throw errors
     private void ThrowsIfPutDeviceIsInvalid(PutDeviceDTO device)
     {
         if (string.IsNullOrEmpty(device.DeviceName))
