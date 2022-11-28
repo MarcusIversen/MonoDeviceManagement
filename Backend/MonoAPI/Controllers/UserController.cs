@@ -53,7 +53,8 @@ public class UserController : ControllerBase
         return Ok(_service.DeleteUser(userId));
     }
 
-    [Authorize ("AdminPolicy")]
+    //[Authorize ("AdminPolicy")]
+    [AllowAnonymous]
     [HttpPost]
     [Route("sendEmail")]
     public void SendEmail(EmailDTO email)

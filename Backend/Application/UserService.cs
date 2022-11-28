@@ -15,14 +15,20 @@ public class UserService : IUserService
 
     private IUserRepository _repository;
     private IMapper _mapper;
-    private IValidator<PostUserDTO> _postUserValidator;
     private IValidator<PutUserDTO> _putUserValidator;
-    private EmailCredential eCred;
-    public UserService(IUserRepository repository, IMapper mapper, IValidator<PostUserDTO> postUserValidator, IValidator<PutUserDTO> putUserValidator)
+    private readonly AppSettings _appSettings;
+
+    public UserService(IUserRepository repository, IMapper mapper, IValidator<PutUserDTO> putUserValidator, IOptions<AppSettings> appSettings)
     {
         _repository = repository;
         _mapper = mapper;
-        _postUserValidator = postUserValidator;
+        _putUserValidator = putUserValidator;
+        _appSettings = appSettings.Value;
+    }
+    public UserService(IUserRepository repository, IMapper mapper, IValidator<PutUserDTO> putUserValidator)
+    {
+        _repository = repository;
+        _mapper = mapper;
         _putUserValidator = putUserValidator;
     }
     public List<User> GetUsers()
@@ -56,10 +62,9 @@ public class UserService : IUserService
 
     public void SendEmail(string toMail, string subject, string body)
     {
-        eCred = new EmailCredential();
         using (MailMessage mail = new MailMessage())
         {
-            mail.From = new MailAddress(eCred.Email);
+            mail.From = new MailAddress(_appSettings.Email);
             mail.To.Add(new MailAddress(toMail));
             mail.Subject = subject;
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
@@ -68,7 +73,7 @@ public class UserService : IUserService
             mail.IsBodyHtml = true;
             using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587))
             {
-                client.Credentials = new NetworkCredential(eCred.Email, eCred.Password);
+                client.Credentials = new NetworkCredential(_appSettings.Email, _appSettings.Password);
                 client.EnableSsl = true;
                 client.Send(mail);
             }

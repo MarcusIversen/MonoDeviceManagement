@@ -1,9 +1,11 @@
 using Application;
 using Application.DTOs;
+using Application.Helpers;
 using Application.Interfaces;
 using Application.Validators;
 using AutoMapper;
 using Domain;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace ServiceTestProject;
@@ -60,11 +62,10 @@ public class UserServiceTest
         {
             config.CreateMap<PostUserDTO, User>();
         }).CreateMapper();
-        var postUserValidator = new PostUserValidator();
         var putUserValidator = new PutUserValidator();
-        
+
         //Act
-        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
 
         //Assert
         Assert.NotNull(service);
@@ -84,10 +85,9 @@ public class UserServiceTest
         {
             config.CreateMap<PostUserDTO, User>();
         }).CreateMapper();
-        var postUserValidator = new PostUserValidator();
         var putUserValidator = new PutUserValidator();
         
-        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
         mockRepository.Setup(u => u.GetUsers()).Returns(fakeRepo);
         
         //Act
@@ -118,10 +118,9 @@ public class UserServiceTest
             config.CreateMap<PostUserDTO, User>();
         }).CreateMapper();
         
-        var postUserValidator = new PostUserValidator();
         var putUserValidator = new PutUserValidator();
         
-        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
         mockRepository.Setup(r => r.GetUser(userId)).Returns(fakeRepo.Find(u => u.Id == userId));
         
         // Act 
@@ -144,10 +143,9 @@ public class UserServiceTest
         {
             config.CreateMap<PostUserDTO, User>();
         }).CreateMapper();
-        var postUserValidator = new PostUserValidator();
         var putUserValidator = new PutUserValidator();
         
-        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
 
         // Act 
         Action action = () => service.GetUser(userId);  
@@ -177,10 +175,9 @@ public class UserServiceTest
             config.CreateMap<PutUserDTO, User>();
         }).CreateMapper();
         
-        var postUserValidator = new PostUserValidator();
         var putUserValidator = new PutUserValidator();
         
-        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
 
         mockRepository.Setup(r => r.UpdateUser(id, It.IsAny<User>())).Returns(user);
 
@@ -227,9 +224,8 @@ public class UserServiceTest
             config.CreateMap<PutUserDTO, User>();
         }).CreateMapper();
         
-        var postUserValidator = new PostUserValidator();
         var putUserValidator = new PutUserValidator();
-        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
         
         // Act 
         var action = () => service.UpdateUser(userId, dto);
@@ -258,10 +254,9 @@ public class UserServiceTest
         {
             config.CreateMap<PostUserDTO, User>();
         }).CreateMapper();
-        var postUserValidator = new PostUserValidator();
         var putUserValidator = new PutUserValidator();
         
-        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
         mockRepository.Setup(r => r.GetUsers()).Returns(users);
         mockRepository.Setup(r => r.DeleteUser(userId)).Returns(() =>
         {
@@ -295,9 +290,8 @@ public class UserServiceTest
             config.CreateMap<PostUserDTO, User>();
         }).CreateMapper();
         
-        var postUserValidator = new PostUserValidator();
         var putUserValidator = new PutUserValidator();
-        IUserService service = new UserService(mockRepository.Object, mapper, postUserValidator, putUserValidator);
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
 
         // Act 
         var action = () => service.DeleteUser(userId);
