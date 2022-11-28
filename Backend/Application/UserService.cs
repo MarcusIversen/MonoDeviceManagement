@@ -89,6 +89,6 @@ public class UserService : IUserService
         if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8 ) throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
         if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8) throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
         if (user.Id < 1) throw new ArgumentException("Id cannot be null or less than 1");
-        if (user.Role == null) throw new ArgumentException("Role cannot be null and must be Admin or User");
+        if (user.Role is not ("Admin" or "User")) throw new ArgumentException("Role cannot be null and must be Admin or User");
     }
 }

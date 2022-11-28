@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class DeviceController : ControllerBase
@@ -26,9 +26,9 @@ public class DeviceController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public IActionResult GetDeviceBySId(int deviceId)
+    public IActionResult GetDeviceBySId(int id)
     {
-        return Ok(_service.GetDevice(deviceId));
+        return Ok(_service.GetDevice(id));
     }
 
     [HttpPost]
@@ -50,15 +50,15 @@ public class DeviceController : ControllerBase
     }
     
     [HttpPut("{id}")]
-    public IActionResult UpdateDevice(int deviceId, PutDeviceDTO dto)
+    public IActionResult UpdateDevice(int id, PutDeviceDTO dto)
     {
         try
         {
-            return Ok(_service.UpdateDevice(deviceId, dto));
+            return Ok(_service.UpdateDevice(id, dto));
         }
         catch (KeyNotFoundException e)
         {
-            return NotFound("No device found at id: " + deviceId);
+            return NotFound("No device found at id: " + id);
         }
         catch (Exception e)
         {
@@ -67,9 +67,9 @@ public class DeviceController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public IActionResult DeleteDevice(int deviceId)
+    public IActionResult DeleteDevice(int id)
     {
-        return Ok(_service.DeleteDevice(deviceId));
+        return Ok(_service.DeleteDevice(id));
     }
 
     [AllowAnonymous ]

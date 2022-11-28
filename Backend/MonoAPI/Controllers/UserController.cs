@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MonoAPI.Controllers;
 
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class UserController : ControllerBase
@@ -31,15 +31,15 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateUser(int userId, PutUserDTO dto)
+    public IActionResult UpdateUser(int id, PutUserDTO dto)
     {
         try
         {
-            return Ok(_service.UpdateUser(userId, dto));
+            return Ok(_service.UpdateUser(id, dto));
         }
         catch (KeyNotFoundException e)
         {
-            return NotFound("No user was found at id: " + userId);
+            return NotFound("No user was found at id: " + id);
         }
         catch (Exception e)
         {
@@ -48,9 +48,9 @@ public class UserController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public IActionResult DeleteUser(int userId)
+    public IActionResult DeleteUser(int id)
     {
-        return Ok(_service.DeleteUser(userId));
+        return Ok(_service.DeleteUser(id));
     }
 
     //[Authorize ("AdminPolicy")]
