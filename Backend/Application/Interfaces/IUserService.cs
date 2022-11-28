@@ -37,4 +37,10 @@ public interface IUserService
     /// <returns>Deleted user</returns>
     User DeleteUser(int userId);
     #endregion
+
+    #region Email
+
+    public void SendEmail(string toMail, string subject, string body);
+
+    #endregion
 }

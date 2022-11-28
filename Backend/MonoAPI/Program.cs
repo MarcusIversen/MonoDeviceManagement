@@ -44,6 +44,7 @@ builder.Services.AddSingleton(mapperConfig);
 #region DependencyInjection
 
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 builder.Services.AddScoped<IDeviceService, DeviceService>();
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

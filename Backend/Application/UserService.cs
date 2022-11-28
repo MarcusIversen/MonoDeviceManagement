@@ -1,8 +1,12 @@
-﻿using Application.DTOs;
+﻿using System.Net;
+using System.Net.Mail;
+using Application.DTOs;
+using Application.Helpers;
 using Application.Interfaces;
 using AutoMapper;
 using Domain;
 using FluentValidation;
+using Microsoft.Extensions.Options;
 
 namespace Application;
 
@@ -13,7 +17,7 @@ public class UserService : IUserService
     private IMapper _mapper;
     private IValidator<PostUserDTO> _postUserValidator;
     private IValidator<PutUserDTO> _putUserValidator;
-
+    private EmailCredential eCred;
     public UserService(IUserRepository repository, IMapper mapper, IValidator<PostUserDTO> postUserValidator, IValidator<PutUserDTO> putUserValidator)
     {
         _repository = repository;
@@ -21,7 +25,6 @@ public class UserService : IUserService
         _postUserValidator = postUserValidator;
         _putUserValidator = putUserValidator;
     }
-
     public List<User> GetUsers()
     {
         return _repository.GetUsers().ToList();
@@ -50,7 +53,28 @@ public class UserService : IUserService
         if (userId == null || userId < 1) throw new ArgumentException("User id cannot be null or less than 1");
         return _repository.DeleteUser(userId);
     }
-    
+
+    public void SendEmail(string toMail, string subject, string body)
+    {
+        eCred = new EmailCredential();
+        using (MailMessage mail = new MailMessage())
+        {
+            mail.From = new MailAddress(eCred.Email);
+            mail.To.Add(new MailAddress(toMail));
+            mail.Subject = subject;
+            mail.SubjectEncoding = System.Text.Encoding.UTF8;
+            mail.Body = body;
+            mail.BodyEncoding = System.Text.Encoding.UTF8;
+            mail.IsBodyHtml = true;
+            using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587))
+            {
+                client.Credentials = new NetworkCredential(eCred.Email, eCred.Password);
+                client.EnableSsl = true;
+                client.Send(mail);
+            }
+        }
+    }
+
     //Used to throw errors
     private void ThrowsIfPutUserIsInvalid(PutUserDTO user)
     {
