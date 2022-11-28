@@ -1,6 +1,5 @@
 using Application.DTOs;
 using Application.Interfaces;
-using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,5 +51,13 @@ public class UserController : ControllerBase
     public IActionResult DeleteUser(int userId)
     {
         return Ok(_service.DeleteUser(userId));
+    }
+
+    [Authorize ("AdminPolicy")]
+    [HttpPost]
+    [Route("sendEmail")]
+    public void SendEmail(EmailDTO email)
+    {
+        _service.SendEmail(email.Email, email.Body, email.Subject);
     }
 }
