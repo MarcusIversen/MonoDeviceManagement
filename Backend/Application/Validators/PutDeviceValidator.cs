@@ -8,8 +8,9 @@ public class PutDeviceValidator : AbstractValidator<PutDeviceDTO>
     public PutDeviceValidator()
     {
         RuleFor(d => d.Id).NotEmpty().GreaterThan(0);
-        RuleFor(d => d.SerialNumber).NotEmpty();
-        RuleFor(d => d.DeviceName).NotEmpty();
-        RuleFor(d => d.Status).Matches("InStock|InUse|OutOfOrder");
+        RuleFor(d => d.SerialNumber).NotEmpty()
+            .WithState(x => throw new ArgumentException("Device serialNumber cannot be empty or null"));
+        RuleFor(d => d.DeviceName).NotEmpty().WithState(x=> throw new ArgumentException("Device name cannot be empty or null"));
+        RuleFor(d => d.Status).Matches("På lager|I brug|Defekt").WithState(x=> throw new ArgumentException("Incorrect device status"));
     }
 }

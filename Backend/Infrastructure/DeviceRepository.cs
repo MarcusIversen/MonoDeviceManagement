@@ -58,6 +58,7 @@ public class DeviceRepository : IDeviceRepository
         _context.SaveChanges();
         return device;
     }
+    
     public void RebuildDB()
     {
         _context.Database.EnsureDeleted();
