@@ -272,12 +272,12 @@ public class DeviceServiceTest
     
     /**
     [Theory]
-    [InlineData(1, "Laptop", "serialTest1", "Device already exists")]                        //Invalid device that already exist
-    public void CreateExistingDeviceTest(int deviceId, string deviceName, string serialNumber, string expectedMessage)
+    [InlineData(1, "Laptop", "serialTest1", "I brug", "Device already exists")]    //Invalid device that already exist
+    public void CreateExistingDeviceTest(int deviceId, string deviceName, string serialNumber, string status, string expectedMessage)
     {
         // Arrange
         List<Device> devices = new List<Device>();
-        Device existingDevice = new Device { Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = "InStock"};
+        Device existingDevice = new Device { Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = status};
         devices.Add(existingDevice);
         
         PostDeviceDTO dto = new PostDeviceDTO { DeviceName = existingDevice.DeviceName, SerialNumber = existingDevice.SerialNumber, Status = existingDevice.Status};
@@ -306,10 +306,9 @@ public class DeviceServiceTest
         Assert.Equal(expectedMessage, ex.Message);
         mockRepository.Verify(r => r.AddDevice(addDevice), Times.Never);
     }
-    **/
 
+    */
     #endregion
-    // Create existing exception
 
     #region Update
 
@@ -382,7 +381,6 @@ public class DeviceServiceTest
         mockRepository.Verify(r=> r.UpdateDevice(deviceId, device),Times.Never);
     }
 
-    //TODO update to existing device serial number 
     [Theory]
     [InlineData(2, "Id in the body and route are different")] //Invalid id not the same
     public void InvalidIdInputExceptionTest(int deviceId, string expectedMessage)
@@ -411,7 +409,6 @@ public class DeviceServiceTest
     }
 
     #endregion 
-    // Update existing exception
 
     #region Delete
 

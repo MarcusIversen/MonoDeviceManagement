@@ -205,13 +205,13 @@ public class UserServiceTest
     [InlineData(0, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "Admin", "12345678", "Id cannot be null or less than 1")]                                                    //Invalid user with id 0 
     [InlineData(-1, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "Admin", "12345678", "Id cannot be null or less than 1")]                                                   //Invalid user with id -1 
     [InlineData(null, "kristian@mail.dk", "Kristian", "Hansen", "123123", "123", "Admin", "12345678", "Id cannot be null or less than 1")]                                                 //Invalid user with id null
-    [InlineData(1, null, "Kristian", "Hansen", "123123", "123", "Admin", "12345678", "Email cannot be null, empty and must be a valid email")]                                                                     //Invalid null email
-    [InlineData(1, "", "Kristian", "Hansen", "123123", "123", "Admin", "12345678", "Email cannot be null, empty and must be a valid email")]                                                                       //Invalid empty email
+    [InlineData(1, null, "Kristian", "Hansen", "123123", "123", "Admin", "12345678", "Email cannot be null, empty and must be a valid email")]                                             //Invalid null email
+    [InlineData(1, "", "Kristian", "Hansen", "123123", "123", "Admin", "12345678", "Email cannot be null, empty and must be a valid email")]                                               //Invalid empty email
     [InlineData(1, "kristian@mail.dk", null, "Hansen", "123123", "123", "Admin", "12345678", "First name cannot be null or empty")]                                                        //Invalid null first name
     [InlineData(1, "kristian@mail.dk", "", "Hansen", "123123", "123", "Admin", "12345678", "First name cannot be null or empty")]                                                          //Invalid empty first name
     [InlineData(1, "kristian@mail.dk", "Kristian", null, "123123", "123", "Admin", "12345678", "Last name cannot be null or empty")]                                                       //Invalid null last name
     [InlineData(1, "kristian@mail.dk", "Kristian", "", "123123", "123", "Admin", "12345678", "Last name cannot be null or empty")]                                                         //Invalid empty last name
-    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "33424232", "3434", null, "12345678", "Role cannot be null and must be Admin or User")]                                                        //Invalid null role 
+    [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "33424232", "3434", null, "12345678", "Role cannot be null and must be Admin or User")]                                       //Invalid null role 
     [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "33424232", "3434", "Admin", null, "Work number cannot be null, empty and must have a minimum length greater than 7")]        //Invalid null work number 
     [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "231231", "3432", "Admin", "", "Work number cannot be null, empty and must have a minimum length greater than 7")]            //Invalid empty work number 
     [InlineData(1, "kristian@mail.dk", "Kristian", "Hansen", "231231", "342", "Admin", "343", "Work number cannot be null, empty and must have a minimum length greater than 7")]          //Invalid work number minimum length less than 8 
@@ -241,8 +241,6 @@ public class UserServiceTest
         mockRepository.Verify(r=> r.UpdateUser(userId, user),Times.Never);
     }
     #endregion
-    //TODO Eksisterende user med samme email 
-    //TODO Eksisterende user med samme email update  
 
     #region Delete
 
