@@ -483,6 +483,6 @@ appsettings.json
 appsettings.Development.json
 
 # email credentials
-*.EmailCredential
+EmailCredential.cs
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,rider
