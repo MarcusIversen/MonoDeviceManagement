@@ -53,7 +53,9 @@ public interface IDeviceRepository
     Device DeleteDevice(int deviceId);
 
     #endregion
-    
+
+    IEnumerable<Device> GetAssignedDevice(int userId);
+
     //Rebuild Database
     /// <summary>
     /// Rebuillds the database

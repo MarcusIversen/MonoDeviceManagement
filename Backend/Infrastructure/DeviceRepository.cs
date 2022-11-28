@@ -58,7 +58,12 @@ public class DeviceRepository : IDeviceRepository
         _context.SaveChanges();
         return device;
     }
-    
+
+    public IEnumerable<Device> GetAssignedDevice(int userId)
+    {
+        return _context.Devices.Where(d => d.UserId == userId).ToList();
+    }
+
     public void RebuildDB()
     {
         _context.Database.EnsureDeleted();

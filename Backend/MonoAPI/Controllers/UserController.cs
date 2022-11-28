@@ -25,9 +25,9 @@ public class UserController : ControllerBase
     } 
     
     [HttpGet("{id}")]
-    public IActionResult GetUser(int deviceId)
+    public IActionResult GetUser(int id)
     {
-        return Ok(_service.GetUser(deviceId));
+        return Ok(_service.GetUser(id));
     }
 
     [HttpPut("{id}")]

@@ -6,6 +6,7 @@ namespace Infrastructure;
 public class UserRepository : IUserRepository
 {
     private DatabaseContext _context;
+    private DeviceRepository _deviceRepository;
 
     public UserRepository(DatabaseContext context)
     {
@@ -26,7 +27,10 @@ public class UserRepository : IUserRepository
 
     public User GetUser(int userId)
     {
-        return _context.Users.FirstOrDefault(u => u.Id == userId);
+        _deviceRepository = new DeviceRepository(_context);
+        var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+        user.Devices = _deviceRepository.GetAssignedDevice(user.Id).ToList();
+        return user;
     }
 
     public User GetUserByEmail(string email)
