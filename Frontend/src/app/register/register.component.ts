@@ -1,21 +1,23 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import {HttpService} from "../../services/http.service";
 import {Router} from "@angular/router";
 import jwtDecode from "jwt-decode";
-
 
 class Token {
   role?: string;
 }
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent {
+export class RegisterComponent {
   email: any;
   password: any;
+  firstName: any;
+  lastName: any;
+  workNumber: any;
 
 
   constructor(private http: HttpService, private router: Router) {
@@ -41,6 +43,4 @@ export class LoginComponent {
     })
 
   }
-
-
 }

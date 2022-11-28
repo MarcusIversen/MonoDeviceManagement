@@ -17,12 +17,13 @@ import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.co
 import {LoginComponent} from "./login/login.component";
 import {AdminAuthGuardService} from "../services/admin-auth-guard.service";
 import {UserAuthGuardService} from "../services/user-auth-guard.service";
+import {RegisterComponent} from "./register/register.component";
 
 
 
 const routes: Routes=[
   {path: '', component: LoginComponent},
-  {path: 'administrator', component: SideNavAdminComponent, canActivate: [AdminAuthGuardService]}, //Admin login
+  {path: 'register', component: RegisterComponent},
   {path: 'administrator', component: SideNavAdminComponent, canActivate: [AdminAuthGuardService], children:[
       {path: 'enheder', component: AdminDeviceOverviewComponent, },
       {path: 'enheds-registrering', component: AdminDeviceRegistrationComponent},
@@ -31,7 +32,6 @@ const routes: Routes=[
       {path: 'hjaelp', component: AdminSupportComponent}
     ]
   },
-  {path: 'bruger', component: SideNavUserComponent, canActivate: [UserAuthGuardService]}, //User login
   {path: 'bruger', component: SideNavUserComponent, canActivate: [UserAuthGuardService], children:[
       {path: 'enheder', component: DeviceOverviewComponent}, // When you click enheder as user
       {path: 'enheds-registrering', component: DeviceRegistrationComponent}, //When you click registrering as user
