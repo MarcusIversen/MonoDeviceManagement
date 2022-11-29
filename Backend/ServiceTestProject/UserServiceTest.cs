@@ -1,11 +1,9 @@
 using Application;
 using Application.DTOs;
-using Application.Helpers;
 using Application.Interfaces;
 using Application.Validators;
 using AutoMapper;
 using Domain;
-using Microsoft.Extensions.Options;
 using Moq;
 
 namespace ServiceTestProject;

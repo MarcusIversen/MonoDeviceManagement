@@ -36,35 +36,55 @@ public class DeviceService : IDeviceService
 
     public Device GetDevice(int deviceId)
     {
-        if (deviceId == null || deviceId < 1) throw new ArgumentException("DeviceId cannot be less than 1 or null");
+        if (deviceId == null || deviceId < 1)
+        {
+            throw new ArgumentException("DeviceId cannot be less than 1 or null");
+        }
         return _repository.GetDevice(deviceId);
     }
     
     public Device GetDevice(string serialNumber)
     {
-        if (string.IsNullOrEmpty(serialNumber)) throw new ArgumentException("SerialNumber cannot be empty or null");
+        if (string.IsNullOrEmpty(serialNumber))
+        {
+            throw new ArgumentException("SerialNumber cannot be empty or null");
+        }
         return _repository.GetDevice(serialNumber);
     }
 
     public Device UpdateDevice(int deviceId, PutDeviceDTO device)
     {
-        if (deviceId != device.Id) throw new ArgumentException("Id in the body and route are different");
+        if (deviceId != device.Id)
+        {
+            throw new ArgumentException("Id in the body and route are different");
+        }
+        
         ThrowsIfPutDeviceIsInvalid(device);
+
         var validate = _putDeviceValidator.Validate(device);
-        if (!validate.IsValid) throw new ArgumentException(validate.ToString());
+        if (!validate.IsValid)
+        {
+            throw new ArgumentException(validate.ToString());
+        }
 
         return _repository.UpdateDevice(deviceId, _mapper.Map<Device>(device));
     }
 
     public Device DeleteDevice(int deviceId)
     {
-        if (deviceId == null || deviceId < 1) throw new ArgumentException("Device id cannot be null or less than 1");
-            return _repository.DeleteDevice(deviceId);
+        if (deviceId == null || deviceId < 1)
+        {
+            throw new ArgumentException("Device id cannot be null or less than 1");
+        }
+        return _repository.DeleteDevice(deviceId);
     }
 
     public List<Device> AssignedDevices(int userId)
     {
-        if (userId == null || userId < 1) throw new ArgumentException("User id cannot be null or less than 1");
+        if (userId == null || userId < 1)
+        {
+            throw new ArgumentException("User id cannot be null or less than 1");
+        }
         return _repository.GetDevices().Where(d => d.UserId == userId).ToList();
     }
 
@@ -90,6 +110,8 @@ public class DeviceService : IDeviceService
             throw new ArgumentException("Incorrect device status");
         }
     }
+    
+    //Used to throw errors
     private void ThrowsIfPutDeviceIsInvalid(PutDeviceDTO device)
     {
         if (string.IsNullOrEmpty(device.DeviceName))
