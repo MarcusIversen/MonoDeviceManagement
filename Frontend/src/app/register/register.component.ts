@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
-import {HttpService} from "../../services/http.service";
 import {Router} from "@angular/router";
-import jwtDecode from "jwt-decode";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {UserService} from "../../services/user-service/user.service";
 
 class Token {
   role?: string;
@@ -26,7 +24,7 @@ export class RegisterComponent {
   showSuccessMessage: boolean | undefined;
 
 
-  constructor(private http: HttpService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   async register() {
@@ -40,7 +38,7 @@ export class RegisterComponent {
       role: 'User'
     }
 
-    this.http.register(dto).then(token => {
+    this.userService.register(dto).then(token => {
       this.isLoading = false
       this.showErrorMessage = false;
       this.showSuccessMessage = true;
