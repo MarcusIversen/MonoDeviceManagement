@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 import {SideNavAdminComponent} from "./side-nav-admin/side-nav-admin.component";
 import {RouterModule, Routes} from "@angular/router";
 import {SideNavUserComponent} from "./side-nav-user/side-nav-user.component";
-import {DeviceOverviewComponent} from "./UserPages/device-overview/device-overview.component";
-import {DeviceRegistrationComponent} from "./UserPages/device-registration/device-registration.component";
-import {ProfileInfoComponent} from "./UserPages/profile-info/profile-info.component";
-import {ContactInfoComponent} from "./UserPages/contact-info/contact-info.component";
-import {SupportComponent} from "./UserPages/support/support.component";
-import {NotFoundComponent} from "./UserPages/not-found/not-found.component";
+import {DeviceOverviewComponent} from "./userPages/device-overview/device-overview.component";
+import {DeviceRegistrationComponent} from "./userPages/device-registration/device-registration.component";
+import {ProfileInfoComponent} from "./userPages/profile-info/profile-info.component";
+import {ContactInfoComponent} from "./userPages/contact-info/contact-info.component";
+import {SupportComponent} from "./userPages/support/support.component";
+import {NotFoundComponent} from "./userPages/not-found/not-found.component";
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
 import {AdminLoginOverviewComponent} from "./AdminPages/admin-login-overview/admin-login-overview.component";
 import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
 import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.component";
 import {LoginComponent} from "./login/login.component";
-import {AdminAuthGuardService} from "../services/admin-auth-guard.service";
-import {UserAuthGuardService} from "../services/user-auth-guard.service";
+import {AdminAuthGuardService} from "../services/user-service/admin-auth-guard.service";
+import {UserAuthGuardService} from "../services/user-service/user-auth-guard.service";
 import {RegisterComponent} from "./register/register.component";
 
 

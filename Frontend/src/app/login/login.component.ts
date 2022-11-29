@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {HttpService} from "../../services/http.service";
 import {Router} from "@angular/router";
+// @ts-ignore
 import jwtDecode from "jwt-decode";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {UserService} from "../../services/user-service/user.service";
 
 
 class Token {
@@ -23,7 +23,7 @@ export class LoginComponent {
   showErrorMessage: boolean | undefined;
 
 
-  constructor(private http: HttpService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   async login() {
@@ -35,7 +35,7 @@ export class LoginComponent {
       password: this.password
     }
 
-    this.http.login(dto).then(token => {
+    this.userService.login(dto).then(token => {
       this.showErrorMessage = false;
       console.log(token);
       localStorage.setItem('token', token)

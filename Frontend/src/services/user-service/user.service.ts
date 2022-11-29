@@ -11,14 +11,9 @@ export const customAxios = axios.create({
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
+export class UserService {
 
   constructor() { }
-
-  async getDevices() {
-    const httpResponse = await customAxios.get<any>('device');
-    httpResponse.data;
-  }
 
   async login(dto: any){
     const httpResult = await customAxios.post('auth/login', dto);
@@ -29,6 +24,5 @@ export class HttpService {
     const httpResult = await customAxios.post('auth/register', dto);
     return httpResult.data;
   }
+  
 }
-
-
