@@ -19,7 +19,7 @@ export class AdminAuthGuardService implements CanActivate {
       let currentDate = new Date();
       if(decodedToken.exp) {
         let expiry = new Date(decodedToken.exp*1000);
-        if(currentDate < expiry && decodedToken.role=='admin') {
+        if(currentDate < expiry && decodedToken.role=='Admin') {
           return true;
         }
       }

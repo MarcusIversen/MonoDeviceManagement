@@ -12,7 +12,7 @@
 </svg>
   </div>
   <form action="" class="log-in" autocomplete="off">
-    <h4>Account Registration</h4>
+    <h4>Opret Bruger</h4>
     <h4><span>Mono Device Management</span></h4>
     <div class="floating-label">
       <input [(ngModel)]="firstName" placeholder="Fornavn" type="firstName" name="firstName" id="firstName"
@@ -20,11 +20,11 @@
       <label for="firstName">Fornavn</label>
     </div>
     <div class="floating-label">
-      <input [(ngModel)]="lastName" placeholder="Efternavn" type="email" name="email" id="lastName" autocomplete="off">
+      <input [(ngModel)]="lastName" placeholder="Efternavn" type="lastName" name="lastName" id="lastName" autocomplete="off">
       <label for="email">Efternavn</label>
     </div>
     <div class="floating-label">
-      <input [(ngModel)]="workNumber" placeholder="Firmatelefon" type="email" name="email" id="workNumber"
+      <input [(ngModel)]="workNumber" placeholder="Firmatelefon" type="workPhone" name="workPhone" id="workPhone"
              autocomplete="off">
       <label for="email">Firma telefon</label>
     </div>
@@ -38,7 +38,17 @@
       <label for="password">Adgangskode</label>
     </div>
     <br>
-    <button type="submit" (click)="login()">Opret bruger</button>
+    <div *ngIf="showErrorMessage" style=" color: coral">
+      <span>Der er desværre sket en fejl</span>
+      <br>
+      <span>Ret venligst email eller firmatelefon</span>
+    </div>
+    <br>
+    <div style=" margin-left:  auto; display:  flex;">
+      <span *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></span>
+      <span style="margin-top: 15px; margin-right: 10px;" *ngIf="showSuccessMessage">Bruger hermed oprettet!</span>
+    <button type="submit" (click)="register()">Opret bruger</button>
+    </div>
     <br>
     <div style="margin-left: 165px">Allerede oprettet? <a href="//localhost:4200" class="discrete">Login her</a>
     </div>

@@ -19,7 +19,7 @@ export class UserAuthGuardService {
       let currentDate = new Date();
       if(decodedToken.exp) {
         let expiry = new Date(decodedToken.exp*1000);
-        if(currentDate < expiry && decodedToken.role=='teacher') {
+        if(currentDate < expiry && decodedToken.role=='User') {
           return true;
         }
       }

@@ -45,7 +45,15 @@
       </div>
 
     </div>
-    <button type="submit" (click)="login()">Log in</button>
+    <div *ngIf="showErrorMessage" style="margin-left: 40px">
+        <h3 style="color: coral;">Email eller Adgangskode er forkert</h3>
+    </div>
+    <div style=" margin-left:  auto; display:  flex;">
+      <span *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></span>
+      <button type="submit" (click)="login()">
+        Log in
+      </button>
+    </div>
     <br>
     <br>
     <div style="margin-left: 96px">Har du ingen konto? <a href="http://localhost:4200/register" class="discrete">Opret her</a></div>
