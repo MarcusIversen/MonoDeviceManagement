@@ -74,7 +74,8 @@ public class DeviceController : ControllerBase
         return Ok(_service.DeleteDevice(id));
     }
 
-    [Authorize ("AdminPolicy")]
+    //[Authorize ("AdminPolicy")]
+    [AllowAnonymous]
     [HttpGet]
     [Route("rebuildDB")]
     public void RebuildDB()
