@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MonoAPI.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class DeviceController : ControllerBase
@@ -17,8 +17,7 @@ public class DeviceController : ControllerBase
     {
         _service = service;
     }
-
-    //[Authorize ("AdminPolicy")] //TODO DOESNT WORK?
+    
     [HttpGet]
     public IActionResult GetDevices()
     {
@@ -26,11 +25,12 @@ public class DeviceController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public IActionResult GetDeviceBySId(int id)
+    public IActionResult GetDeviceById(int id)
     {
         return Ok(_service.GetDevice(id));
     }
 
+    [Authorize ("AdminPolicy")]
     [HttpPost]
     public IActionResult CreateDevice(PostDeviceDTO dto)
     {
@@ -49,6 +49,7 @@ public class DeviceController : ControllerBase
         }
     }
     
+    [Authorize ("AdminPolicy")]
     [HttpPut("{id}")]
     public IActionResult UpdateDevice(int id, PutDeviceDTO dto)
     {
@@ -66,13 +67,14 @@ public class DeviceController : ControllerBase
         }
     }
     
+    [Authorize ("AdminPolicy")]
     [HttpDelete("{id}")]
     public IActionResult DeleteDevice(int id)
     {
         return Ok(_service.DeleteDevice(id));
     }
 
-    [AllowAnonymous] //TODO REMOVE THIS AT SOME POINT
+    [Authorize ("AdminPolicy")]
     [HttpGet]
     [Route("rebuildDB")]
     public void RebuildDB()

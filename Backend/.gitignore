@@ -482,5 +482,9 @@ fabric.properties
 appsettings.json
 appsettings.Development.json
 
+# local db
+db.db
+db.db-shm
+db.db-wal
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,rider
