@@ -24,5 +24,5 @@ export class UserService {
     const httpResult = await customAxios.post('auth/register', dto);
     return httpResult.data;
   }
-  
+
 }

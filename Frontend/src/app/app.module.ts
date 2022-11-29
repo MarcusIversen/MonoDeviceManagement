@@ -23,6 +23,15 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
+import {
+  AdminDeviceRegistrationComponent
+} from "./AdminPages/admin-device-registration/admin-device-registration.component";
+import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.component";
+import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 
 // @ts-ignore
@@ -40,7 +49,11 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     AdminLoginOverviewComponent,
     LoginComponent,
     RegisterComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AdminDeviceOverviewComponent,
+    AdminDeviceRegistrationComponent,
+    AdminSupportComponent,
+    UserOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +65,10 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     MatDividerModule,
     AppRoutingModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
