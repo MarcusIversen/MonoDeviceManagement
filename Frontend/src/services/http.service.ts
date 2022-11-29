@@ -24,6 +24,11 @@ export class HttpService {
     const httpResult = await customAxios.post('auth/login', dto);
     return httpResult.data;
   }
+
+  async register(dto: any){
+    const httpResult = await customAxios.post('auth/register', dto);
+    return httpResult.data;
+  }
 }
 
 

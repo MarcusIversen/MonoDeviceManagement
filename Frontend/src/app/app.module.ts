@@ -21,8 +21,11 @@ import { AdminLoginOverviewComponent } from './AdminPages/admin-login-overview/a
 import { LoginComponent } from './login/login.component';
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
+import { RegisterComponent } from './register/register.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,9 @@ import {FormsModule} from "@angular/forms";
     SupportComponent,
     NotFoundComponent,
     AdminLoginOverviewComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
