@@ -19,8 +19,8 @@
 
     <br>
     <br>
-    <h4 class="name">Fornavn Efternavn</h4>
-    <p class="designation">Bruger</p>
+    <h4 class="name">{{http.firstName}} {{http.lastName}}</h4>
+    <p class="designation">{{http.role}}</p>
 
     <mat-divider></mat-divider>
 
@@ -47,11 +47,13 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
     <button mat-button class="menu-button" routerLink="/bruger/hjaelp">
       <mat-icon>help</mat-icon>
       <span>Hjælp</span>
+    </button>
+    <button mat-button class="menu-button" (click)="logOut()">
+      <mat-icon>logout</mat-icon>
+      <span>Log ud</span>
     </button>
 
   </mat-sidenav>

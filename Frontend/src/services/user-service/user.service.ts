@@ -12,7 +12,9 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class UserService {
-
+  firstName: any;
+  lastName: any;
+  role: any;
   constructor() { }
 
   async login(dto: any){
@@ -24,5 +26,5 @@ export class UserService {
     const httpResult = await customAxios.post('auth/register', dto);
     return httpResult.data;
   }
-  
+
 }

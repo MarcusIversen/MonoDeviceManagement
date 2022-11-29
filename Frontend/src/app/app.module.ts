@@ -23,6 +23,7 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 // @ts-ignore
@@ -54,7 +55,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     MatInputModule,
     FormsModule
   ],
-  providers: [],
+  providers: [MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
