@@ -13,6 +13,7 @@ export const customAxios = axios.create({
 })
 export class UserService {
 
+
   constructor() { }
 
   async login(dto: any){
@@ -22,6 +23,11 @@ export class UserService {
 
   async register(dto: any){
     const httpResult = await customAxios.post('auth/register', dto);
+    return httpResult.data;
+  }
+
+  async getUsers(){
+    const httpResult = await customAxios.get<any>('/User');
     return httpResult.data;
   }
 

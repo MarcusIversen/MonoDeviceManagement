@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {DeviceService} from "../../../services/device-service/device.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -9,7 +9,7 @@ import {MatSort} from "@angular/material/sort";
   templateUrl: './admin-device-overview.component.html',
   styleUrls: ['./admin-device-overview.component.scss']
 })
-export class AdminDeviceOverviewComponent implements AfterViewInit{
+export class AdminDeviceOverviewComponent implements OnInit{
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'dateOfIssue', 'dateOfTurnIn'];
   dataSource: MatTableDataSource<Device>;
 
@@ -20,7 +20,7 @@ export class AdminDeviceOverviewComponent implements AfterViewInit{
   constructor(private deviceService: DeviceService) {
   }
 
-  async ngAfterViewInit(){
+  async ngOnInit(){
     const devices = await this.deviceService.getDevices();
     this.dataSource = new MatTableDataSource(devices);
     this.dataSource.paginator = this.paginator;
