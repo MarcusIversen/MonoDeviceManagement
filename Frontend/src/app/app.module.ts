@@ -20,7 +20,7 @@ import { NotFoundComponent } from './userPages/not-found/not-found.component';
 import { AdminLoginOverviewComponent } from './AdminPages/admin-login-overview/admin-login-overview.component';
 import { LoginComponent } from './login/login.component';
 import {MatInputModule} from "@angular/material/input";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
@@ -32,6 +32,11 @@ import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.co
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 // @ts-ignore
@@ -55,22 +60,30 @@ import {MatSortModule} from "@angular/material/sort";
     AdminSupportComponent,
     UserOverviewComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    AppRoutingModule,
-    MatInputModule,
-    FormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        AppRoutingModule,
+        MatInputModule,
+        FormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatStepperModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+      MatFormFieldModule,
+      MatNativeDateModule,
+    ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

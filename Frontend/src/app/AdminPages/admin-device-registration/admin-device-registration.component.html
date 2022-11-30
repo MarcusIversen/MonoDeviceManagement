@@ -1,1 +1,92 @@
-<p>device-registration works!</p>
+<mat-stepper orientation="vertical" #stepper>
+
+  <!-- Device column -->
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Enhed</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Navn</mat-label>
+        <input matInput placeholder="Lenovo Bærbar" formControlName="deviceNameControl" required>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Serienummer</mat-label>
+        <input matInput placeholder="M7NRCX0723" formControlName="serialNumberControl" required>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="statusControl" required>
+          <mat-option value="I brug">I brug</mat-option>
+          <mat-option value="På lager">På lager</mat-option>
+          <mat-option value="I stykker">I stykker</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+
+      <div>
+        <button mat-button matStepperNext>Næste</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Assign Column -->
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Tildel enhed</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Vælg bruger</mat-label>
+        <mat-select formControlName="chosenValueControl">
+          <mat-option *ngFor="let u of users" [value]="u.id"> {{u.firstName}} {{u.lastName}} {{u.email}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Tilbage</button>
+        <button mat-button matStepperNext>Næste</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Datepicker column -->
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Udlevering og tilbageleveringsdato</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Udleveringsdato</mat-label>
+        <input
+
+          matInput [matDatepicker]="DateOfIssue" formControlName="dateOfIssueControl">
+        <mat-datepicker-toggle matIconSuffix [for]="DateOfIssue"></mat-datepicker-toggle>
+        <mat-datepicker #DateOfIssue ></mat-datepicker>
+      </mat-form-field>
+      <br>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Indleveringsdato</mat-label>
+        <input matInput [matDatepicker]="DateOfTurnIn" formControlName="dateOfTurnInControl">
+        <mat-datepicker-toggle matIconSuffix [for]="DateOfTurnIn"></mat-datepicker-toggle>
+        <mat-datepicker #DateOfTurnIn></mat-datepicker>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Tilbage</button>
+        <button mat-button matStepperNext>Næste</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Done -->
+  <br>
+  <mat-step>
+    <ng-template matStepLabel>Færdig</ng-template>
+    <br>
+    <p>Du er nu færdig med registreringen.</p>
+    <div>
+      <button mat-button matStepperPrevious>Tilbage</button>
+      <button mat-button (click)="createDevice() && stepper.reset()">Fuldfør registrering</button>
+    </div>
+  </mat-step>
+</mat-stepper>
