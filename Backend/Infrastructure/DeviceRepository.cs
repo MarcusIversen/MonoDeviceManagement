@@ -41,9 +41,10 @@ public class DeviceRepository : IDeviceRepository
         {
             dev.DeviceName = device.DeviceName;
             dev.SerialNumber = device.SerialNumber;
-            dev.User = device.User;
             dev.UserId = device.UserId;
             dev.Status = device.Status;
+            dev.DateOfIssue = device.DateOfIssue;
+            dev.DateOfTurnIn = device.DateOfTurnIn;
             _context.Update(dev);
             _context.SaveChanges();
         }
