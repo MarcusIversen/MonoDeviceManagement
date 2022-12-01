@@ -38,6 +38,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatListModule} from "@angular/material/list";
 
 // @ts-ignore
 @NgModule({
@@ -80,7 +81,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
         MatSelectModule,
         MatDatepickerModule,
         MatFormFieldModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatListModule
     ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

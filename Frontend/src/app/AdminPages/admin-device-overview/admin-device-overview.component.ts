@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DeviceService} from "../../../services/device-service/device.service";
-import {MatTableDataSource} from "@angular/material/table";
+import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {UserService} from "../../../services/user-service/user.service";
@@ -11,12 +11,11 @@ import {UserService} from "../../../services/user-service/user.service";
   styleUrls: ['./admin-device-overview.component.scss']
 })
 export class AdminDeviceOverviewComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'dateOfIssue', 'dateOfTurnIn'];
+  displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'dateOfIssue', 'dateOfTurnIn', 'rediger'];
   dataSource: MatTableDataSource<Device>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
 
   constructor(private deviceService: DeviceService, public userService: UserService) {
   }
@@ -37,6 +36,15 @@ export class AdminDeviceOverviewComponent implements OnInit{
     }
   }
 
+  editDevice(row: any) {
+
+
+  }
+
+  async deleteDevice(row: any) {
+    await this.deviceService.deleteDevice(row.id);
+    this.table.renderRows();
+  }
 }
 
 export interface Device{

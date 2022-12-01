@@ -24,12 +24,17 @@ constructor() { }
   }
 
   async getDeviceOnUser(id: number){
-    const httpResponse = await customAxios.get<any>('AssignDev/'+`${id}`)
+    const httpResponse = await customAxios.get<any>('AssignDev/'+`${id}`);
     this.assignedDevices = httpResponse.data;
     return httpResponse.data;
    }
   async createDevice(dto: { serialNumber: string; dateOfIssue: string; deviceName: string; userId: string; dateOfTurnIn: string; status: string }) {
     const httpResult = await customAxios.post('device', dto);
+    return httpResult.data;
+  }
+
+  async deleteDevice(id: number){
+    const httpResult = await customAxios.delete('/Device/'+`${id}`);
     return httpResult.data;
   }
 }

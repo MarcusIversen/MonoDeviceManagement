@@ -46,6 +46,7 @@ export class AdminDeviceRegistrationComponent implements OnInit{
     this.users = await this.userService.getUsers();
   }
 
+  //TODO IsoToString cannot be null fix pls
   async createDevice() {
     const devicePartOne = this.firstFormGroup.value
     const devicePartTwo = this.secondFormGroup.value
