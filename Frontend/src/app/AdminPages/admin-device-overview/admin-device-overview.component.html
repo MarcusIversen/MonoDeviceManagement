@@ -53,8 +53,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Redigér </th>
       <td mat-cell *matCellDef="let row">
         <mat-action-list>
-        <mat-icon (click)="editDevice(row)">edit</mat-icon>
-        <mat-icon (click)="deleteDevice(row)">delete</mat-icon>
+        <mat-icon id="editDeviceBtn" (click)="editDevice(row)">edit</mat-icon>
+        <mat-icon id="deleteDeviceBtn" (click)="deleteDevice(row)">delete</mat-icon>
       </mat-action-list>
       </td>
 

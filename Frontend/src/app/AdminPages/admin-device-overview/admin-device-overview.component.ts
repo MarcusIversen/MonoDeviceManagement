@@ -13,6 +13,7 @@ import {UserService} from "../../../services/user-service/user.service";
 export class AdminDeviceOverviewComponent implements OnInit{
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'dateOfIssue', 'dateOfTurnIn', 'rediger'];
   dataSource: MatTableDataSource<Device>;
+  table = new MatTableDataSource<Device>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -42,8 +43,9 @@ export class AdminDeviceOverviewComponent implements OnInit{
   }
 
   async deleteDevice(row: any) {
-    await this.deviceService.deleteDevice(row.id);
-    this.table.renderRows();
+    const device = await this.deviceService.deleteDevice(row.id);
+    this.dataSource.data = this.dataSource.data.filter(d => d.id != device.id);
+    return this.dataSource.data;
   }
 }
 

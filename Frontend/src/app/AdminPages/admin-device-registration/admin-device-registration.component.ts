@@ -57,7 +57,7 @@ export class AdminDeviceRegistrationComponent implements OnInit{
       status: devicePartOne.statusControl,
       userId: devicePartTwo.chosenValueControl,
       dateOfIssue: new Date(devicePartThree.dateOfIssueControl).toISOString().slice(0,10),
-      dateOfTurnIn: devicePartThree.dateOfTurnInControl.toISOString().slice(0,10)
+      dateOfTurnIn: new Date(devicePartThree.dateOfTurnInControl).toISOString().slice(0,10)
     }
     await this.deviceService.createDevice(dto);
 
