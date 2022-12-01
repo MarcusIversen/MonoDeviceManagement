@@ -39,6 +39,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatListModule} from "@angular/material/list";
+import { EditDeviceComponent } from './AdminPages/edit-device/edit-device.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 // @ts-ignore
 @NgModule({
@@ -59,7 +61,8 @@ import {MatListModule} from "@angular/material/list";
     AdminDeviceOverviewComponent,
     AdminDeviceRegistrationComponent,
     AdminSupportComponent,
-    UserOverviewComponent
+    UserOverviewComponent,
+    EditDeviceComponent
   ],
     imports: [
         BrowserModule,
@@ -82,7 +85,8 @@ import {MatListModule} from "@angular/material/list";
         MatDatepickerModule,
         MatFormFieldModule,
         MatNativeDateModule,
-        MatListModule
+        MatListModule,
+        MatDialogModule
     ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

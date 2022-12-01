@@ -1,0 +1,70 @@
+<mat-card>
+  <form [formGroup]="editDevice" (ngSubmit)="save()">
+    <label for="id">
+      Enheds Id:
+      <mat-form-field>
+        <input matInput id="id" type="text" formControlName="id" readonly>
+      </mat-form-field>
+    </label>
+    <br>
+    <label>
+      Enhed:
+      <mat-form-field>
+        <input matInput type="text" placeholder="First Name" formControlName="deviceName">
+      </mat-form-field>
+    </label>
+    <br>
+    <label>
+      Serie nummer:
+      <mat-form-field>
+        <input matInput type="string" placeholder="price" formControlName="serialNumber">
+      </mat-form-field>
+    </label>
+    <br>
+    Status:
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option value="I brug">I brug</mat-option>
+        <mat-option value="På lager">På lager</mat-option>
+        <mat-option value="I stykker">I stykker</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <br>
+    <label>
+      Bruger id:
+      <mat-form-field appearance="fill">
+        <mat-label>Vælg bruger</mat-label>
+        <mat-select formControlName="userId">
+          <mat-option *ngFor="let u of this.users" [value]="u.id">{{u.firstName}} {{u.lastName}} {{u.email}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </label>
+    <br>
+    <label>
+      Udleveret:
+      <mat-form-field appearance="fill">
+        <mat-label>Udleveringsdato</mat-label>
+        <input
+
+          matInput [matDatepicker]="DateOfIssue" formControlName="dateOfIssue">
+        <mat-datepicker-toggle matIconSuffix [for]="DateOfIssue"></mat-datepicker-toggle>
+        <mat-datepicker #DateOfIssue ></mat-datepicker>
+      </mat-form-field>
+    </label>
+    <br>
+    <label>
+      Indlevering:
+      <mat-form-field appearance="fill">
+        <mat-label>Indleveringsdato</mat-label>
+        <input matInput [matDatepicker]="DateOfTurnIn" formControlName="dateOfTurnIn">
+        <mat-datepicker-toggle matIconSuffix [for]="DateOfTurnIn"></mat-datepicker-toggle>
+        <mat-datepicker #DateOfTurnIn></mat-datepicker>
+      </mat-form-field>
+    </label>
+    <br>
+    <button id="btnSave" mat-button type="submit">Save</button>
+  </form>
+</mat-card>

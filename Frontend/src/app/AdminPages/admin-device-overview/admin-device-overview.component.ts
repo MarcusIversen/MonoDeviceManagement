@@ -4,6 +4,8 @@ import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {UserService} from "../../../services/user-service/user.service";
+import {MatDialog} from "@angular/material/dialog";
+import {EditDeviceComponent} from "../edit-device/edit-device.component";
 
 @Component({
   selector: 'app-admin-device-overview',
@@ -13,12 +15,11 @@ import {UserService} from "../../../services/user-service/user.service";
 export class AdminDeviceOverviewComponent implements OnInit{
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'dateOfIssue', 'dateOfTurnIn', 'rediger'];
   dataSource: MatTableDataSource<Device>;
-  table = new MatTableDataSource<Device>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private deviceService: DeviceService, public userService: UserService) {
+  constructor(private deviceService: DeviceService, public userService: UserService, private popup: MatDialog) {
   }
 
   async ngOnInit(){
@@ -38,7 +39,17 @@ export class AdminDeviceOverviewComponent implements OnInit{
   }
 
   editDevice(row: any) {
-
+    const data = this.popup.open(EditDeviceComponent, {
+      data : {
+        device : row
+      }
+    });
+    data.afterClosed().subscribe(()=>{
+       this.deviceService.getDevices().then(() => {
+         this.dataSource.data = this.deviceService.devices;
+         return this.dataSource.data;
+       });
+    });
 
   }
 

@@ -12,6 +12,7 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class UserService {
+  getRoleUsers: any[] = [];
 
 
   constructor() { }
@@ -33,6 +34,7 @@ export class UserService {
 
   async getUsersTypeUser(){
     const httpResult = await customAxios.get<any>("User/RoleType");
+    this.getRoleUsers = httpResult.data;
     return httpResult.data;
   }
 
