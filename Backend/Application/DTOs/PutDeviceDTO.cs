@@ -7,6 +7,6 @@ public class PutDeviceDTO
     public string SerialNumber { get; set; }
     public string Status { get; set; }
     public int? UserId { get; set; }
-    public string? DateOfIssue { get; set; }
-    public string? DateOfTurnIn { get; set; }
+    public DateOnly? DateOfIssue { get; set; }
+    public DateOnly? DateOfTurnIn { get; set; }
 }

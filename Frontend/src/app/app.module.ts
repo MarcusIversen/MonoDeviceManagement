@@ -39,6 +39,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatListModule} from "@angular/material/list";
+import { EditDeviceComponent } from './AdminPages/edit-device/edit-device.component';
 import { SendMailComponent } from './AdminPages/send-mail/send-mail.component';
 import {MatDialogModule} from "@angular/material/dialog";
 
@@ -62,32 +63,33 @@ import {MatDialogModule} from "@angular/material/dialog";
     AdminDeviceRegistrationComponent,
     AdminSupportComponent,
     UserOverviewComponent,
+    EditDeviceComponent,
     SendMailComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    AppRoutingModule,
-    MatInputModule,
-    FormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatCardModule,
-    MatStepperModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatListModule,
-    MatDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        AppRoutingModule,
+        MatInputModule,
+        FormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatCardModule,
+        MatStepperModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatListModule,
+        MatDialogModule
+    ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],

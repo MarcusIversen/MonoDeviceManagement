@@ -29,7 +29,6 @@ export class UserOverviewComponent implements OnInit{
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  userId: number;
 
   constructor(private userService: UserService, public deviceService: DeviceService, private popup: MatDialog) {
   }
@@ -54,6 +53,7 @@ export class UserOverviewComponent implements OnInit{
     return await this.deviceService.getDeviceOnUser(id);
   }
 
+  //TODO style enheder
   async onSelect(row: any) {
     this.assignedDevices = await this.getDeviceOnUser(row.id);
     return this.assignedDevices;

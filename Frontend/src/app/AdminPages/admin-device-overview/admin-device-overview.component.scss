@@ -10,3 +10,13 @@ table {
 td, th {
   width: 10%;
 }
+
+#deleteDeviceBtn:hover{
+  color: red;
+  cursor: pointer;
+}
+
+#editDeviceBtn:hover{
+  color: #2b2bad;
+  cursor: pointer;
+}
