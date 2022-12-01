@@ -38,6 +38,12 @@ public interface IUserService
     User DeleteUser(int userId);
     #endregion
 
+    /// <summary>
+    /// Get a list of users with user as a type 
+    /// </summary>
+    /// <returns>List of Users with type user</returns>
+    List<User> GetRoleTypeUser();
+
     #region Email
 
     public void SendEmail(string toMail, string subject, string body);

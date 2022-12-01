@@ -32,12 +32,12 @@ import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.co
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {MatCardModule} from "@angular/material/card";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-
 
 // @ts-ignore
 @NgModule({
@@ -74,12 +74,13 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
+        MatCardModule,
         MatStepperModule,
         ReactiveFormsModule,
         MatSelectModule,
         MatDatepickerModule,
-      MatFormFieldModule,
-      MatNativeDateModule,
+        MatFormFieldModule,
+        MatNativeDateModule
     ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

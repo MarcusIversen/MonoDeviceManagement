@@ -76,6 +76,11 @@ public class UserService : IUserService
         return _repository.DeleteUser(userId);
     }
 
+    public List<User> GetRoleTypeUser()
+    {
+        return _repository.GetUsers().Where(u => u.Role == "User").ToList();
+    }
+
     public void SendEmail(string toMail, string subject, string body)
     {
         using (MailMessage mail = new MailMessage())

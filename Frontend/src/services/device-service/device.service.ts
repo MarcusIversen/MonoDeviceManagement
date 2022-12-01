@@ -14,14 +14,20 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class DeviceService {
+  assignedDevices: any[] = [];
 
-  constructor() { }
+constructor() { }
 
   async getDevices() {
     const httpResponse = await customAxios.get<any>('device');
     return httpResponse.data;
   }
 
+  async getDeviceOnUser(id: number){
+    const httpResponse = await customAxios.get<any>('AssignDev/'+`${id}`)
+    this.assignedDevices = httpResponse.data;
+    return httpResponse.data;
+   }
   async createDevice(dto: { serialNumber: string; dateOfIssue: string; deviceName: string; userId: string; dateOfTurnIn: string; status: string }) {
     const httpResult = await customAxios.post('device', dto);
     return httpResult.data;

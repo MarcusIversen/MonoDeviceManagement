@@ -22,16 +22,18 @@ export class UserOverviewComponent implements OnInit{
   displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'role', 'workNumber', 'privateNumber', 'privateMail'];
   dataSource: MatTableDataSource<User>;
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
-  expandedElement: User;
+  expandedUser: User;
+  assignedDevices: any[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  userId: number;
 
-  constructor(private userService: UserService, private deviceService: DeviceService) {
+  constructor(private userService: UserService, public deviceService: DeviceService) {
   }
 
   async ngOnInit(){
-    const users = await this.userService.getUsers();
+    const users = await this.userService.getUsersTypeUser();
     this.dataSource = new MatTableDataSource(users);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -44,6 +46,15 @@ export class UserOverviewComponent implements OnInit{
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  async getDeviceOnUser(id: number){
+    return await this.deviceService.getDeviceOnUser(id);
+  }
+
+  async onSelect(row: any) {
+    this.assignedDevices = await this.getDeviceOnUser(row.id);
+    return this.assignedDevices;
   }
 }
 
