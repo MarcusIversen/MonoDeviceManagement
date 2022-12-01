@@ -41,4 +41,13 @@ export class UserService {
     return httpResult.data;
   }
 
+  async deleteUser(id: number) {
+    const httpResult = await customAxios.delete('/User/'+`${id}`);
+    return httpResult.data;
+  }
+
+  async sendMail(dto: { subject: string; body: string; email: any }) {
+    const httpResult = await customAxios.post('/User/sendEmail', dto)
+    return httpResult.data;
+  }
 }

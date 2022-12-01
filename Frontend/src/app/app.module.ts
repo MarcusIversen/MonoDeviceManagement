@@ -38,6 +38,9 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatListModule} from "@angular/material/list";
+import { SendMailComponent } from './AdminPages/send-mail/send-mail.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 // @ts-ignore
 @NgModule({
@@ -58,30 +61,33 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     AdminDeviceOverviewComponent,
     AdminDeviceRegistrationComponent,
     AdminSupportComponent,
-    UserOverviewComponent
+    UserOverviewComponent,
+    SendMailComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatButtonModule,
-        MatIconModule,
-        MatDividerModule,
-        AppRoutingModule,
-        MatInputModule,
-        FormsModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatCardModule,
-        MatStepperModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatNativeDateModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+    AppRoutingModule,
+    MatInputModule,
+    FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatCardModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatListModule,
+    MatDialogModule
+  ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],

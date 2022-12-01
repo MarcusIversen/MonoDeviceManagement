@@ -37,6 +37,7 @@ export class AdminDeviceOverviewComponent implements OnInit{
     }
   }
 
+
 }
 
 export interface Device{
