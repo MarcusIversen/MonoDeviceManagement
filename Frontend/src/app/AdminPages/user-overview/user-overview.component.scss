@@ -50,3 +50,18 @@ tr.example-element-row:not(.example-expanded-row):active {
   background-color: rgba(45, 103, 175, 1.0);
   color: white;
 }
+
+#deleteUserBtn:hover{
+  color: red;
+  cursor: pointer;
+}
+
+#editUserBtn:hover{
+  color: #2b2bad;
+  cursor: pointer;
+}
+
+#sendMailBtn:hover{
+  color: green;
+  cursor: pointer;
+}

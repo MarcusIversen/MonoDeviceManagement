@@ -5,6 +5,8 @@ import {MatSort} from "@angular/material/sort";
 import {UserService} from "../../../services/user-service/user.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {DeviceService} from "../../../services/device-service/device.service";
+import {MatDialog} from "@angular/material/dialog";
+import {SendMailComponent} from "../send-mail/send-mail.component";
 
 @Component({
   selector: 'app-user-overview',
@@ -19,7 +21,7 @@ import {DeviceService} from "../../../services/device-service/device.service";
   ],
 })
 export class UserOverviewComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'role', 'workNumber', 'privateNumber', 'privateMail'];
+  displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'role', 'workNumber', 'privateNumber', 'privateMail', 'rediger'];
   dataSource: MatTableDataSource<User>;
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
   expandedUser: User;
@@ -29,7 +31,7 @@ export class UserOverviewComponent implements OnInit{
   @ViewChild(MatSort) sort: MatSort;
   userId: number;
 
-  constructor(private userService: UserService, public deviceService: DeviceService) {
+  constructor(private userService: UserService, public deviceService: DeviceService, private popup: MatDialog) {
   }
 
   async ngOnInit(){
@@ -56,11 +58,28 @@ export class UserOverviewComponent implements OnInit{
     this.assignedDevices = await this.getDeviceOnUser(row.id);
     return this.assignedDevices;
   }
+
+  editUser(row: any) {
+
+  }
+
+  async sendMail(row: any) {
+    this.popup.open(SendMailComponent,{
+      data : {
+        user : row
+      }
+    });
+  }
+
+  async deleteUser(row: any) {
+    const user = await this.userService.deleteUser(row.id);
+    this.dataSource.data = this.dataSource.data.filter(u => u.id != user.id);
+    return this.dataSource.data;
+  }
+
 }
 
-//Der skal også være mat dialog
-
-export interface User{
+export interface User {
   id: number,
   email: string,
   firstName: string,
