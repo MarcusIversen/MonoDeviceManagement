@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from "axios";
+import {FormControl} from "@angular/forms";
+import * as http from "http";
 
 export const customAxios = axios.create({
   baseURL: 'https://localhost:7234',
@@ -13,7 +15,8 @@ export const customAxios = axios.create({
 })
 export class DeviceService {
   assignedDevices: any[] = [];
-  constructor() { }
+
+constructor() { }
 
   async getDevices() {
     const httpResponse = await customAxios.get<any>('device');
@@ -24,5 +27,9 @@ export class DeviceService {
     const httpResponse = await customAxios.get<any>('AssignDev/'+`${id}`)
     this.assignedDevices = httpResponse.data;
     return httpResponse.data;
+   }
+  async createDevice(dto: { serialNumber: string; dateOfIssue: string; deviceName: string; userId: string; dateOfTurnIn: string; status: string }) {
+    const httpResult = await customAxios.post('device', dto);
+    return httpResult.data;
   }
 }
