@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DeviceService} from "../../../services/device-service/device.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {UserService} from "../../../services/user-service/user.service";
 
 @Component({
   selector: 'app-admin-device-overview',
@@ -17,7 +18,7 @@ export class AdminDeviceOverviewComponent implements OnInit{
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private deviceService: DeviceService) {
+  constructor(private deviceService: DeviceService, public userService: UserService) {
   }
 
   async ngOnInit(){
@@ -35,6 +36,7 @@ export class AdminDeviceOverviewComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
+
 }
 
 export interface Device{
@@ -43,6 +45,7 @@ export interface Device{
   serialNumber: string,
   status: string,
   user?: string;
+  userId?: number;
   dateOfIssue?: Date;
   dateOfTurnIn?: Date;
 }

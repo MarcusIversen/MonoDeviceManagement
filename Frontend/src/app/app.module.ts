@@ -32,6 +32,7 @@ import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.co
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {MatCardModule} from "@angular/material/card";
 
 
 // @ts-ignore
@@ -55,21 +56,22 @@ import {MatSortModule} from "@angular/material/sort";
     AdminSupportComponent,
     UserOverviewComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    AppRoutingModule,
-    MatInputModule,
-    FormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        AppRoutingModule,
+        MatInputModule,
+        FormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatCardModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -52,4 +52,5 @@ public interface IUserRepository
     /// <returns>Deleted user</returns>
     User DeleteUser(int userId);
     #endregion
+    
 }

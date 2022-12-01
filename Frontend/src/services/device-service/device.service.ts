@@ -12,10 +12,17 @@ export const customAxios = axios.create({
   providedIn: 'root'
 })
 export class DeviceService {
+  assignedDevices: any[] = [];
   constructor() { }
 
   async getDevices() {
     const httpResponse = await customAxios.get<any>('device');
+    return httpResponse.data;
+  }
+
+  async getDeviceOnUser(id: number){
+    const httpResponse = await customAxios.get<any>('AssignDev/'+`${id}`)
+    this.assignedDevices = httpResponse.data;
     return httpResponse.data;
   }
 }

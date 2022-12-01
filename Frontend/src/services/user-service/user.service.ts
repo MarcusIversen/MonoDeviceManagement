@@ -27,7 +27,17 @@ export class UserService {
   }
 
   async getUsers(){
-    const httpResult = await customAxios.get<any>('/User');
+    const httpResult = await customAxios.get<any>('User');
+    return httpResult.data;
+  }
+
+  async getUsersTypeUser(){
+    const httpResult = await customAxios.get<any>("User/RoleType");
+    return httpResult.data;
+  }
+
+  async getUserById(id: number){
+    const httpResult = await customAxios.get<any>('User/'+`${id}`)
     return httpResult.data;
   }
 

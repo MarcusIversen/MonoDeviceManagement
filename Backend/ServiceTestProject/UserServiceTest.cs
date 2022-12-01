@@ -50,6 +50,47 @@ public class UserServiceTest
     }
 
     #endregion
+
+    #region GetRoleTypeUserTest
+    public static IEnumerable<Object[]> GetRoleTypeUser_TestCase()
+    {
+        User user1 = new User { Id = 1, Email = "Test@mail.com", FirstName = "Kristian", LastName = "Hansen", WorkNumber = "12345678", Role = "User", Hash = "Hash", Salt = "Salt"};
+        User user2 = new User { Id = 2, Email = "Marcus@mail.com", FirstName = "Marcus", LastName = "Iversen", WorkNumber = "87654321", Role = "User", Hash = "Hash", Salt = "Salt"};
+        User user3 = new User { Id = 3, Email = "Andy@mail.com", FirstName = "Andy", LastName = "Nguyen", WorkNumber = "11223344", Role = "User", Hash = "Hash", Salt = "Salt"};
+        User user4 = new User { Id = 3, Email = "John@mail.com", FirstName = "John", LastName = "Johnson", WorkNumber = "76765757", Role = "Admin", Hash = "Hash", Salt = "Salt"};
+
+        yield return new Object[]
+        {
+            new User[]
+            {
+            },
+            new List<User>()
+        };
+
+        yield return new object[]
+        {
+
+            new User[]
+            {
+                user1, user4
+            },
+            new List<User>() { user1 }
+        };
+
+        yield return new object[]
+        {
+            new User[]
+            {
+                user1,
+                user2, 
+                user3,
+                user4
+            },
+            new List<User>() { user1, user2, user3 }
+        };
+    }
+
+    #endregion
     
     [Fact]
     public void CreateUserServiceTest()
@@ -301,5 +342,34 @@ public class UserServiceTest
     }
 
     #endregion
+    
+    #region Get Role type user only
+
+    [Theory]
+    [MemberData(nameof(GetRoleTypeUser_TestCase))]
+    public void GetValidUsersWithTypeUserTest(User[] data, List<User> expectedResult)
+    {
+        var fakeRepo = data;
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PutUserValidator, User>();
+        }).CreateMapper();
+        var putUserValidator = new PutUserValidator();
+        
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
+        mockRepository.Setup(r => r.GetUsers()).Returns(fakeRepo);
+
+        // Act 
+        var actual = service.GetRoleTypeUser();
+
+        // Assert
+        Assert.Equal(expectedResult, actual);
+        Assert.True(Enumerable.SequenceEqual(expectedResult, actual));
+        mockRepository.Verify(r => r.GetUsers(), Times.Once);
+    }
+    #endregion
+    
+    
 
 }
