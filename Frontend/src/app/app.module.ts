@@ -40,6 +40,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatListModule} from "@angular/material/list";
 import { EditDeviceComponent } from './AdminPages/edit-device/edit-device.component';
+import { SendMailComponent } from './AdminPages/send-mail/send-mail.component';
 import {MatDialogModule} from "@angular/material/dialog";
 
 // @ts-ignore
@@ -62,7 +63,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     AdminDeviceRegistrationComponent,
     AdminSupportComponent,
     UserOverviewComponent,
-    EditDeviceComponent
+    EditDeviceComponent,
+    SendMailComponent
   ],
     imports: [
         BrowserModule,
