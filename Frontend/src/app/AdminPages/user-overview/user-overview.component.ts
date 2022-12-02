@@ -7,6 +7,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {DeviceService} from "../../../services/device-service/device.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SendMailComponent} from "../send-mail/send-mail.component";
+import {CreateUserComponent} from "../create-user/create-user.component";
 
 @Component({
   selector: 'app-user-overview',
@@ -76,6 +77,16 @@ export class UserOverviewComponent implements OnInit{
       const user = await this.userService.deleteUser(row.id);
       this.dataSource.data = this.dataSource.data.filter(u => u.id != user.id);
     }
+  }
+
+  async createUser() {
+    const data = this.popup.open(CreateUserComponent);
+    data.afterClosed().subscribe(()=>{
+      this.userService.getUsersTypeUser().then(() => {
+        this.dataSource.data = this.userService.getRoleUsers;
+        return this.dataSource.data;
+      });
+    });
   }
 
 }

@@ -39,6 +39,7 @@ import {MatListModule} from "@angular/material/list";
 import { EditDeviceComponent } from './AdminPages/edit-device/edit-device.component';
 import { SendMailComponent } from './AdminPages/send-mail/send-mail.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { CreateUserComponent } from './AdminPages/create-user/create-user.component';
 
 // @ts-ignore
 @NgModule({
@@ -61,7 +62,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     AdminSupportComponent,
     UserOverviewComponent,
     EditDeviceComponent,
-    SendMailComponent
+    SendMailComponent,
+    CreateUserComponent
   ],
     imports: [
         BrowserModule,

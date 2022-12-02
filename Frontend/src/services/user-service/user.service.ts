@@ -52,4 +52,9 @@ export class UserService {
     const httpResult = await customAxios.post('/User/sendEmail', dto)
     return httpResult.data;
   }
+
+  async createUserAsAdmin(dto: { firstName: string; lastName: string; role: string; password: string; workNumber: string; email: string }) {
+    const httpResult = await customAxios.post('auth/register', dto);
+    return httpResult.data;
+  }
 }

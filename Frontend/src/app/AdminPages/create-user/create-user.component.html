@@ -1,0 +1,51 @@
+<mat-card>
+  <form [formGroup]="userForm" (ngSubmit)="createUserAsAdmin()">
+    <label>
+      Fornavn:
+      <br>
+      <mat-form-field>
+        <input matInput type="text" formControlName="firstNameForm">
+      </mat-form-field>
+    </label>
+    <br>
+
+    <label>
+      Efternavn:
+      <br>
+      <mat-form-field>
+        <input matInput type="text" formControlName="lastNameForm">
+      </mat-form-field>
+    </label>
+    <br>
+
+    <label>
+      Email:
+      <br>
+      <mat-form-field>
+        <input matInput type="text" formControlName="emailForm">
+      </mat-form-field>
+    </label>
+    <br>
+
+    <label>
+      Kodeord:
+      <br>
+      <mat-form-field>
+        <input matInput type="text" formControlName="passwordForm">
+      </mat-form-field>
+    </label>
+    <br>
+
+    <label>
+      Arbejdsnummer:
+      <br>
+      <mat-form-field>
+        <input matInput type="text" formControlName="workNumberForm">
+      </mat-form-field>
+    </label>
+    <br>
+
+    <button id="btnCreate" mat-raised-button type="create">Opret</button>
+
+  </form>
+</mat-card>
