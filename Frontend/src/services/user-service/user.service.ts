@@ -18,7 +18,21 @@ export class UserService {
   role: any;
   getRoleUsers: any[] = [];
 
-  constructor() { }
+  constructor() {
+    customAxios.interceptors.request.use(
+      async config => {
+        if(localStorage.getItem('token')) {
+          config.headers = {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+
+        return config;
+      },
+      error => {
+        Promise.reject(error)
+      });
+  }
 
   async login(dto: any){
     const httpResult = await customAxios.post('auth/login', dto);
@@ -30,7 +44,7 @@ export class UserService {
     return httpResult.data;
   }
 
-  
+
   async getUserByEmail(dto: any){
     const httpResult = await customAxios.get('/User/email/'+dto)
     return httpResult.data;
