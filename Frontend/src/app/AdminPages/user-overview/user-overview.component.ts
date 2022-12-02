@@ -72,9 +72,10 @@ export class UserOverviewComponent implements OnInit{
   }
 
   async deleteUser(row: any) {
-    const user = await this.userService.deleteUser(row.id);
-    this.dataSource.data = this.dataSource.data.filter(u => u.id != user.id);
-    return this.dataSource.data;
+    if (confirm('Vil du slette ' + row.firstName + ' ' + row.lastName + '? Denne handling kan ikke fortrydes')) {
+      const user = await this.userService.deleteUser(row.id);
+      this.dataSource.data = this.dataSource.data.filter(u => u.id != user.id);
+    }
   }
 
 }

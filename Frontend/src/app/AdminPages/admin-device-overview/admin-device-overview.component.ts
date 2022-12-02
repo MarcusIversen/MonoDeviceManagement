@@ -54,9 +54,10 @@ export class AdminDeviceOverviewComponent implements OnInit{
   }
 
   async deleteDevice(row: any) {
-    const device = await this.deviceService.deleteDevice(row.id);
-    this.dataSource.data = this.dataSource.data.filter(d => d.id != device.id);
-    return this.dataSource.data;
+    if (confirm('Vil du slette ' + row.deviceName + ' ' + row.serialNumber + '? Denne handling kan ikke fortrydes')) {
+      const device = await this.deviceService.deleteDevice(row.id);
+      this.dataSource.data = this.dataSource.data.filter(d => d.id != device.id);
+    }
   }
 }
 
