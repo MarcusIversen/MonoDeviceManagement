@@ -10,15 +10,12 @@ import {ContactInfoComponent} from "./userPages/contact-info/contact-info.compon
 import {SupportComponent} from "./userPages/support/support.component";
 import {NotFoundComponent} from "./userPages/not-found/not-found.component";
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
-import {AdminLoginOverviewComponent} from "./AdminPages/admin-login-overview/admin-login-overview.component";
 import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
-import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.component";
 import {LoginComponent} from "./login/login.component";
 import {AdminAuthGuardService} from "../services/user-service/admin-auth-guard.service";
 import {UserAuthGuardService} from "../services/user-service/user-auth-guard.service";
 import {RegisterComponent} from "./register/register.component";
-
 
 
 const routes: Routes=[
@@ -28,8 +25,6 @@ const routes: Routes=[
       {path: 'enheder', component: AdminDeviceOverviewComponent, },
       {path: 'enheds-registrering', component: AdminDeviceRegistrationComponent},
       {path: 'brugere', component: UserOverviewComponent},
-      {path: 'bruger-logins', component: AdminLoginOverviewComponent},
-      {path: 'hjaelp', component: AdminSupportComponent}
     ]
   },
   {path: 'bruger', component: SideNavUserComponent, canActivate: [UserAuthGuardService], children:[
@@ -42,8 +37,6 @@ const routes: Routes=[
     ]
   },
   {path: '**', component: NotFoundComponent}
-
-
 ];
 
 

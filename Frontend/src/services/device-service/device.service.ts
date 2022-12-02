@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import axios from "axios";
-import {FormControl} from "@angular/forms";
-import * as http from "http";
 
 export const customAxios = axios.create({
   baseURL: 'https://localhost:7234',
