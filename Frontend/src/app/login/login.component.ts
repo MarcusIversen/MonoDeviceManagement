@@ -18,6 +18,8 @@ class Token {
 export class LoginComponent {
   email: any;
   password: any;
+  firstName: any;
+  lastName:any;
   isLoading: boolean | undefined;
   showErrorMessage: boolean | undefined;
 
@@ -31,7 +33,9 @@ export class LoginComponent {
 
     let dto = {
       email: this.email,
-      password: this.password
+      password: this.password,
+      firstName: this.firstName,
+      lastName: this.lastName
     }
 
     this.userService.login(dto).then(token => {

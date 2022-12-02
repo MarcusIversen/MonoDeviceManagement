@@ -20,6 +20,13 @@ public interface IUserService
     /// <returns>User with the given userId</returns>
     User GetUser(int userId);
 
+    /// <summary>
+    /// Gets the user with the given email
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    User GetUserByEmail(string email);
+
     // Update 
     /// <summary>
     /// Updates an user with the given userId

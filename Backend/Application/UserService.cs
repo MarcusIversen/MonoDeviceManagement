@@ -47,6 +47,17 @@ public class UserService : IUserService
         return _repository.GetUser(userId);
     }
 
+    public User GetUserByEmail(string email)
+    {
+        if (email == null || email == "")
+        {
+            throw new ArgumentException("Email cannot be null or empty");
+        }
+
+        return _repository.GetUserByEmail(email);
+    }
+
+    
     public User UpdateUser(int userId, PutUserDTO user)
     {
         ThrowsIfPutUserIsInvalid(user);
@@ -60,9 +71,6 @@ public class UserService : IUserService
         {
             throw new ArgumentException("Id in the body and route are different");
         }
-        
-        //User updatedUser = _repository.GetUserByEmail(user.Email);
-        //updatedUser.Hash = BCrypt.Net.BCrypt.HashPassword(user.Password + updatedUser.Salt);
 
         return _repository.UpdateUser(userId, _mapper.Map<User>(user));
     }
@@ -124,19 +132,20 @@ public class UserService : IUserService
             throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
         }
 
-        if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8)
+        /*if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8)
         {
             throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
-        }
-
-        if (user.Id < 1)
-        {
-            throw new ArgumentException("Id cannot be null or less than 1");
         }
 
         if (user.Role is not ("Admin" or "User"))
         {
             throw new ArgumentException("Role cannot be null and must be Admin or User");
+        }*/
+        
+        if (user.Id < 1)
+        {
+            throw new ArgumentException("Id cannot be null or less than 1");
         }
+        
     }
 }

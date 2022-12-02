@@ -74,6 +74,7 @@ public class DeviceController : ControllerBase
         return Ok(_service.DeleteDevice(id));
     }
 
+
     [HttpGet("/AssignDev/{id}")]
     public IActionResult GetAssignedDevices(int id)
     {
@@ -81,6 +82,7 @@ public class DeviceController : ControllerBase
     }
 
     [Authorize ("AdminPolicy")]
+
     [HttpGet]
     [Route("rebuildDB")]
     public void RebuildDB()

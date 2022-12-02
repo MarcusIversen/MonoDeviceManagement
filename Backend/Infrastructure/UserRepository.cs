@@ -47,10 +47,9 @@ public class UserRepository : IUserRepository
             userToUpdate.FirstName = user.FirstName;
             userToUpdate.LastName = user.LastName;
             userToUpdate.WorkNumber = user.WorkNumber;
+            userToUpdate.ProfilePicture = user.ProfilePicture;
             userToUpdate.PrivateMail = user.PrivateMail;
             userToUpdate.PrivateNumber= user.PrivateNumber;
-            userToUpdate.Hash = user.Hash; //TODO Skal det her være her?
-            userToUpdate.Salt = user.Salt; //TODO Skal det her være her?
             userToUpdate.Id = user.Id;
             _context.Update(userToUpdate);
             _context.SaveChanges();

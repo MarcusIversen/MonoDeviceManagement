@@ -39,7 +39,17 @@ public class UserController : ControllerBase
         return Ok(_service.GetRoleTypeUser());
     }
 
-    [HttpPut("{id}")]
+
+    [AllowAnonymous]
+    [HttpGet ("email/{email}")]
+    public IActionResult GetUserByEmail(string email)
+    {
+        return Ok(_service.GetUserByEmail(email));
+    }
+    
+
+    [AllowAnonymous]
+    [HttpPut("update/{id}")]
     public IActionResult UpdateUser(int id, PutUserDTO dto)
     {
         try

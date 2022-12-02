@@ -1,1 +1,94 @@
-<p>profile-info works!</p>
+<ng-container>
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="42.5%">
+      <mat-card>
+        <div class="content">
+          <mat-card-title>Profil detaljer</mat-card-title>
+          <br>
+          <div>
+            <img
+              style="padding: 10px;
+           border-radius: 100%;"
+              width="140"
+              height="140"
+              [src]="profilePicture??'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'">
+            <span>
+            <button mat-mini-fab (click)="inputElement.click()">
+            <mat-icon>edit</mat-icon>
+          </button>
+            Rediger profilbillede
+          </span>
+          </div>
+          <input #inputElement accept="image/png,image/jpeg" type="file" hidden (change)="selectFile({event : $event})">
+        </div>
+        <br>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="firstName" placeholder="Fornavn" name="firstName" id="firstName"
+                 autocomplete="off">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="lastName" placeholder="Efternavn" name="lastName" id="lastName"
+                 autocomplete="off">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="email" placeholder="Email" type="email" name="email" id="email"
+                 autocomplete="off">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="workNumber" placeholder="Firma telefon" name="workNumber" id="workNumber"
+                 autocomplete="off">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="privateMail" placeholder="Privat email" name="privateEmail" id="privateEmail"
+                 autocomplete="off">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="privateNumber" placeholder="Privat telefon" name="privateNumber"
+                 id="privateNumber"
+                 autocomplete="off">
+        </mat-form-field>
+        <div *ngIf="showErrorMessage">
+          <h3 style="color: coral; margin-left: 30px;">Der er sket en fejl</h3>
+        </div>
+        <div>
+          <button class="save-button" mat-raised-button (click)="saveChanges()">Gem oplysninger</button>
+          <span style="margin-left: 8px;" *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></span>
+        </div>
+      </mat-card>
+
+      <div fxFlex="200%">
+        <mat-card style="margin-left: 30px;">
+          <div class="content">
+            <mat-card-title>Skift password</mat-card-title>
+            <br>
+            <br>
+            <mat-form-field>
+              <input matInput placeholder="Nuværende kode" name="password" id="password" autocomplete="off">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <input matInput placeholder="Ny kode" type="email" name="newCode" id="newCode" autocomplete="off">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <input matInput placeholder="Genindtast ny kode" name="repeatNewCode" id="repeatNewCode"
+                     autocomplete="off">
+            </mat-form-field>
+            <br>
+            <div>
+              <button class="save-button" mat-raised-button>Bekræft ny kode</button>
+              <span style="margin-left: 8px;" *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
