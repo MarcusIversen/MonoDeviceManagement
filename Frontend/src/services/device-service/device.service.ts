@@ -15,7 +15,21 @@ export class DeviceService {
   assignedDevices: any[] = [];
   devices: any[] = [];
 
-constructor() { }
+constructor() {
+  customAxios.interceptors.request.use(
+    async config => {
+      if(localStorage.getItem('token')) {
+        config.headers = {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+
+      return config;
+    },
+    error => {
+      Promise.reject(error)
+    });
+}
 
   async getDevices() {
     const httpResponse = await customAxios.get<any>('device');
