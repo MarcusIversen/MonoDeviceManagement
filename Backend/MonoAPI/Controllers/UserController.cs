@@ -30,6 +30,14 @@ public class UserController : ControllerBase
     {
         return Ok(_service.GetUser(id));
     }
+    
+    [Authorize ("AdminPolicy")]
+    [HttpGet]
+    [Route("RoleType")]
+    public IActionResult GetUsersByRole()
+    {
+        return Ok(_service.GetRoleTypeUser());
+    }
 
 
     [AllowAnonymous]

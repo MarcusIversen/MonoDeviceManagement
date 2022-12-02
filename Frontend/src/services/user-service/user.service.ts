@@ -16,6 +16,8 @@ export class UserService {
   firstName: any;
   lastName: any;
   role: any;
+  getRoleUsers: any[] = [];
+
   constructor() { }
 
   async login(dto: any){
@@ -28,6 +30,7 @@ export class UserService {
     return httpResult.data;
   }
 
+  
   async getUserByEmail(dto: any){
     const httpResult = await customAxios.get('/User/email/'+dto)
     return httpResult.data;
@@ -38,4 +41,34 @@ export class UserService {
     return httpResult.data;
   }
 
+  async getUsers(){
+    const httpResult = await customAxios.get<any>('User');
+    return httpResult.data;
+  }
+
+  async getUsersTypeUser(){
+    const httpResult = await customAxios.get<any>("User/RoleType");
+    this.getRoleUsers = httpResult.data;
+    return httpResult.data;
+  }
+
+  async getUserById(id: number){
+    const httpResult = await customAxios.get<any>('User/'+`${id}`)
+    return httpResult.data;
+  }
+
+  async deleteUser(id: number) {
+    const httpResult = await customAxios.delete('/User/'+`${id}`);
+    return httpResult.data;
+  }
+
+  async sendMail(dto: { subject: string; body: string; email: any }) {
+    const httpResult = await customAxios.post('/User/sendEmail', dto)
+    return httpResult.data;
+  }
+
+  async createUserAsAdmin(dto: { firstName: string; lastName: string; role: string; password: string; workNumber: string; email: string }) {
+    const httpResult = await customAxios.post('auth/register', dto);
+    return httpResult.data;
+  }
 }

@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 10%;
+}
+
+#deleteDeviceBtn:hover{
+  color: red;
+  cursor: pointer;
+}
+
+#editDeviceBtn:hover{
+  color: #2b2bad;
+  cursor: pointer;
+}

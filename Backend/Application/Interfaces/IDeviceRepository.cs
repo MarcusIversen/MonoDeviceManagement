@@ -54,8 +54,6 @@ public interface IDeviceRepository
 
     #endregion
 
-    IEnumerable<Device> GetAssignedDevice(int userId);
-
     //Rebuild Database
     /// <summary>
     /// Rebuillds the database

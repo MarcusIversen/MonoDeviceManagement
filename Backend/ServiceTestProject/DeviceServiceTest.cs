@@ -528,8 +528,6 @@ public class DeviceServiceTest
         Assert.Equal(expectedMessage, ex.Message);
         mockRepository.Verify(r => r.GetDevices(), Times.Never);
     }
-
-
     #endregion
     
     
