@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {UserService} from "../../../services/user-service/user.service";
-import {customAxios, DeviceService} from "../../../services/device-service/device.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-
+import {DeviceService} from "../../../services/device-service/device.service";
 
 @Component({
   selector: 'app-admin-device-registration',

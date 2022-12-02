@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-// @ts-ignore
 import jwtDecode from "jwt-decode";
 import {UserService} from "../../services/user-service/user.service";
 

@@ -16,7 +16,6 @@ import { ProfileInfoComponent } from './userPages/profile-info/profile-info.comp
 import { ContactInfoComponent } from './userPages/contact-info/contact-info.component';
 import { SupportComponent } from './userPages/support/support.component';
 import { NotFoundComponent } from './userPages/not-found/not-found.component';
-import { AdminLoginOverviewComponent } from './AdminPages/admin-login-overview/admin-login-overview.component';
 import { LoginComponent } from './login/login.component';
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -24,7 +23,6 @@ import { RegisterComponent } from './register/register.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
 import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
-import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.component";
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -53,13 +51,11 @@ import { CreateUserComponent } from './AdminPages/create-user/create-user.compon
     ContactInfoComponent,
     SupportComponent,
     NotFoundComponent,
-    AdminLoginOverviewComponent,
     LoginComponent,
     RegisterComponent,
     LoadingSpinnerComponent,
     AdminDeviceOverviewComponent,
     AdminDeviceRegistrationComponent,
-    AdminSupportComponent,
     UserOverviewComponent,
     EditDeviceComponent,
     SendMailComponent,

@@ -27,7 +27,7 @@
       <br>
 
       <div>
-        <button mat-button matStepperNext>Næste</button>
+        <button mat-raised-button matStepperNext>Næste</button>
       </div>
     </form>
   </mat-step>
@@ -44,8 +44,8 @@
         </mat-select>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Tilbage</button>
-        <button mat-button matStepperNext>Næste</button>
+        <button mat-raised-button matStepperPrevious>Tilbage</button>
+        <button mat-raised-button matStepperNext>Næste</button>
       </div>
     </form>
   </mat-step>
@@ -60,7 +60,7 @@
 
           matInput [matDatepicker]="DateOfIssue" formControlName="dateOfIssueControl">
         <mat-datepicker-toggle matIconSuffix [for]="DateOfIssue"></mat-datepicker-toggle>
-        <mat-datepicker #DateOfIssue ></mat-datepicker>
+        <mat-datepicker #DateOfIssue></mat-datepicker>
       </mat-form-field>
       <br>
 
@@ -72,8 +72,8 @@
       </mat-form-field>
 
       <div>
-        <button mat-button matStepperPrevious>Tilbage</button>
-        <button mat-button matStepperNext>Næste</button>
+        <button mat-raised-button matStepperPrevious>Tilbage</button>
+        <button mat-raised-button matStepperNext>Næste</button>
       </div>
     </form>
   </mat-step>
@@ -85,8 +85,8 @@
     <br>
     <p>Du er nu færdig med registreringen.</p>
     <div>
-      <button mat-button matStepperPrevious>Tilbage</button>
-      <button mat-button (click)="createDevice() && stepper.reset()">Fuldfør registrering</button>
+      <button mat-raised-button matStepperPrevious>Tilbage</button>
+      <button mat-raised-button (click)="createDevice() && stepper.reset()">Fuldfør registrering</button>
     </div>
   </mat-step>
 </mat-stepper>
