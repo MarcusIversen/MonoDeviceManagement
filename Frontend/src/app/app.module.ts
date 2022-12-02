@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -24,9 +23,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
-import {
-  AdminDeviceRegistrationComponent
-} from "./AdminPages/admin-device-registration/admin-device-registration.component";
+import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
 import {AdminSupportComponent} from "./AdminPages/admin-support/admin-support.component";
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
 import {MatTableModule} from "@angular/material/table";
