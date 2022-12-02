@@ -69,8 +69,13 @@ public class AuthenticationService : IAuthenticationService
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[] { new Claim("email", user.Email), new Claim("role", Convert.ToString(user.Role)),
-                new Claim("firstName", user.FirstName), new Claim("lastName", user.LastName)}),
+            Subject = new ClaimsIdentity(new[] 
+            {   
+                new Claim("email", user.Email),
+                new Claim("role", user.Role),
+                new Claim("firstName", user.FirstName),
+                new Claim("lastName", user.LastName)
+            }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };

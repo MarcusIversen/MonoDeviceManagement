@@ -24,6 +24,9 @@ import {FormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatCardModule} from "@angular/material/card";
+import {FlexLayoutModule} from "@angular/flex-layout"
 
 
 // @ts-ignore
@@ -48,12 +51,15 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
     MatDividerModule,
     AppRoutingModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatCardModule,
+    FlexLayoutModule
   ],
   providers: [MatSnackBar],
   bootstrap: [AppComponent]

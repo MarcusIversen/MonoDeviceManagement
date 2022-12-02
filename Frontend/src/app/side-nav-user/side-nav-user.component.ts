@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSidenav} from "@angular/material/sidenav";
 import {Router} from "@angular/router";
 import {BreakpointObserver} from "@angular/cdk/layout";
@@ -11,11 +11,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './side-nav-user.component.html',
   styleUrls: ['./side-nav-user.component.scss']
 })
-export class SideNavUserComponent {
+export class SideNavUserComponent implements OnInit{
 
+  profilePicture:any;
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
+  private user: any;
 
   constructor(private router: Router, private observer: BreakpointObserver, public http: UserService, private snackBar: MatSnackBar) {
     let t = localStorage.getItem('token')
@@ -27,6 +29,19 @@ export class SideNavUserComponent {
         this.http.role = "Lærer"
       }else{
         this.http.role = decoded.role;
+      }
+
+    }
+
+  }
+
+  async ngOnInit() {
+    let t = localStorage.getItem('token')
+    if(t){
+      let decoded = jwtDecode(t) as any;
+      {
+        this.user = await this.http.getUserByEmail(decoded.email)
+        this.profilePicture = this.user.profilePicture;
       }
     }
   }

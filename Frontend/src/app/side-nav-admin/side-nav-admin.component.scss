@@ -3,6 +3,15 @@ mat-toolbar {
   color: white;
 }
 
+.profile-picture{
+  border-radius: 100%;
+  margin-right: 8px;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
 mat-sidenav {
   margin: 16px;
   width: 200px;

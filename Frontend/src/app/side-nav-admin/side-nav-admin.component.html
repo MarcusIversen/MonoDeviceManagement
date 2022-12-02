@@ -1,13 +1,21 @@
 <mat-toolbar class="mat-elevation-z8">
-  <button
-    mat-icon-button
-    *ngIf="sidenav.mode === 'over'"
-    (click)="sidenav.toggle()"
-  >
-    <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
-    <mat-icon *ngIf="sidenav.opened">close</mat-icon>
-  </button>
-  Admin View
+  <mat-toolbar-row>
+    <button
+      mat-icon-button
+      *ngIf="sidenav.mode === 'over'"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+    Admin View
+    <span class="spacer"></span>
+    <img class="profile-picture" height="30" width="30" src="https://www.seekpng.com/png/detail/202-2024994_profile-icon-profile-logo-no-background.png">
+    <span>{{http.firstName}} {{http.lastName}}</span>
+    <button mat-icon-button style="align-self: center">
+      <span><mat-icon>expand_more</mat-icon></span>
+    </button>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>

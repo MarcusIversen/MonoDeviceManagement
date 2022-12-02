@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from "axios";
+import * as http from "http";
 
 export const customAxios = axios.create({
   baseURL: 'https://localhost:7234',
@@ -24,6 +25,16 @@ export class UserService {
 
   async register(dto: any){
     const httpResult = await customAxios.post('auth/register', dto);
+    return httpResult.data;
+  }
+
+  async getUserByEmail(dto: any){
+    const httpResult = await customAxios.get('/User/email/'+dto)
+    return httpResult.data;
+  }
+
+  async updateUser(id: any, dto:any){
+    const httpResult = await customAxios.put('/User/update/'+id, dto)
     return httpResult.data;
   }
 
