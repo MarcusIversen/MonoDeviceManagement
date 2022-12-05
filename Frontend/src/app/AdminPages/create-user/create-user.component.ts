@@ -10,12 +10,6 @@ import {UserOverviewComponent} from "../user-overview/user-overview.component";
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent implements OnInit{
-  firstName: string = '';
-  lastName: string = '';
-  email: string = '';
-  password: string = '';
-  workNumber: string = '';
-
   userForm = new FormGroup({
     firstNameForm: new FormControl(''),
     lastNameForm: new FormControl(''),

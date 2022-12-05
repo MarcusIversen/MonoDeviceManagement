@@ -62,6 +62,12 @@ public interface IDeviceService
     /// <returns>List of assigned devices on user</returns>
     List<Device> AssignedDevices(int userId);
 
+    /// <summary>
+    /// Gets all not assigned devices
+    /// </summary>
+    /// <returns>List of not assigned devices</returns>
+    List<Device> NotAssignedDevices();
+
     //Rebuild Database
     /// <summary>
     /// Rebuillds the database

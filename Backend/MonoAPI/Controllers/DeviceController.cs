@@ -81,6 +81,12 @@ public class DeviceController : ControllerBase
         return Ok(_service.AssignedDevices(id));
     }
 
+    [HttpGet("NotAssigned")]
+    public IActionResult GetNotAssignedDevices()
+    {
+        return Ok(_service.NotAssignedDevices());
+    }
+    
     [Authorize ("AdminPolicy")]
 
     [HttpGet]

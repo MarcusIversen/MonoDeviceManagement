@@ -11,9 +11,7 @@ import {SideNavAdminComponent} from './side-nav-admin/side-nav-admin.component';
 import {AppRoutingModule} from './app-routing.module';
 import {SideNavUserComponent} from './side-nav-user/side-nav-user.component';
 import {DeviceOverviewComponent} from './userPages/device-overview/device-overview.component';
-import {DeviceRegistrationComponent} from './userPages/device-registration/device-registration.component';
 import {ProfileInfoComponent} from './userPages/profile-info/profile-info.component';
-import {ContactInfoComponent} from './userPages/contact-info/contact-info.component';
 import {SupportComponent} from './userPages/support/support.component';
 import {NotFoundComponent} from './userPages/not-found/not-found.component';
 import {LoginComponent} from './login/login.component';
@@ -43,6 +41,8 @@ import {EditDeviceComponent} from './AdminPages/edit-device/edit-device.componen
 import {SendMailComponent} from './AdminPages/send-mail/send-mail.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {CreateUserComponent} from './AdminPages/create-user/create-user.component';
+import { MyDevicesComponent } from './userPages/my-devices/my-devices.component';
+import { RequestsComponent } from './AdminPages/requests/requests.component';
 
 // @ts-ignore
 @NgModule({
@@ -51,9 +51,7 @@ import {CreateUserComponent} from './AdminPages/create-user/create-user.componen
     SideNavAdminComponent,
     SideNavUserComponent,
     DeviceOverviewComponent,
-    DeviceRegistrationComponent,
     ProfileInfoComponent,
-    ContactInfoComponent,
     SupportComponent,
     NotFoundComponent,
     LoginComponent,
@@ -64,7 +62,9 @@ import {CreateUserComponent} from './AdminPages/create-user/create-user.componen
     UserOverviewComponent,
     EditDeviceComponent,
     SendMailComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    MyDevicesComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,

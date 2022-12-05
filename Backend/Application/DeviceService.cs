@@ -88,6 +88,11 @@ public class DeviceService : IDeviceService
         return _repository.GetDevices().Where(d => d.UserId == userId).ToList();
     }
 
+    public List<Device> NotAssignedDevices()
+    {
+        return _repository.GetDevices().Where(d => d.UserId == null).ToList();
+    }
+
     public void RebuildDB()
     {
         _repository.RebuildDB();
