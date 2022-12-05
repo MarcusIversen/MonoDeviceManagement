@@ -17,6 +17,8 @@ export class AdminDeviceOverviewComponent implements OnInit{
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'dateOfIssue', 'dateOfTurnIn', 'rediger'];
   dataSource: MatTableDataSource<Device>;
 
+
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -65,6 +67,11 @@ export class AdminDeviceOverviewComponent implements OnInit{
         duration: 3000
       });
     }
+  }
+
+  viewUser(row: any){
+    const user = this.userService.getUserById(row.userId);
+    return user;
   }
 }
 
