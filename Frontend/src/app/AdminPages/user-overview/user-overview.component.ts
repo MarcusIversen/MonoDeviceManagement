@@ -8,6 +8,7 @@ import {DeviceService} from "../../../services/device-service/device.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SendMailComponent} from "../send-mail/send-mail.component";
 import {CreateUserComponent} from "../create-user/create-user.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-user-overview',
@@ -31,7 +32,7 @@ export class UserOverviewComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private userService: UserService, public deviceService: DeviceService, private popup: MatDialog) {
+  constructor(private userService: UserService, public deviceService: DeviceService, private popup: MatDialog, private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit(){
@@ -62,6 +63,7 @@ export class UserOverviewComponent implements OnInit{
 
   editUser(row: any) {
 
+    
   }
 
   async sendMail(row: any) {
@@ -76,6 +78,9 @@ export class UserOverviewComponent implements OnInit{
     if (confirm('Vil du slette ' + row.firstName + ' ' + row.lastName + '? Denne handling kan ikke fortrydes')) {
       const user = await this.userService.deleteUser(row.id);
       this.dataSource.data = this.dataSource.data.filter(u => u.id != user.id);
+      this._snackBar.open('Bruger slettet', 'Luk', {
+        duration: 3000
+      });
     }
   }
 
@@ -84,6 +89,9 @@ export class UserOverviewComponent implements OnInit{
     data.afterClosed().subscribe(()=>{
       this.userService.getUsersTypeUser().then(() => {
         this.dataSource.data = this.userService.getRoleUsers;
+        this._snackBar.open('Bruger oprettet', 'Luk', {
+          duration: 3000
+        });
         return this.dataSource.data;
       });
     });

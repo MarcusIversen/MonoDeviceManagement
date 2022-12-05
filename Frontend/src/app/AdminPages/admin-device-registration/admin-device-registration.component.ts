@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {UserService} from "../../../services/user-service/user.service";
 import {DeviceService} from "../../../services/device-service/device.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-admin-device-registration',
@@ -36,7 +37,7 @@ export class AdminDeviceRegistrationComponent implements OnInit{
   })
 
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private deviceService: DeviceService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private deviceService: DeviceService, private _snackBar: MatSnackBar) {
 
   }
 
@@ -58,6 +59,8 @@ export class AdminDeviceRegistrationComponent implements OnInit{
       dateOfTurnIn: new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10)
     }
     await this.deviceService.createDevice(dto);
-
+    this._snackBar.open('Enhed oprettet', 'Luk', {
+      duration: 3000
+    });
   }
 }
