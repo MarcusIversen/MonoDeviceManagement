@@ -6,6 +6,7 @@ import {MatSort} from "@angular/material/sort";
 import {UserService} from "../../../services/user-service/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditDeviceComponent} from "../edit-device/edit-device.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-admin-device-overview',
@@ -19,7 +20,7 @@ export class AdminDeviceOverviewComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private deviceService: DeviceService, public userService: UserService, private popup: MatDialog) {
+  constructor(private deviceService: DeviceService, public userService: UserService, private popup: MatDialog, private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit(){
@@ -47,6 +48,9 @@ export class AdminDeviceOverviewComponent implements OnInit{
     data.afterClosed().subscribe(()=>{
        this.deviceService.getDevices().then(() => {
          this.dataSource.data = this.deviceService.devices;
+         this._snackBar.open('Den valgte enhed blevet redigeret', 'Luk', {
+           duration: 3000
+         });
          return this.dataSource.data;
        });
     });
@@ -57,6 +61,9 @@ export class AdminDeviceOverviewComponent implements OnInit{
     if (confirm('Vil du slette ' + row.deviceName + ' ' + row.serialNumber + '? Denne handling kan ikke fortrydes')) {
       const device = await this.deviceService.deleteDevice(row.id);
       this.dataSource.data = this.dataSource.data.filter(d => d.id != device.id);
+      this._snackBar.open(row.deviceName + ' er blevet slettet', 'Luk', {
+        duration: 3000
+      });
     }
   }
 }

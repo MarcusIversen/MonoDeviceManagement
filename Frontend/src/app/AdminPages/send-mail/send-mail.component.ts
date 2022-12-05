@@ -3,6 +3,7 @@ import {UserService} from "../../../services/user-service/user.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UserOverviewComponent} from "../user-overview/user-overview.component";
 import {FormControl, FormGroup} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-send-mail',
@@ -21,7 +22,7 @@ export class SendMailComponent implements OnInit{
   });
 
 
-  constructor(private userService: UserService,  public dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data : any) {
+  constructor(private userService: UserService,  public dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data : any, private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
@@ -38,6 +39,9 @@ export class SendMailComponent implements OnInit{
     }
     await this.userService.sendMail(dto)
     this.dialogRef.close();
+    this._snackBar.open('Mail sendt til: ' + dto.email, 'Luk', {
+      duration: 3000
+    });
   }
 
 
