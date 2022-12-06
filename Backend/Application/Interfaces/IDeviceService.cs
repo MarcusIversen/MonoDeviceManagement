@@ -69,6 +69,13 @@ public interface IDeviceService
     /// <returns>List of assigned devices on user</returns>
     List<Device> GetNotAssignedDevices();
 
+    /// <summary>
+    /// Gets a list of devices with a specific request value 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns>List of devices with request value = parameter</returns>
+    List<Device> GetDevicesWithRequestValue(string value);
+
     //Rebuild Database
     /// <summary>
     /// Rebuillds the database

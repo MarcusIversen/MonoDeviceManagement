@@ -88,9 +88,14 @@ public class DeviceService : IDeviceService
         return _repository.GetDevices().Where(d => d.UserId == userId).ToList();
     }
 
-    public List<Device> GetNotAssignedDevices()
-    {
+
+    public List<Device> GetNotAssignedDevices() {
         return _repository.GetDevices().Where(d => d.UserId == null).ToList();
+    }
+    
+    public List<Device> GetDevicesWithRequestValue(string value) {
+        if (string.IsNullOrEmpty(value)) throw new ArgumentException("Value cannot be null or empty");
+            return _repository.GetDevices().Where(d => d.RequestEnum == value).ToList();
     }
 
     public void RebuildDB()
