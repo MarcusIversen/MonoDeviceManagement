@@ -49,7 +49,7 @@ public class DeviceController : ControllerBase
         }
     }
     
-    [Authorize ("AdminPolicy")]
+    //[Authorize ("AdminPolicy")]
     [HttpPut("{id}")]
     public IActionResult UpdateDevice(int id, PutDeviceDTO dto)
     {

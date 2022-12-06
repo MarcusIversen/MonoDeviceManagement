@@ -5,8 +5,9 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import jwtDecode from "jwt-decode";
-import {Token} from "../../../Models/Token";
 import {Device} from "../../../Models/Interfaces/device";
+import {Token} from "../../../Models/Token";
+import {RequestsComponent} from "../../AdminPages/requests/requests.component";
 
 @Component({
   selector: 'app-request-device-overview',
@@ -32,7 +33,7 @@ export class RequestDeviceOverviewComponent implements OnInit{
     if (token) {
       let decodedToken = jwtDecode(token) as Token;
       this.user = await this.userService.getUserByEmail(decodedToken.email);
-      const devices = await this.deviceService.getNotAssignedDevices();
+      const devices = await this.deviceService.getIkkeSendtRequestValue();
       this.dataSource = new MatTableDataSource(devices);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -48,7 +49,24 @@ export class RequestDeviceOverviewComponent implements OnInit{
     }
   }
 
-  requestDevice(row) {
+  async requestDevice(row: any) {
+    if (confirm('Vil du forespørge' + row.deviceName)) {
+      let device = await this.deviceService.getDeviceById(row.id);
 
+      let dto = {
+        id: device.id,
+        deviceName: device.deviceName,
+        serialNumber: device.serialNumber,
+        status: device.status,
+        userId: device.userId,
+        requestValue: new String('Sendt'),
+        dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
+        dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10)
+      }
+
+      await this.deviceService.updateDevice(dto, row.id);
+      const devices = await this.deviceService.getIkkeSendtRequestValue();
+      this.dataSource = new MatTableDataSource(devices);
+    }
   }
 }

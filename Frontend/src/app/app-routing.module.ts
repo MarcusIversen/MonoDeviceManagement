@@ -15,6 +15,7 @@ import {UserAuthGuardService} from "../services/user-service/user-auth-guard.ser
 import {RegisterComponent} from "./register/register.component";
 import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
 import {RequestDeviceOverviewComponent} from "./userPages/request-device-overview/request-device-overview.component";
+import {RequestsComponent} from "./AdminPages/requests/requests.component";
 
 const routes: Routes=[
   {path: '', component: LoginComponent},
@@ -23,7 +24,8 @@ const routes: Routes=[
       {path: 'enheder', component: AdminDeviceOverviewComponent, },
       {path: 'enheds-registrering', component: AdminDeviceRegistrationComponent},
       {path: 'brugere', component: UserOverviewComponent},
-      {path: 'profil-information', component: AdminProfileInfoComponent}
+      {path: 'profil-information', component: AdminProfileInfoComponent},
+      {path: 'forspørgsler', component: RequestsComponent}
     ]
   },
   {path: 'bruger', component: SideNavUserComponent, canActivate: [UserAuthGuardService], children:[
