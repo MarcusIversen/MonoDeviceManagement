@@ -12,20 +12,20 @@ import {AppRoutingModule} from './app-routing.module';
 import {SideNavUserComponent} from './side-nav-user/side-nav-user.component';
 import {DeviceOverviewComponent} from './userPages/device-overview/device-overview.component';
 import {ProfileInfoComponent} from './userPages/profile-info/profile-info.component';
+import {DeviceRegistrationComponent} from './userPages/device-registration/device-registration.component';
+import {UserProfileInfoComponent} from './userPages/profile-info/user-profile-info.component';
+import {ContactInfoComponent} from './userPages/contact-info/contact-info.component';
 import {SupportComponent} from './userPages/support/support.component';
 import {NotFoundComponent} from './userPages/not-found/not-found.component';
 import {LoginComponent} from './login/login.component';
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from './register/register.component';
-import {LoadingSpinnerComponent} from './shared/loading-spinner/loading-spinner.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatMenuModule} from "@angular/material/menu";
 import {FlexLayoutModule} from "@angular/flex-layout"
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
-import {
-  AdminDeviceRegistrationComponent
-} from "./AdminPages/admin-device-registration/admin-device-registration.component";
+import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -43,6 +43,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {CreateUserComponent} from './AdminPages/create-user/create-user.component';
 import { MyDevicesComponent } from './userPages/my-devices/my-devices.component';
 import { RequestsComponent } from './AdminPages/requests/requests.component';
+import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.component";
+import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
 
 // @ts-ignore
 @NgModule({
@@ -52,6 +54,26 @@ import { RequestsComponent } from './AdminPages/requests/requests.component';
     SideNavUserComponent,
     DeviceOverviewComponent,
     ProfileInfoComponent,
+    DeviceRegistrationComponent,
+    UserProfileInfoComponent,
+    ContactInfoComponent,
+    SupportComponent,
+    NotFoundComponent,
+    LoginComponent,
+    RegisterComponent,
+    AdminDeviceOverviewComponent,
+    AdminDeviceRegistrationComponent,
+    UserOverviewComponent,
+    EditDeviceComponent,
+    SendMailComponent,
+    CreateUserComponent,
+    AppComponent,
+    SideNavAdminComponent,
+    SideNavUserComponent,
+    DeviceOverviewComponent,
+    DeviceRegistrationComponent,
+    UserProfileInfoComponent,
+    ContactInfoComponent,
     SupportComponent,
     NotFoundComponent,
     LoginComponent,
@@ -65,6 +87,8 @@ import { RequestsComponent } from './AdminPages/requests/requests.component';
     CreateUserComponent,
     MyDevicesComponent,
     RequestsComponent
+    LoadingSpinnerComponent,
+    AdminProfileInfoComponent
   ],
   imports: [
     BrowserModule,

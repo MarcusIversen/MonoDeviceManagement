@@ -4,6 +4,7 @@ import {AdminDeviceRegistrationComponent} from "../admin-device-registration/adm
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user-service/user.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-edit-device',
@@ -26,7 +27,7 @@ export class EditDeviceComponent implements OnInit{
   })
 
 
-  constructor(private deviceService: DeviceService, public userService: UserService, public dialogRef: MatDialogRef<AdminDeviceRegistrationComponent>, @Inject(MAT_DIALOG_DATA) public data : any) {
+  constructor(private deviceService: DeviceService, public userService: UserService, public dialogRef: MatDialogRef<AdminDeviceRegistrationComponent>, @Inject(MAT_DIALOG_DATA) public data : any, private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit(){
@@ -64,6 +65,9 @@ export class EditDeviceComponent implements OnInit{
       }
     });
     this.dialogRef.close();
+    this._snackBar.open('Den valgte enhed blevet redigeret', 'Luk', {
+      duration: 3000
+    });
   }
 }
 

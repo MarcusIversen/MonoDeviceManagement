@@ -10,21 +10,31 @@
     </button>
     Admin View
     <span class="spacer"></span>
-    <img class="profile-picture" height="30" width="30" src="https://www.seekpng.com/png/detail/202-2024994_profile-icon-profile-logo-no-background.png">
+    <img class="profile-picture" height="30" width="30"
+         [src]="profilePicture?? 'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'">
     <span>{{http.firstName}} {{http.lastName}}</span>
-    <button mat-icon-button style="align-self: center">
+    <button mat-icon-button style="align-self: center" [matMenuTriggerFor]="menu">
       <span><mat-icon>expand_more</mat-icon></span>
     </button>
+    <mat-menu class="profile-dropdown" #menu="matMenu">
+      <button mat-menu-item routerLink="/administrator/profil-information">
+        <mat-icon>person</mat-icon>
+        <span>Profil oplysninger</span>
+      </button>
+      <button mat-menu-item (click)="logOut()">
+        <mat-icon>logout</mat-icon>
+        <span>Log ud</span>
+      </button>
+    </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-    <img class="avatar mat-elevation-z4"
-         src="https://www.seekpng.com/png/detail/202-2024994_profile-icon-profile-logo-no-background.png"
-         width="88%" height="22%">
-
+    <img class="profile-picture" height="160" width="160"
+         [src]="profilePicture??
+         'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'">
     <h4 class="name">{{http.firstName}} {{http.lastName}}</h4>
     <p class="designation">{{http.role}}</p>
 
@@ -57,10 +67,10 @@
     <button mat-button class="menu-button" (click)="logOut()">
       <mat-icon>logout</mat-icon>
       <span>Log ud</span>
+    <button mat-button class="menu-button" routerLink="/administrator/profil-information">
+      <mat-icon>person</mat-icon>
+      <span>Profil</span>
     </button>
-    <br>
-    <br>
-
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content mat-elevation-z8">

@@ -14,11 +14,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class SideNavUserComponent implements OnInit{
 
   profilePicture:any;
+  private user: any;
 
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  private user: any;
 
   constructor(private router: Router, private observer: BreakpointObserver, public http: UserService, private snackBar: MatSnackBar) {
     let t = localStorage.getItem('token')

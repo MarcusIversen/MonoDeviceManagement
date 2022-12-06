@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatSidenav} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
@@ -11,7 +11,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './side-nav-admin.component.html',
   styleUrls: ['./side-nav-admin.component.scss']
 })
-export class SideNavAdminComponent {
+export class SideNavAdminComponent implements OnInit{
+
+  profilePicture:any;
+  private user: any;
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -30,6 +33,16 @@ export class SideNavAdminComponent {
     }
   }
 
+  async ngOnInit() {
+    let t = localStorage.getItem('token')
+    if(t){
+      let decoded = jwtDecode(t) as any;
+      {
+        this.user = await this.http.getUserByEmail(decoded.email)
+        this.profilePicture = this.user.profilePicture;
+      }
+    }
+  }
   ngAfterViewInit(){
     this.observer.observe(['(max-width: 1500px)']).subscribe((res)=> {
       if(res.matches){

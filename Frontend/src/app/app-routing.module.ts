@@ -5,6 +5,9 @@ import {RouterModule, Routes} from "@angular/router";
 import {SideNavUserComponent} from "./side-nav-user/side-nav-user.component";
 import {DeviceOverviewComponent} from "./userPages/device-overview/device-overview.component";
 import {ProfileInfoComponent} from "./userPages/profile-info/profile-info.component";
+import {DeviceRegistrationComponent} from "./userPages/device-registration/device-registration.component";
+import {UserProfileInfoComponent} from "./userPages/profile-info/user-profile-info.component";
+import {ContactInfoComponent} from "./userPages/contact-info/contact-info.component";
 import {SupportComponent} from "./userPages/support/support.component";
 import {NotFoundComponent} from "./userPages/not-found/not-found.component";
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
@@ -16,7 +19,7 @@ import {UserAuthGuardService} from "../services/user-service/user-auth-guard.ser
 import {RegisterComponent} from "./register/register.component";
 import {MyDevicesComponent} from "./userPages/my-devices/my-devices.component";
 import {RequestsComponent} from "./AdminPages/requests/requests.component";
-
+import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
 
 const routes: Routes=[
   {path: '', component: LoginComponent},
@@ -26,12 +29,16 @@ const routes: Routes=[
       {path: 'enheds-registrering', component: AdminDeviceRegistrationComponent},
       {path: 'brugere', component: UserOverviewComponent},
       {path: 'forespørgsler', component: RequestsComponent},
+      {path: 'profil-information', component: AdminProfileInfoComponent}
     ]
   },
   {path: 'bruger', component: SideNavUserComponent, canActivate: [UserAuthGuardService], children:[
       {path: 'enheder', component: DeviceOverviewComponent}, // When you click enheder as user
       {path: 'mine-enheder', component: MyDevicesComponent}, // When you click my devices as user
       {path: 'profil-information', component: ProfileInfoComponent}, //When you click profil info as user
+      {path: 'enheds-registrering', component: DeviceRegistrationComponent}, //When you click registrering as user
+      {path: 'profil-information', component: UserProfileInfoComponent}, //When you click profil info as user
+      {path: 'kontakt-information', component: ContactInfoComponent}, //When you click kontakt info as user
       {path: 'hjaelp', component: SupportComponent}, //When you click support as user
       {path: '**', component: NotFoundComponent} //When you write a non-existing earl after /user/..
     ]
