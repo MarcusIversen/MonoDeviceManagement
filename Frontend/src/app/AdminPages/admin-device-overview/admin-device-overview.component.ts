@@ -16,6 +16,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class AdminDeviceOverviewComponent implements OnInit{
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'dateOfIssue', 'dateOfTurnIn', 'rediger'];
   dataSource: MatTableDataSource<Device>;
+  user: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -28,6 +29,7 @@ export class AdminDeviceOverviewComponent implements OnInit{
     this.dataSource = new MatTableDataSource(devices);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.user = await this.userService.getUserById(devices.userId); //TODO doesn't work
   }
 
   applyFilter(event: Event) {
@@ -66,6 +68,11 @@ export class AdminDeviceOverviewComponent implements OnInit{
       });
     }
   }
+
+  async getUserOnDevice(row: any){
+    return await this.userService.getUserById(row.userId);
+  }
+
 }
 
 export interface Device{
