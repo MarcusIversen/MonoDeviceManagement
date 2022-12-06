@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../services/user-service/user.service";
 import jwtDecode from "jwt-decode";
+import {Token} from "../../../Models/Token";
 
 @Component({
   selector: 'app-profile-info',
@@ -109,8 +110,4 @@ export class UserProfileInfoComponent implements OnInit {
     })
     window.location.reload();
   }
-}
-
-class Token {
-  email?: string;
 }

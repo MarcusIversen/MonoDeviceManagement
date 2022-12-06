@@ -55,6 +55,7 @@ export class AdminDeviceRegistrationComponent implements OnInit{
       serialNumber: devicePartOne.serialNumberControl,
       status: devicePartOne.statusControl,
       userId: devicePartTwo.chosenValueControl,
+      requestValue: new String("IkkeSendt"),
       dateOfIssue: new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10),
       dateOfTurnIn: new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10)
     }

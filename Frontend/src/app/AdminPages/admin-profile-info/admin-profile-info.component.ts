@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../services/user-service/user.service";
 import jwtDecode from "jwt-decode";
+import {Token} from "../../../Models/Token";
 
 @Component({
   selector: 'app-admin-profile-info',
@@ -113,6 +114,3 @@ export class AdminProfileInfoComponent implements OnInit {
   }
 }
 
-class Token {
-  email?: string;
-}

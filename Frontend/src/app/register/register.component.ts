@@ -2,10 +2,6 @@ import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user-service/user.service";
 
-class Token {
-  role?: string;
-}
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

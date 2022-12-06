@@ -2,13 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import jwtDecode from "jwt-decode";
 import {UserService} from "../../services/user-service/user.service";
-
-
-class Token {
-  role?: string;
-  email?: string;
-  password?: string;
-}
+import {Token} from "../../Models/Token";
 
 @Component({
   selector: 'app-login',

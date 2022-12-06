@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UserOverviewComponent} from "../user-overview/user-overview.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {User} from "../../../Models/Interfaces/user";
 
 @Component({
   selector: 'app-send-mail',
@@ -43,11 +44,5 @@ export class SendMailComponent implements OnInit{
       duration: 3000
     });
   }
-
-
-
 }
 
-export interface User{
-  email: string
-}

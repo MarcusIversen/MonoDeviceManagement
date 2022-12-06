@@ -7,6 +7,7 @@ import {UserService} from "../../../services/user-service/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditDeviceComponent} from "../edit-device/edit-device.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Device} from "../../../Models/Interfaces/device";
 
 @Component({
   selector: 'app-admin-device-overview',
@@ -69,15 +70,4 @@ export class AdminDeviceOverviewComponent implements OnInit{
     return await this.userService.getUserById(row.userId);
   }
 
-}
-
-export interface Device{
-  id: number;
-  deviceName: string,
-  serialNumber: string,
-  status: string,
-  user?: string;
-  userId?: number;
-  dateOfIssue?: Date;
-  dateOfTurnIn?: Date;
 }
