@@ -5,6 +5,7 @@ using System.Text;
 using Application.DTOs;
 using Application.Helpers;
 using Application.Interfaces;
+using AutoMapper;
 using Domain;
 using FluentValidation;
 using Microsoft.Extensions.Options;
@@ -18,13 +19,21 @@ public class AuthenticationService : IAuthenticationService
     private readonly IUserRepository _repository;
 
     private IValidator<PostUserDTO> _postUserValidator;
-    
-    public AuthenticationService(IUserRepository repository,
-        IOptions<AppSettings> appSettings, IValidator<PostUserDTO> postUserValidator)
+    private IValidator<PutPasswordDTO> _putPasswordValidator;
+    private IMapper _mapper;
+
+    public AuthenticationService(
+        IUserRepository repository,
+        IOptions<AppSettings> appSettings,
+        IValidator<PostUserDTO> postUserValidator,
+        IValidator<PutPasswordDTO> putPasswordValidator,
+        IMapper mapper)
     {
         _appSettings = appSettings.Value;
         _repository = repository;
         _postUserValidator = postUserValidator;
+        _putPasswordValidator = putPasswordValidator;
+        _mapper = mapper;
     }
 
     public string Register(PostUserDTO dto)
@@ -64,6 +73,32 @@ public class AuthenticationService : IAuthenticationService
         throw new Exception("Email  " + dto.Email + "is already taken");
     }
     
+    public string UpdatePassword(int userId, PutPasswordDTO dto)
+    {
+        try
+        {
+            ThrowsIfPutPasswordIsInvalid(dto);
+
+            var validate = _putPasswordValidator.Validate(dto);
+            if (!validate.IsValid)
+            {
+                throw new ArgumentException(validate.ToString());
+            }
+
+            var user = _repository.GetUser(userId);
+            user.Hash = BCrypt.Net.BCrypt.HashPassword(dto.Password + user.Salt);
+
+            _repository.UpdateUserPassword(userId, user);
+            return GenerateToken(user);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
     private string GenerateToken(User user)
     {
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
@@ -92,7 +127,20 @@ public class AuthenticationService : IAuthenticationService
         }
         throw new Exception("Invalid login");
     }
-    
+
+
+    private void ThrowsIfPutPasswordIsInvalid(PutPasswordDTO user)
+    {
+        if (string.IsNullOrEmpty(user.Password))
+        {
+            throw new ArgumentException("Password cannot be null, empty and must be greater than 8 characters");
+        }
+
+        if (user.Id.Equals(null) || user.Id.Equals(""))
+        {
+            throw new ArgumentException("Id cannot be null or empty");
+        }
+    }
     private void ThrowsIfPostUserIsInvalid(PostUserDTO user)
     {
         if (string.IsNullOrEmpty(user.Email))
