@@ -40,6 +40,7 @@ import {CreateUserComponent} from './AdminPages/create-user/create-user.componen
 import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.component";
 import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
 import { RequestDeviceOverviewComponent } from './userPages/request-device-overview/request-device-overview.component';
+import { ReportErrorComponent } from './userPages/report-error/report-error.component';
 
 // @ts-ignore
 @NgModule({
@@ -74,7 +75,8 @@ import { RequestDeviceOverviewComponent } from './userPages/request-device-overv
     SendMailComponent,
     LoadingSpinnerComponent,
     AdminProfileInfoComponent,
-    RequestDeviceOverviewComponent
+    RequestDeviceOverviewComponent,
+    ReportErrorComponent
   ],
   imports: [
     BrowserModule,
