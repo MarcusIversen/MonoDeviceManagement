@@ -33,7 +33,10 @@
     <!-- User Column -->
     <ng-container matColumnDef="user">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Bruger</th>
-      <td mat-cell *matCellDef="let row">{{row.user.email}} </td>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="row.user == null"> Ingen bruger tilknyttet</div>
+        <div *ngIf="row.user != null">{{row.user.email}}</div>
+      </td>
     </ng-container>
 
     <!-- DateOfIssue Column -->

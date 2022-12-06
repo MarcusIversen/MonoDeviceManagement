@@ -33,7 +33,10 @@
     <!-- User Column -->
     <ng-container matColumnDef="user">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Bruger</th>
-      <td mat-cell *matCellDef="let row">{{row.user.email}}</td>
+      <td mat-cell *matCellDef="let row">
+        <div *ngIf="row.user == null"> Ingen bruger tilknyttet</div>
+        <div *ngIf="row.user != null">{{row.user.email}}</div>
+      </td>
     </ng-container>
 
     <!-- DateOfIssue Column -->
@@ -46,6 +49,16 @@
     <ng-container matColumnDef="dateOfTurnIn">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Indlevering</th>
       <td mat-cell *matCellDef="let row"> {{row.dateOfTurnIn}} </td>
+    </ng-container>
+
+    <!-- reportError Column -->
+    <ng-container matColumnDef="reportError">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fejlmeld</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-action-list>
+          <mat-icon id="reportErrorBtn" (click)="reportError(row)">report_problem</mat-icon>
+        </mat-action-list>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
