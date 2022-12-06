@@ -95,7 +95,7 @@ public class DeviceService : IDeviceService
     
     public List<Device> GetDevicesWithRequestValue(string value) {
         if (string.IsNullOrEmpty(value)) throw new ArgumentException("Value cannot be null or empty");
-            return _repository.GetDevices().Where(d => d.RequestEnum == value).ToList();
+            return _repository.GetDevices().Where(d => d.RequestValue == value).ToList();
     }
 
     public void RebuildDB()

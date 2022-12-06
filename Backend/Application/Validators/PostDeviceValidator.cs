@@ -10,6 +10,6 @@ public class PostDeviceValidator : AbstractValidator<PostDeviceDTO>
         RuleFor(d => d.SerialNumber).NotEmpty();
         RuleFor(d => d.DeviceName).NotEmpty();
         RuleFor(d => d.Status).Matches("På lager|I brug|Defekt");
-        RuleFor(d => d.RequestEnum).Matches("IkkeSendt|Sendt|Accepteret");
+        RuleFor(d => d.RequestValue).Matches("IkkeSendt|Sendt|Accepteret");
     }
 }

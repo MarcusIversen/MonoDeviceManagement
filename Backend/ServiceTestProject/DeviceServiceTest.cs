@@ -100,12 +100,12 @@ public class DeviceServiceTest
     
     public static IEnumerable<Object[]> GetAllIkkeSendt_TestCase()
     {
-        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestEnum = "IkkeSendt"};
-        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestEnum = "IkkeSendt"};
-        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestEnum = "Sendt"};
-        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestEnum = "Sendt"};
-        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestEnum = "Accepteret"};
-        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestEnum = "Accepteret"};
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestValue = "IkkeSendt"};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestValue = "IkkeSendt"};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestValue = "Sendt"};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestValue = "Sendt"};
+        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestValue = "Accepteret"};
+        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestValue = "Accepteret"};
 
         yield return new Object[]
         {
@@ -142,12 +142,12 @@ public class DeviceServiceTest
     
     public static IEnumerable<Object[]> GetAllSendt_TestCase()
     {
-        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestEnum = "IkkeSendt"};
-        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestEnum = "IkkeSendt"};
-        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestEnum = "Sendt"};
-        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestEnum = "Sendt"};
-        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestEnum = "Accepteret"};
-        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestEnum = "Accepteret"};
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestValue = "IkkeSendt"};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestValue = "IkkeSendt"};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestValue = "Sendt"};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestValue = "Sendt"};
+        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestValue = "Accepteret"};
+        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestValue = "Accepteret"};
 
         yield return new Object[]
         {
@@ -188,12 +188,12 @@ public class DeviceServiceTest
     
     public static IEnumerable<Object[]> GetAllAccepteret_TestCase()
     {
-        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestEnum = "IkkeSendt"};
-        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestEnum = "IkkeSendt"};
-        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestEnum = "Sendt"};
-        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestEnum = "Sendt"};
-        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestEnum = "Accepteret"};
-        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestEnum = "Accepteret"};
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestValue = "IkkeSendt"};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestValue = "IkkeSendt"};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestValue = "Sendt"};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestValue = "Sendt"};
+        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestValue = "Accepteret"};
+        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestValue = "Accepteret"};
 
         yield return new Object[]
         {

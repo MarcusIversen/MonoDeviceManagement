@@ -5,6 +5,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user-service/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Device} from "../../../Models/Interfaces/device";
 
 @Component({
   selector: 'app-edit-device',
@@ -12,7 +13,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./edit-device.component.scss']
 })
 export class EditDeviceComponent implements OnInit{
-  device: Device = new Device();
+  device: Device;
   users: any[] = [];
 
 
@@ -69,15 +70,4 @@ export class EditDeviceComponent implements OnInit{
       duration: 3000
     });
   }
-}
-
-export class Device{
-  id: number;
-  deviceName: string;
-  serialNumber: string;
-  status: string;
-  user?: string;
-  userId?: number;
-  dateOfIssue?: Date;
-  dateOfTurnIn?: Date;
 }
