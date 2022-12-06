@@ -8,4 +8,5 @@ public class PostDeviceDTO
     public int? UserId { get; set; }
     public DateOnly? DateOfIssue { get; set; }
     public DateOnly? DateOfTurnIn { get; set; }
+    public string RequestEnum { get; set; }
 }
