@@ -63,7 +63,7 @@ export class UserOverviewComponent implements OnInit{
 
   editUser(row: any) {
 
-    
+
   }
 
   async sendMail(row: any) {
@@ -89,9 +89,6 @@ export class UserOverviewComponent implements OnInit{
     data.afterClosed().subscribe(()=>{
       this.userService.getUsersTypeUser().then(() => {
         this.dataSource.data = this.userService.getRoleUsers;
-        this._snackBar.open('Bruger oprettet', 'Luk', {
-          duration: 3000
-        });
         return this.dataSource.data;
       });
     });

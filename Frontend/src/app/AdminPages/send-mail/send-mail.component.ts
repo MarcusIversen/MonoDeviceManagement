@@ -12,13 +12,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class SendMailComponent implements OnInit{
   user: User;
-  subject: string = '';
-  body: string = '';
 
   mailForm = new FormGroup({
     emailForm: new FormControl(this.data.user.email),
     subjectForm: new FormControl(''),
-    bodyForm: new FormControl(''),
+    bodyForm: new FormControl('')
   });
 
 
@@ -37,6 +35,7 @@ export class SendMailComponent implements OnInit{
       subject: email.subjectForm,
       body: email.bodyForm
     }
+    console.log(dto);
     await this.userService.sendMail(dto)
     this.dialogRef.close();
     this._snackBar.open('Mail sendt til: ' + dto.email, 'Luk', {

@@ -31,7 +31,7 @@ export class EditDeviceComponent implements OnInit{
   }
 
   async ngOnInit(){
-    this.dialogRef.updateSize("700px", "700px");
+    this.dialogRef.updateSize("515px", "635px");
     this.device = await this.deviceService.getDeviceById(this.data.device.id);
     this.editDevice.patchValue({
       id: this.device.id,
