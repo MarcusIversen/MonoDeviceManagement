@@ -95,6 +95,144 @@ public class DeviceServiceTest
     }
 
     #endregion
+
+    #region GetDeviceWithRequestValueTest
+    
+    public static IEnumerable<Object[]> GetAllIkkeSendt_TestCase()
+    {
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestEnum = "IkkeSendt"};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestEnum = "IkkeSendt"};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestEnum = "Sendt"};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestEnum = "Sendt"};
+        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestEnum = "Accepteret"};
+        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestEnum = "Accepteret"};
+
+        yield return new Object[]
+        {
+            new Device[]
+            {
+            },
+            new List<Device>()
+        };
+
+        yield return new object[]
+        {
+
+            new Device[]
+            {
+                device1, device3, device4, device5, device6
+            },
+            new List<Device>() { device1 }
+        };
+
+        yield return new object[]
+        {
+            new Device[]
+            {
+                device1,
+                device2, 
+                device3,
+                device4,
+                device5,
+                device6
+            },
+            new List<Device>() { device1, device2 }
+        };
+    }
+    
+    public static IEnumerable<Object[]> GetAllSendt_TestCase()
+    {
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestEnum = "IkkeSendt"};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestEnum = "IkkeSendt"};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestEnum = "Sendt"};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestEnum = "Sendt"};
+        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestEnum = "Accepteret"};
+        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestEnum = "Accepteret"};
+
+        yield return new Object[]
+        {
+            new Device[]
+            {
+            },
+            new List<Device>()
+        };
+
+        yield return new object[]
+        {
+
+            new Device[]
+            {
+                device1, 
+                device2, 
+                device4,
+                device5, 
+                device6
+            },
+            new List<Device>() { device4 }
+        };
+
+        yield return new object[]
+        {
+            new Device[]
+            {
+                device1,
+                device2, 
+                device3,
+                device4, 
+                device5,
+                device6
+            },
+            new List<Device>() { device3, device4 }
+        };
+    }
+    
+    public static IEnumerable<Object[]> GetAllAccepteret_TestCase()
+    {
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestEnum = "IkkeSendt"};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "Defekt", RequestEnum = "IkkeSendt"};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "Defekt", RequestEnum = "Sendt"};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestEnum = "Sendt"};
+        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "332434", Status = "Defekt", RequestEnum = "Accepteret"};
+        Device device6 = new Device { Id = 6, DeviceName = "Seed device6", SerialNumber = "df235", Status = "Defekt", RequestEnum = "Accepteret"};
+
+        yield return new Object[]
+        {
+            new Device[]
+            {
+            },
+            new List<Device>()
+        };
+
+        yield return new object[]
+        {
+
+            new Device[]
+            {
+                device1, 
+                device2, 
+                device3,
+                device4, 
+                device5
+            },
+            new List<Device>() { device5 }
+        };
+
+        yield return new object[]
+        {
+            new Device[]
+            {
+                device1,
+                device2, 
+                device3,
+                device4, 
+                device5,
+                device6
+            },
+            new List<Device>() { device5, device6 }
+        };
+    }
+
+    #endregion
     
     [Fact]
     public void CreateDeviceServiceTest()
@@ -269,45 +407,6 @@ public class DeviceServiceTest
         Assert.Equal(expectedMessage, ex.Message);
         mockRepository.Verify(r => r.AddDevice(device), Times.Never);
     }
-    
-    /**
-    [Theory]
-    [InlineData(1, "Laptop", "serialTest1", "I brug", "Device already exists")]    //Invalid device that already exist
-    public void CreateExistingDeviceTest(int deviceId, string deviceName, string serialNumber, string status, string expectedMessage)
-    {
-        // Arrange
-        List<Device> devices = new List<Device>();
-        Device existingDevice = new Device { Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = status};
-        devices.Add(existingDevice);
-        
-        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = existingDevice.DeviceName, SerialNumber = existingDevice.SerialNumber, Status = existingDevice.Status};
-        Device addDevice = new Device { SerialNumber = existingDevice.SerialNumber };
-        
-        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
-        var mapper = new MapperConfiguration(config =>
-        {
-            config.CreateMap<PostDeviceDTO, Device>();
-        }).CreateMapper();
-        var postDeviceValidator = new PostDeviceValidator();
-        var putDeviceValidator = new PutDeviceValidator();
-        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
-
-        mockRepository.Setup(r => r.AddDevice(addDevice)).Returns(() =>
-        {
-            devices.Add(addDevice);
-            return addDevice;
-        });
-        
-        // Act 
-        var action = () => service.AddDevice(dto);
-
-        // Assert
-        var ex = Assert.Throws<ArgumentException>(action);
-        Assert.Equal(expectedMessage, ex.Message);
-        mockRepository.Verify(r => r.AddDevice(addDevice), Times.Never);
-    }
-
-    */
     #endregion
 
     #region Update
@@ -529,9 +628,110 @@ public class DeviceServiceTest
         mockRepository.Verify(r => r.GetDevices(), Times.Never);
     }
     #endregion
+
+
+    #region GetRequestValueTests
+
+    [Theory]
+    [MemberData(nameof(GetAllIkkeSendt_TestCase))]
+    public void GetValidIkkeSendtRequestValue(Device[] data, List<Device> expectedResult)
+    {
+        var fakeRepo = data;
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+        mockRepository.Setup(r => r.GetDevices()).Returns(fakeRepo);
+
+        // Act 
+        var actual = service.GetDevicesWithRequestValue("IkkeSendt");
+
+        // Assert
+        Assert.Equal(expectedResult, actual);
+        Assert.True(Enumerable.SequenceEqual(expectedResult, actual));
+        mockRepository.Verify(r => r.GetDevices(), Times.Once);
+    }
     
+    [Theory]
+    [MemberData(nameof(GetAllSendt_TestCase))]
+    public void GetValidSendtRequestValue(Device[] data, List<Device> expectedResult)
+    {
+        var fakeRepo = data;
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+        mockRepository.Setup(r => r.GetDevices()).Returns(fakeRepo);
+
+        // Act 
+        var actual = service.GetDevicesWithRequestValue("Sendt");
+
+        // Assert
+        Assert.Equal(expectedResult, actual);
+        Assert.True(Enumerable.SequenceEqual(expectedResult, actual));
+        mockRepository.Verify(r => r.GetDevices(), Times.Once);
+    }
     
+    [Theory]
+    [MemberData(nameof(GetAllAccepteret_TestCase))]
+    public void GetValidAccepteretRequestValue(Device[] data, List<Device> expectedResult)
+    {
+        var fakeRepo = data;
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+        mockRepository.Setup(r => r.GetDevices()).Returns(fakeRepo);
+
+        // Act 
+        var actual = service.GetDevicesWithRequestValue("Accepteret");
+
+        // Assert
+        Assert.Equal(expectedResult, actual);
+        Assert.True(Enumerable.SequenceEqual(expectedResult, actual));
+        mockRepository.Verify(r => r.GetDevices(), Times.Once);
+    }
     
+    [Theory]
+    [InlineData(null, "Value cannot be null or empty")] //Request value is null
+    [InlineData("", "Value cannot be null or empty")]   //Request value is empty
+    public void GetInvalidRequestValue(string value, string expectedMessage)
+    {
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+
+        // Act 
+        var action = ()=> service.GetDevicesWithRequestValue(value);
+        var ex = Assert.Throws<ArgumentException>(action);
+
+        // Assert
+        Assert.Equal(expectedMessage, ex.Message);
+        mockRepository.Verify(r => r.GetDevices(), Times.Never);
+    }
+    
+    #endregion
     
     
 }

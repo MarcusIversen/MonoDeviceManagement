@@ -46,6 +46,7 @@ public class DeviceRepository : IDeviceRepository
             dev.Status = device.Status;
             dev.DateOfIssue = device.DateOfIssue;
             dev.DateOfTurnIn = device.DateOfTurnIn;
+            dev.RequestEnum = device.RequestEnum;
             _context.Update(dev);
             _context.SaveChanges();
         }

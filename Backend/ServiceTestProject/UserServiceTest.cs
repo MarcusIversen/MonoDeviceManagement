@@ -199,14 +199,14 @@ public class UserServiceTest
     #endregion
 
     #region Update
-
+    
     [Theory]
     [InlineData(1 , "Andy")]
     public void UpdateValidUserTest(int id, string firstName)
     {
         // Arrange
         User user = new User{Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", Salt = "123123", Hash = "123123", Role = "Admin", WorkNumber = "12345678"};
-        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password = user.Salt+user.Hash, Role = user.Role, WorkNumber = user.WorkNumber};
+        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName,  WorkNumber = user.WorkNumber};
 
         Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -255,7 +255,7 @@ public class UserServiceTest
     {
         // Arrange
         User user = new User{Id = userId, Email = email, FirstName = firstName, LastName = lastName, Salt = salt, Hash = hash, Role = role , WorkNumber = workNumber};
-        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password = user.Salt + user.Hash, Role = user.Role, WorkNumber = user.WorkNumber};
+        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, WorkNumber = user.WorkNumber};
         
         Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
         var mapper = new MapperConfiguration(config =>
