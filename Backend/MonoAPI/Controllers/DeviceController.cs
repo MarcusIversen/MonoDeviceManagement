@@ -86,6 +86,12 @@ public class DeviceController : ControllerBase
     {
         return Ok(_service.GetNotAssignedDevices());
     }
+    
+    [HttpGet("/RequestValue/{value}")]
+    public IActionResult GetRequestValueDevices(string value)
+    {
+        return Ok(_service.GetDevicesWithRequestValue(value));
+    }
 
     //[Authorize ("AdminPolicy")]
     [AllowAnonymous]

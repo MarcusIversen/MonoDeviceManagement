@@ -2,10 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {DeviceService} from "../../../services/device-service/device.service";
 import {UserService} from "../../../services/user-service/user.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {Device} from "../../AdminPages/admin-device-overview/admin-device-overview.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import jwtDecode from "jwt-decode";
+import {Token} from "../../../Models/Token";
+import {Device} from "../../../Models/Interfaces/device";
 
 @Component({
   selector: 'app-request-device-overview',
@@ -50,8 +51,4 @@ export class RequestDeviceOverviewComponent implements OnInit{
   requestDevice(row) {
 
   }
-}
-
-class Token {
-  email?: string;
 }

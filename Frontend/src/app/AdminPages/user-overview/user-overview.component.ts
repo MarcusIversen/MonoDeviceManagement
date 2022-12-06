@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SendMailComponent} from "../send-mail/send-mail.component";
 import {CreateUserComponent} from "../create-user/create-user.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {User} from "../../../Models/Interfaces/user";
 
 @Component({
   selector: 'app-user-overview',
@@ -63,7 +64,7 @@ export class UserOverviewComponent implements OnInit{
 
   editUser(row: any) {
 
-    
+
   }
 
   async sendMail(row: any) {
@@ -96,16 +97,4 @@ export class UserOverviewComponent implements OnInit{
       });
     });
   }
-
-}
-
-export interface User {
-  id: number,
-  email: string,
-  firstName: string,
-  lastName: string,
-  role: string,
-  workNumber: string,
-  privateNumber?: string,
-  privateMail?: string
 }
