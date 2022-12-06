@@ -44,6 +44,16 @@ public interface IUserRepository
     /// <returns>The updated user</returns>
     User UpdateUser(int userId, User user);
 
+    // Update
+    /// <summary>
+    /// Updates a users password
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    User UpdateUserPassword(int userId, User user);
+    
+
     // Delete 
     /// <summary>
     /// Deletes the user with the given userId

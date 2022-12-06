@@ -32,7 +32,7 @@ public class UserRepository : IUserRepository
         user.Devices = _deviceRepository.GetAssignedDevice(user.Id).ToList();
         return user;
     }
-
+    
     public User GetUserByEmail(string email)
     {
         return _context.Users.FirstOrDefault(u => u.Email == email) ?? throw new KeyNotFoundException("There was no user with email " + email);
@@ -41,6 +41,7 @@ public class UserRepository : IUserRepository
     public User UpdateUser(int userId, User user)
     {
         var userToUpdate = _context.Users.FirstOrDefault(u => u.Id == userId);
+        
         if (userToUpdate.Id == userId)
         {
             userToUpdate.Email = user.Email;
@@ -57,6 +58,18 @@ public class UserRepository : IUserRepository
 
         return userToUpdate;
     }
+    
+    public User UpdateUserPassword(int userId, User user)
+    {
+        var userToUpdate = _context.Users.Find(userId);
+        userToUpdate.Hash = user.Hash;
+        _context.Users.Update(userToUpdate);
+        _context.SaveChanges();
+
+        return userToUpdate;
+    }
+    
+    
 
     public User DeleteUser(int userId)
     {
