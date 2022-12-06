@@ -55,6 +55,11 @@ export class UserService {
     return httpResult.data;
   }
 
+  async updatePassword(id: any, dto:any){
+    const httpResult = await customAxios.put('auth/update-password/'+id, dto)
+    return httpResult.data;
+  }
+
   async getUsers(){
     const httpResult = await customAxios.get<any>('User');
     return httpResult.data;

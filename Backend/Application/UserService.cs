@@ -18,7 +18,11 @@ public class UserService : IUserService
     private IValidator<PutUserDTO> _putUserValidator;
     private readonly AppSettings _appSettings;
 
-    public UserService(IUserRepository repository, IMapper mapper, IValidator<PutUserDTO> putUserValidator, IOptions<AppSettings> appSettings)
+    public UserService(
+        IUserRepository repository,
+        IMapper mapper,
+        IValidator<PutUserDTO> putUserValidator,
+        IOptions<AppSettings> appSettings)
     {
         _repository = repository;
         _mapper = mapper;
