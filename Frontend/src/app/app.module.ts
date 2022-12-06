@@ -11,10 +11,7 @@ import {SideNavAdminComponent} from './side-nav-admin/side-nav-admin.component';
 import {AppRoutingModule} from './app-routing.module';
 import {SideNavUserComponent} from './side-nav-user/side-nav-user.component';
 import {DeviceOverviewComponent} from './userPages/device-overview/device-overview.component';
-import {DeviceRegistrationComponent} from './userPages/device-registration/device-registration.component';
 import {UserProfileInfoComponent} from './userPages/profile-info/user-profile-info.component';
-import {ContactInfoComponent} from './userPages/contact-info/contact-info.component';
-import {SupportComponent} from './userPages/support/support.component';
 import {NotFoundComponent} from './userPages/not-found/not-found.component';
 import {LoginComponent} from './login/login.component';
 import {MatInputModule} from "@angular/material/input";
@@ -42,6 +39,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {CreateUserComponent} from './AdminPages/create-user/create-user.component';
 import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.component";
 import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
+import { RequestDeviceOverviewComponent } from './userPages/request-device-overview/request-device-overview.component';
 
 // @ts-ignore
 @NgModule({
@@ -50,10 +48,7 @@ import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-p
     SideNavAdminComponent,
     SideNavUserComponent,
     DeviceOverviewComponent,
-    DeviceRegistrationComponent,
     UserProfileInfoComponent,
-    ContactInfoComponent,
-    SupportComponent,
     NotFoundComponent,
     LoginComponent,
     RegisterComponent,
@@ -67,10 +62,7 @@ import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-p
     SideNavAdminComponent,
     SideNavUserComponent,
     DeviceOverviewComponent,
-    DeviceRegistrationComponent,
     UserProfileInfoComponent,
-    ContactInfoComponent,
-    SupportComponent,
     NotFoundComponent,
     LoginComponent,
     RegisterComponent,
@@ -81,7 +73,8 @@ import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-p
     EditDeviceComponent,
     SendMailComponent,
     LoadingSpinnerComponent,
-    AdminProfileInfoComponent
+    AdminProfileInfoComponent,
+    RequestDeviceOverviewComponent
   ],
   imports: [
     BrowserModule,

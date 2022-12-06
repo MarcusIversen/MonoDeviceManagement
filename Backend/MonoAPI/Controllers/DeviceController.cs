@@ -80,9 +80,14 @@ public class DeviceController : ControllerBase
     {
         return Ok(_service.AssignedDevices(id));
     }
+    
+    [HttpGet("/NotAssigned")]
+    public IActionResult GetNotAssignedDevices()
+    {
+        return Ok(_service.GetNotAssignedDevices());
+    }
 
-    [Authorize ("AdminPolicy")]
-
+    //[Authorize ("AdminPolicy")]
     [AllowAnonymous]
     [HttpGet]
     [Route("rebuildDB")]

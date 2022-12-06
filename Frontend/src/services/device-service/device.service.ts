@@ -62,4 +62,11 @@ constructor() {
     const httpResult = await customAxios.put('Device/'+`${id}`, dto)
     return httpResult.data;
   }
+
+  async getNotAssignedDevices() {
+    const httpResponse = await customAxios.get<any>('NotAssigned/');
+    this.devices = httpResponse.data;
+    return httpResponse.data;
+  }
+
 }
