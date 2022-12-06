@@ -42,7 +42,7 @@ export class AdminDeviceRegistrationComponent implements OnInit{
   }
 
   async ngOnInit() {
-    this.users = await this.userService.getUsers();
+    this.users = await this.userService.getUsersTypeUser();
   }
 
   //TODO IsoToString cannot be null fix pls
