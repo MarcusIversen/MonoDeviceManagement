@@ -82,7 +82,6 @@ public class DeviceController : ControllerBase
     }
 
     [Authorize ("AdminPolicy")]
-
     [HttpGet]
     [Route("rebuildDB")]
     public void RebuildDB()

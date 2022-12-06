@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
@@ -21,7 +22,7 @@ public class DeviceRepository : IDeviceRepository
 
     public IEnumerable<Device> GetDevices()
     {
-        return _context.Devices.ToList();
+        return _context.Devices.Include(d => d.User).ToList();
     }
 
     public Device GetDevice(int deviceId)
