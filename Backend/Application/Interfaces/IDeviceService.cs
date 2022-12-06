@@ -61,6 +61,13 @@ public interface IDeviceService
     /// <param name="userId"></param>
     /// <returns>List of assigned devices on user</returns>
     List<Device> AssignedDevices(int userId);
+    
+    /// <summary>
+    /// Gets all the devices that doesn't have a UserID
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <returns>List of assigned devices on user</returns>
+    List<Device> GetNotAssignedDevices();
 
     /// <summary>
     /// Gets a list of devices with a specific request value 
