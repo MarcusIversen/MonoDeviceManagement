@@ -50,9 +50,7 @@ export class AdminDeviceOverviewComponent implements OnInit{
     data.afterClosed().subscribe(()=>{
        this.deviceService.getDevices().then(() => {
          this.dataSource.data = this.deviceService.devices;
-         this._snackBar.open('Den valgte enhed blevet redigeret', 'Luk', {
-           duration: 3000
-         });
+
          return this.dataSource.data;
        });
     });
