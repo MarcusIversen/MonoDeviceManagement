@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user-service/user.service";
+import {Device, User} from "../userPages/device-overview/device-overview.component";
 
 class Token {
   role?: string;
@@ -22,7 +23,6 @@ export class RegisterComponent {
   isLoading: boolean | undefined;
 
   showSuccessMessage: boolean | undefined;
-
 
   constructor(private userService: UserService, private router: Router) {
   }

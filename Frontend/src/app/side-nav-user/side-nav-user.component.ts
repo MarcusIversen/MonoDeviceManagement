@@ -15,6 +15,7 @@ export class SideNavUserComponent implements OnInit{
 
   profilePicture:any;
 
+
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   private user: any;

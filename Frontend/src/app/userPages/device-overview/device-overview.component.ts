@@ -15,10 +15,6 @@ export class DeviceOverviewComponent {
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'request'];
   dataSource: MatTableDataSource<Device>;
 
-  deviceToRequest: EventEmitter<Device> = new EventEmitter<Device>();
-  userFromParent: EventEmitter<User> = new EventEmitter<User>();
-
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -41,20 +37,19 @@ export class DeviceOverviewComponent {
     }
   }
 
-  // https://www.c-sharpcorner.com/article/input-and-output-decorator-in-angular/
-  //https://medium.com/quick-code/input-output-in-angular-4550c8fea6da
   async request(row: any) {
     if (confirm('Vil du lave en forespørgsel om tildeling af: ' + row.deviceName)) {
+      sessionStorage.setItem('device', row.id);
       let token = localStorage.getItem("token");
       if (token) {
         let decodedToken = jwtDecode(token) as Token;
-        const user = await this.userService.getUserByEmail(decodedToken.email);
-        this.deviceToRequest.emit(row);
-        this.userFromParent.emit(user);
+        let user = await this.userService.getUserByEmail(decodedToken.email);
+        sessionStorage.setItem('user', user.id);
       }
     }
   }
 }
+
 export interface Device{
   id: number;
   deviceName: string,
