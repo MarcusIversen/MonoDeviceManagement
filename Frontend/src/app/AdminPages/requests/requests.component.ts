@@ -23,11 +23,6 @@ export class RequestsComponent implements OnInit{
     this.requests = await this.deviceService.getSendtRequestValue();
   }
 
-  async getUserById(id: number){
-    this.requester = await this.userService.getUserById(id);
-    return this.requester;
-  }
-
 
   async decline(r: Device) {
     let device = await this.deviceService.getDeviceById(r.id);

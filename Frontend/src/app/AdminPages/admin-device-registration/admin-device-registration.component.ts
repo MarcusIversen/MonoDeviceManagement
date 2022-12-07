@@ -50,16 +50,31 @@ export class AdminDeviceRegistrationComponent implements OnInit{
     const devicePartOne = this.firstFormGroup.value;
     const devicePartTwo = this.secondFormGroup.value;
     const devicePartThree = this.thirdFormGroup.value;
-    let dto = {
-      deviceName: devicePartOne.deviceNameControl,
-      serialNumber: devicePartOne.serialNumberControl,
-      status: devicePartOne.statusControl,
-      userId: devicePartTwo.chosenValueControl,
-      requestValue: new String("IkkeSendt"),
-      dateOfIssue: new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10),
-      dateOfTurnIn: new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10)
+
+    if (this.chosenUserControl == null){
+      let dto = {
+        deviceName: devicePartOne.deviceNameControl,
+        serialNumber: devicePartOne.serialNumberControl,
+        status: devicePartOne.statusControl,
+        userId: devicePartTwo.chosenValueControl,
+        requestValue: new String("IkkeSendt"),
+        dateOfIssue: new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10),
+        dateOfTurnIn: new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10)
+      }
+      await this.deviceService.createDevice(dto);
+
+    }else{
+      let dto = {
+        deviceName: devicePartOne.deviceNameControl,
+        serialNumber: devicePartOne.serialNumberControl,
+        status: devicePartOne.statusControl,
+        userId: devicePartTwo.chosenValueControl,
+        requestValue: new String("Accepteret"),
+        dateOfIssue: new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10),
+        dateOfTurnIn: new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10)
+      }
+      await this.deviceService.createDevice(dto);
     }
-    await this.deviceService.createDevice(dto);
     this._snackBar.open('Enhed oprettet', 'Luk', {
       duration: 3000
     });
