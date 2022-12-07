@@ -1,1 +1,33 @@
-<p>report-error works!</p>
+<mat-card>
+  <form [formGroup]="errorReportForm" (ngSubmit)="sendErrorReport()">
+    <label>
+      Email:
+      <br>
+      <mat-form-field>
+        <input matInput deviceName="deviceName" type="text" formControlName="nameForm" readonly>
+      </mat-form-field>
+    </label>
+    <br>
+    <label>
+      Emne:
+      <br>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Defekt skærm..." formControlName="subjectForm" required>
+      </mat-form-field>
+    </label>
+    <br>
+    <label>
+      Beskrivelse:
+      <br>
+      <mat-form-field>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="max" placeholder="Enheden er begyndt at..." formControlName="bodyForm" required></textarea>
+      </mat-form-field>
+    </label>
+    <br>
+    <button id="btnSend" mat-raised-button type="send">Send</button>
+  </form>
+</mat-card>

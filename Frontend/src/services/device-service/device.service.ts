@@ -69,4 +69,7 @@ constructor() {
     return httpResponse.data;
   }
 
+  async sendError(dto: {subject: string; body: string; deviceName: any}) {
+
+  }
 }

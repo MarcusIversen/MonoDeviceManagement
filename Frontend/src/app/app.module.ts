@@ -12,7 +12,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {SideNavUserComponent} from './side-nav-user/side-nav-user.component';
 import {DeviceOverviewComponent} from './userPages/device-overview/device-overview.component';
 import {UserProfileInfoComponent} from './userPages/profile-info/user-profile-info.component';
-import {NotFoundComponent} from './userPages/not-found/not-found.component';
 import {LoginComponent} from './login/login.component';
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -50,7 +49,6 @@ import { ReportErrorComponent } from './userPages/report-error/report-error.comp
     SideNavUserComponent,
     DeviceOverviewComponent,
     UserProfileInfoComponent,
-    NotFoundComponent,
     LoginComponent,
     RegisterComponent,
     AdminDeviceOverviewComponent,
@@ -64,7 +62,6 @@ import { ReportErrorComponent } from './userPages/report-error/report-error.comp
     SideNavUserComponent,
     DeviceOverviewComponent,
     UserProfileInfoComponent,
-    NotFoundComponent,
     LoginComponent,
     RegisterComponent,
     LoadingSpinnerComponent,
