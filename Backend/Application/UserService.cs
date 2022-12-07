@@ -99,9 +99,9 @@ public class UserService : IUserService
         {
             mail.From = new MailAddress(_appSettings.Email);
             mail.To.Add(new MailAddress(toMail));
-            mail.Subject = subject;
+            mail.Subject = subject.Replace("\n", "<br>").Replace("\r", "<br>");
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            mail.Body = body;
+            mail.Body = body.Replace("\n", "<br>").Replace("\r", "<br>");
             mail.BodyEncoding = System.Text.Encoding.UTF8;
             mail.IsBodyHtml = true;
             using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587))
@@ -109,6 +109,7 @@ public class UserService : IUserService
                 client.Credentials = new NetworkCredential(_appSettings.Email, _appSettings.Password);
                 client.EnableSsl = true;
                 client.Send(mail);
+                Console.WriteLine(mail);
             }
         }
     }

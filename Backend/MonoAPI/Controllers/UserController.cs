@@ -79,6 +79,6 @@ public class UserController : ControllerBase
     //Cannot send email when connected to the school internet 
     public void SendEmail(EmailDTO email)
     {
-        _service.SendEmail(email.Email, email.Body, email.Subject);
+        _service.SendEmail(email.Email, email.Subject, email.Body);
     }
 }

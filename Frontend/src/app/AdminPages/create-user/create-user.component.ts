@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {UserService} from "../../../services/user-service/user.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UserOverviewComponent} from "../user-overview/user-overview.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-create-user',
@@ -24,7 +25,7 @@ export class CreateUserComponent implements OnInit{
     workNumberForm: new FormControl(''),
   });
 
-  constructor(private userService: UserService,  public dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data : any) {
+  constructor(private userService: UserService, private _snackBar: MatSnackBar,  public dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data : any) {
   }
 
   async ngOnInit() {
@@ -42,6 +43,9 @@ export class CreateUserComponent implements OnInit{
       workNumber: user.workNumberForm
     }
     await this.userService.createUserAsAdmin(dto)
+    this._snackBar.open('Bruger oprettet', 'Luk', {
+      duration: 3000
+    });
     this.dialogRef.close();
   }
 
