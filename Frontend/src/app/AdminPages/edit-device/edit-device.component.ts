@@ -20,16 +20,20 @@ export class EditDeviceComponent implements OnInit{
   editDevice = new FormGroup({
     id: new FormControl(this.data.device.id),
     deviceName: new FormControl(this.data.device.deviceName, [Validators.required]),
-    serialNumber: new FormControl(this.data.device.serialNumber, [Validators.required]),
-    status: new FormControl(this.data.device.status, [Validators.required]),
-    userId: new FormControl(this.data.device.userId),
-    dateOfIssue: new FormControl(this.data.device.dateOfIssue),
-    dateOfTurnIn: new FormControl(this.data.device.dateOfTurnIn)
-  })
+  serialNumber: new FormControl(this.data.device.serialNumber, [Validators.required]),
+  status: new FormControl(this.data.device.status, [Validators.required]),
+  userId: new FormControl(this.data.device.userId),
+  dateOfIssue: new FormControl(this.data.device.dateOfIssue),
+  dateOfTurnIn: new FormControl(this.data.device.dateOfTurnIn)
+})
 
 
-  constructor(private deviceService: DeviceService, public userService: UserService, public dialogRef: MatDialogRef<AdminDeviceRegistrationComponent>, @Inject(MAT_DIALOG_DATA) public data : any, private _snackBar: MatSnackBar) {
-  }
+  constructor(
+    private deviceService: DeviceService,
+    public userService: UserService,
+    public dialogRef: MatDialogRef<AdminDeviceRegistrationComponent>,
+    @Inject(MAT_DIALOG_DATA) public data : any,
+    private _snackBar: MatSnackBar) {}
 
   async ngOnInit(){
     this.dialogRef.updateSize("515px", "635px");

@@ -59,6 +59,7 @@ export class AdminDeviceRegistrationComponent implements OnInit{
       dateOfIssue: new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10),
       dateOfTurnIn: new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10)
     }
+
     await this.deviceService.createDevice(dto);
     this._snackBar.open('Enhed oprettet', 'Luk', {
       duration: 3000
