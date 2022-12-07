@@ -24,7 +24,7 @@ public class DatabaseContext : DbContext
             .HasOne(d => d.User)
             .WithMany(u => u.Devices)
             .HasForeignKey(d => d.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.SetNull);
         
         //User model builder
         //Auto generate id

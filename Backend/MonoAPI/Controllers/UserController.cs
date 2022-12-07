@@ -28,7 +28,18 @@ public class UserController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetUser(int id)
     {
-        return Ok(_service.GetUser(id));
+        try
+        {
+            return Ok(_service.GetUser(id));
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound("No user was found at id: " + id);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
     }
     
     [Authorize ("AdminPolicy")]
@@ -44,7 +55,18 @@ public class UserController : ControllerBase
     [HttpGet ("email/{email}")]
     public IActionResult GetUserByEmail(string email)
     {
-        return Ok(_service.GetUserByEmail(email));
+        try
+        {
+            return Ok(_service.GetUserByEmail(email));
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound("No user was found at email: " + email);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
     }
     
 
@@ -56,7 +78,7 @@ public class UserController : ControllerBase
         {
             return Ok(_service.UpdateUser(id, dto));
         }
-        catch (KeyNotFoundException e)
+        catch (KeyNotFoundException)
         {
             return NotFound("No user was found at id: " + id);
         }
@@ -70,7 +92,18 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteUser(int id)
     {
-        return Ok(_service.DeleteUser(id));
+        try
+        {
+            return Ok(_service.DeleteUser(id));
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound("No user was found at id: " + id);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
     }
 
     [Authorize ("AdminPolicy")]
