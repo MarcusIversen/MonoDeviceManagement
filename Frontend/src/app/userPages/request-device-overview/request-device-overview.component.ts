@@ -53,16 +53,19 @@ export class RequestDeviceOverviewComponent implements OnInit{
     if (confirm('Vil du forespørge' + row.deviceName)) {
       let device = await this.deviceService.getDeviceById(row.id);
 
-      let dto = {
-        id: device.id,
-        deviceName: device.deviceName,
-        serialNumber: device.serialNumber,
-        status: device.status,
-        userId: device.userId,
-        requestValue: new String('Sendt'),
-        dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
-        dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10)
-      }
+        let dto = {
+          id: device.id,
+          deviceName: device.deviceName,
+          serialNumber: device.serialNumber,
+          status: device.status,
+          userId: device.userId,
+          requestValue: new String('Sendt'),
+          requesterId: this.user.id,
+          dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
+          dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10)
+        }
+
+        console.log(dto.requesterId);
 
       await this.deviceService.updateDevice(dto, row.id);
       const devices = await this.deviceService.getIkkeSendtRequestValue();

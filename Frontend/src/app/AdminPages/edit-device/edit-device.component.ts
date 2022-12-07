@@ -46,7 +46,6 @@ export class EditDeviceComponent implements OnInit{
     this.users = await this.userService.getUsersTypeUser();
   }
 
-  //This might fail because i have added request value
   async save() {
     const device = this.editDevice.value;
     let dto = {
