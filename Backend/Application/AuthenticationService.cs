@@ -5,7 +5,6 @@ using System.Text;
 using Application.DTOs;
 using Application.Helpers;
 using Application.Interfaces;
-using AutoMapper;
 using Domain;
 using FluentValidation;
 using Microsoft.Extensions.Options;
@@ -20,20 +19,17 @@ public class AuthenticationService : IAuthenticationService
 
     private IValidator<PostUserDTO> _postUserValidator;
     private IValidator<PutPasswordDTO> _putPasswordValidator;
-    private IMapper _mapper;
 
     public AuthenticationService(
         IUserRepository repository,
         IOptions<AppSettings> appSettings,
         IValidator<PostUserDTO> postUserValidator,
-        IValidator<PutPasswordDTO> putPasswordValidator,
-        IMapper mapper)
+        IValidator<PutPasswordDTO> putPasswordValidator)
     {
         _appSettings = appSettings.Value;
         _repository = repository;
         _postUserValidator = postUserValidator;
         _putPasswordValidator = putPasswordValidator;
-        _mapper = mapper;
     }
 
     public string Register(PostUserDTO dto)
@@ -141,6 +137,7 @@ public class AuthenticationService : IAuthenticationService
             throw new ArgumentException("Id cannot be null or empty");
         }
     }
+    
     private void ThrowsIfPostUserIsInvalid(PostUserDTO user)
     {
         if (string.IsNullOrEmpty(user.Email))

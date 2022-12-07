@@ -12,7 +12,6 @@ namespace Application;
 
 public class UserService : IUserService
 {
-
     private IUserRepository _repository;
     private IMapper _mapper;
     private IValidator<PutUserDTO> _putUserValidator;
@@ -60,7 +59,6 @@ public class UserService : IUserService
 
         return _repository.GetUserByEmail(email);
     }
-
     
     public User UpdateUser(int userId, PutUserDTO user)
     {
@@ -137,16 +135,6 @@ public class UserService : IUserService
             throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
         }
 
-        /*if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8)
-        {
-            throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
-        }
-
-        if (user.Role is not ("Admin" or "User"))
-        {
-            throw new ArgumentException("Role cannot be null and must be Admin or User");
-        }*/
-        
         if (user.Id < 1)
         {
             throw new ArgumentException("Id cannot be null or less than 1");
