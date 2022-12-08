@@ -1,0 +1,40 @@
+.profilePicture{
+  object-fit: cover;
+  height: 100px;
+  width: 100px;
+  margin: 0;
+  padding: 0;
+  max-width: 100px;
+}
+
+.content {
+  padding: 16px;
+}
+
+.content > mat-card {
+  width: 200px;
+}
+
+#Acceptere{
+  color: white;
+  background-color: #2b2bad;
+}
+
+#Afvise{
+  color: white;
+  background-color: red;
+}
+
+#Acceptere:hover{
+  color: white;
+  background-color: rgba(43, 43, 173, 0.8);
+}
+
+#Afvise:hover{
+  color: white;
+  background-color: rgba(208, 34, 34, 0.8);
+}
+
+button{
+  margin: 10px;
+}

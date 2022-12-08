@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
 import jwtDecode from "jwt-decode";
+import {Token} from "../../Models/Token";
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +28,4 @@ export class AdminAuthGuardService implements CanActivate {
     this.router.navigate(['bruger'])
     return false;
   }
-}
-
-
-
-class Token {
-  exp?: number;
-  role?: string;
 }

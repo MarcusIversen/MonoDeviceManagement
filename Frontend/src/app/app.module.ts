@@ -40,6 +40,7 @@ import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.
 import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
 import { RequestDeviceOverviewComponent } from './userPages/request-device-overview/request-device-overview.component';
 import { ReportErrorComponent } from './userPages/report-error/report-error.component';
+import { RequestsComponent } from './AdminPages/requests/requests.component';
 import { EditUserComponent } from './AdminPages/edit-user/edit-user.component';
 
 // @ts-ignore
@@ -76,6 +77,7 @@ import { EditUserComponent } from './AdminPages/edit-user/edit-user.component';
     AdminProfileInfoComponent,
     RequestDeviceOverviewComponent,
     ReportErrorComponent,
+    RequestsComponent
     EditUserComponent
   ],
   imports: [

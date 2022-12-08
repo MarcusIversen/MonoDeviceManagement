@@ -58,6 +58,7 @@ export class EditDeviceComponent implements OnInit{
       serialNumber: device.serialNumber,
       status: device.status,
       userId: device.userId,
+      requestValue: new String('IkkeSendt'),
       dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0,10),
       dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0,10)
     }

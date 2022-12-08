@@ -10,5 +10,5 @@ public class PutDeviceDTO
     public DateOnly? DateOfIssue { get; set; }
     public DateOnly? DateOfTurnIn { get; set; }
     public string RequestValue { get; set; }
-
+    public int? RequesterId { get; set; }
 }
