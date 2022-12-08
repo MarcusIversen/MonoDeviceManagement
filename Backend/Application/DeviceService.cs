@@ -87,8 +87,7 @@ public class DeviceService : IDeviceService
         }
         return _repository.GetDevices().Where(d => d.UserId == userId).ToList();
     }
-
-
+    
     public List<Device> GetNotAssignedDevices() {
         return _repository.GetDevices().Where(d => d.UserId == null).ToList();
     }
@@ -98,6 +97,11 @@ public class DeviceService : IDeviceService
             return _repository.GetDevices().Where(d => d.RequestValue == value).ToList();
     }
 
+    public List<Device> GetDevicesWithStatusMalfunction()
+    {
+        return _repository.GetDevices().Where(d => d.Status == "Defekt").ToList();
+    }
+    
     public void RebuildDB()
     {
         _repository.RebuildDB();

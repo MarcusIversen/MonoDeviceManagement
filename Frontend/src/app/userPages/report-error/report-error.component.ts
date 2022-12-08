@@ -12,34 +12,40 @@ import {Device} from "../../../Models/Interfaces/device";
   styleUrls: ['./report-error.component.scss']
 })
 export class ReportErrorComponent implements OnInit{
-  device: Device;
-  subject: string = '';
-  body: string = '';
 
   errorReportForm = new FormGroup({
+    IdForm: new FormControl(this.data.device.id),
     nameForm: new FormControl(this.data.device.deviceName),
-    subjectForm: new FormControl(''),
-    bodyForm: new FormControl(''),
+    subjectForm: new FormControl(),
+    bodyForm: new FormControl()
   });
 
 
   constructor(private deviceService: DeviceService,  public dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data : any, private _snackBar: MatSnackBar) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.dialogRef.updateSize('50%', '80%');
   }
 
   async sendErrorReport() {
-    const error = this.errorReportForm.value;
+    let device = await this.deviceService.getDeviceById(this.errorReportForm.value.IdForm);
     let dto = {
-      deviceName: error.nameForm,
-      subject: error.subjectForm,
-      body: error.bodyForm
+      id: device.id,
+      deviceName: device.deviceName,
+      serialNumber: device.serialNumber,
+      status: 'Defekt',
+      userId: device.userId,
+      requestValue: device.requestValue,
+      dateOfTurnIn: device.dateOfTurnIn,
+      dateOfIssue: device.dateOfIssue,
+      errorSubject: this.errorReportForm.value.subjectForm,
+      errorDescription: this.errorReportForm.value.bodyForm
     }
-    await this.deviceService.sendError(dto)
+    await this.deviceService.updateDevice(dto, device.id);
+
     this.dialogRef.close();
-    this._snackBar.open('Administrationen har modtaget din fejlmelding ', 'Luk', {
+    this._snackBar.open('Administrationen har modtaget din fejlmelding', 'Luk', {
       duration: 3000
     });
   }

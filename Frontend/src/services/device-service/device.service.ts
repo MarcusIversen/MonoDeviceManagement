@@ -58,7 +58,7 @@ constructor() {
     return httpResult.data;
   }
 
-  async updateDevice(dto: { serialNumber: any; id: any; dateOfIssue: any; deviceName: any; userId: any; dateOfTurnIn: any; status: any }, id: number) {
+  async updateDevice(dto: { serialNumber: any; errorSubject: string; errorDescription: string; id: any; dateOfIssue: string; deviceName: any; userId: any; dateOfTurnIn: string; status: any }, id: number) {
     const httpResult = await customAxios.put('Device/'+`${id}`, dto)
     return httpResult.data;
   }
@@ -69,7 +69,10 @@ constructor() {
     return httpResponse.data;
   }
 
-  async sendError(dto: {subject: string; body: string; deviceName: any}) {
-
+  async getDevicesWithStatusMalfunctioned() {
+    const httpResponse = await customAxios.get<any>('Malfunctioned');
+    this.devices = httpResponse.data;
+    return httpResponse.data;
   }
+
 }

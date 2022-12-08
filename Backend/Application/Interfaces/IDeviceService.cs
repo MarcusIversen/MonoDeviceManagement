@@ -27,5 +27,8 @@ public interface IDeviceService
     
     List<Device> GetDevicesWithRequestValue(string value);
     
+    List<Device> GetDevicesWithStatusMalfunction();
+    
     void RebuildDB();
+   
 }

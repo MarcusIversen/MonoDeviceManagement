@@ -41,6 +41,8 @@ import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-p
 import { RequestDeviceOverviewComponent } from './userPages/request-device-overview/request-device-overview.component';
 import { ReportErrorComponent } from './userPages/report-error/report-error.component';
 import { EditUserComponent } from './AdminPages/edit-user/edit-user.component';
+import { ErrorHandlingComponent } from './AdminPages/error-handling/error-handling.component';
+import { ViewReportComponent } from './AdminPages/view-report/view-report.component';
 
 // @ts-ignore
 @NgModule({
@@ -76,7 +78,9 @@ import { EditUserComponent } from './AdminPages/edit-user/edit-user.component';
     AdminProfileInfoComponent,
     RequestDeviceOverviewComponent,
     ReportErrorComponent,
-    EditUserComponent
+    EditUserComponent,
+    ErrorHandlingComponent,
+    ViewReportComponent
   ],
   imports: [
     BrowserModule,

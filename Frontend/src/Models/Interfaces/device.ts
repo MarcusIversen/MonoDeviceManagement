@@ -7,5 +7,7 @@ export interface Device{
   userId?: number;
   dateOfIssue?: Date;
   dateOfTurnIn?: Date;
-  requestValue : string;
+  requestValue: string;
+  errorSubject?: string;
+  errorDescription?: string;
 }

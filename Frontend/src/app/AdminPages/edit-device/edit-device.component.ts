@@ -20,11 +20,13 @@ export class EditDeviceComponent implements OnInit{
   editDevice = new FormGroup({
     id: new FormControl(this.data.device.id),
     deviceName: new FormControl(this.data.device.deviceName, [Validators.required]),
-  serialNumber: new FormControl(this.data.device.serialNumber, [Validators.required]),
-  status: new FormControl(this.data.device.status, [Validators.required]),
-  userId: new FormControl(this.data.device.userId),
-  dateOfIssue: new FormControl(this.data.device.dateOfIssue),
-  dateOfTurnIn: new FormControl(this.data.device.dateOfTurnIn)
+    serialNumber: new FormControl(this.data.device.serialNumber, [Validators.required]),
+    status: new FormControl(this.data.device.status, [Validators.required]),
+    userId: new FormControl(this.data.device.userId),
+    dateOfIssue: new FormControl(this.data.device.dateOfIssue),
+    dateOfTurnIn: new FormControl(this.data.device.dateOfTurnIn),
+    errorSubject: new FormControl(''),
+    errorDescription: new FormControl('')
 })
 
 
@@ -44,7 +46,7 @@ export class EditDeviceComponent implements OnInit{
       serialNumber: this.device.serialNumber,
       status: this.device.status,
       userId: this.device.userId,
-      dateOfIssue: this.device.dateOfIssue ,
+      dateOfIssue: this.device.dateOfIssue,
       dateOfTurnIn: this.device.dateOfTurnIn
     });
     this.users = await this.userService.getUsersTypeUser();
@@ -58,8 +60,11 @@ export class EditDeviceComponent implements OnInit{
       serialNumber: device.serialNumber,
       status: device.status,
       userId: device.userId,
+      requestValue: new String('IkkeSendt'),
       dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0,10),
-      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0,10)
+      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0,10),
+      errorSubject: device.errorSubject,
+      errorDescription: device.errorDescription
     }
 
     let d = await this.deviceService.updateDevice(dto, device.id)

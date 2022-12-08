@@ -11,4 +11,6 @@ public class Device
     public DateOnly? DateOfIssue { get; set; }
     public DateOnly? DateOfTurnIn { get; set; }
     public string RequestValue { get; set; }
+    public string? ErrorSubject { get; set; }
+    public string? ErrorDescription { get; set; }
 }
