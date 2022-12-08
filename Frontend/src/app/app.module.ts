@@ -40,6 +40,7 @@ import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.
 import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
 import { RequestDeviceOverviewComponent } from './userPages/request-device-overview/request-device-overview.component';
 import { ReportErrorComponent } from './userPages/report-error/report-error.component';
+import { RequestsComponent } from './AdminPages/requests/requests.component';
 import { EditUserComponent } from './AdminPages/edit-user/edit-user.component';
 import { ErrorHandlingComponent } from './AdminPages/error-handling/error-handling.component';
 import { ViewReportComponent } from './AdminPages/view-report/view-report.component';
@@ -81,6 +82,8 @@ import { ViewReportComponent } from './AdminPages/view-report/view-report.compon
     EditUserComponent,
     ErrorHandlingComponent,
     ViewReportComponent
+    RequestsComponent
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

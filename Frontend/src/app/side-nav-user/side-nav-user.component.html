@@ -1,5 +1,9 @@
 <mat-toolbar class="mat-elevation-z8">
   <mat-toolbar-row>
+    <span style="margin-left: 5px; margin-right: 10px;"><img
+      src="https://cdn.discordapp.com/attachments/1042375108494377041/1050332261150621766/Lille_logo.png"
+      width="65" height="55"></span>
+    Mono Device Management
     <button
       mat-icon-button
       *ngIf="sidenav.mode === 'over'"
@@ -40,6 +44,10 @@
 
     <mat-divider></mat-divider>
 
+    <button mat-button class="menu-button" routerLink="/bruger/profil-information">
+      <mat-icon>person</mat-icon>
+      <span>Profil</span>
+    </button>
     <button mat-button class="menu-button" routerLink="/bruger/mine-enheder">
       <mat-icon>devices</mat-icon>
       <span>Mine enheder</span>
@@ -47,10 +55,6 @@
     <button mat-button class="menu-button" routerLink="/bruger/forespørg-enhed">
       <mat-icon>devices</mat-icon>
       <span>Forespørg</span>
-    </button>
-    <button mat-button class="menu-button" routerLink="/bruger/profil-information">
-      <mat-icon>person</mat-icon>
-      <span>Profil</span>
     </button>
     <br>
     <br>

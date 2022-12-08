@@ -6,5 +6,6 @@ export interface User{
   password: string,
   workNumber: string,
   privateNumber: string,
-  privateMail: string
+  privateMail: string,
+  profilePicture: string
 }

@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {UserService} from "../../../services/user-service/user.service";
 import {DeviceService} from "../../../services/device-service/device.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Element} from "@angular/compiler";
 
 @Component({
   selector: 'app-admin-device-registration',
@@ -55,19 +56,32 @@ export class AdminDeviceRegistrationComponent implements OnInit{
       serialNumber: devicePartOne.serialNumberControl,
       status: devicePartOne.statusControl,
       userId: devicePartTwo.chosenValueControl,
-      requestValue: new String("IkkeSendt"),
-      dateOfIssue: null,
-      dateOfTurnIn: null
+      requestValue: null,
+      dateOfIssue: new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10),
+      dateOfTurnIn: new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10)
     }
-
+    
     if(devicePartThree.dateOfIssueControl && devicePartThree.dateOfTurnInControl != null ){
       dto.dateOfIssue = new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10);
       dto.dateOfTurnIn =  new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10);
+    }
+
+    if (dto.status == "I brug"){
+      dto.requestValue = "Accepteret";
+    }
+
+    if (dto.status == "På lager"){
+      dto.userId = null;
+      dto.requestValue = "IkkeSendt";
     }
 
     await this.deviceService.createDevice(dto);
     this._snackBar.open('Enhed oprettet', 'Luk', {
       duration: 3000
     });
+  }
+
+  restartRegistration() {
+    window.location.reload();
   }
 }
