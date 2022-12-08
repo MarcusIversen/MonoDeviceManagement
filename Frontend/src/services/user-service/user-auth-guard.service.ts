@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Observable} from "rxjs";
 import jwtDecode from "jwt-decode";
+import {Token} from "../../Models/Token";
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +28,4 @@ export class UserAuthGuardService {
     this.router.navigate(['administrator']);
     return false;
   }
-}
-
-class Token {
-  exp?: number;
-  role?: string;
 }

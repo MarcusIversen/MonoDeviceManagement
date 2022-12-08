@@ -8,4 +8,5 @@ export interface Device{
   dateOfIssue?: Date;
   dateOfTurnIn?: Date;
   requestValue : string;
+  requesterId? : number;
 }
