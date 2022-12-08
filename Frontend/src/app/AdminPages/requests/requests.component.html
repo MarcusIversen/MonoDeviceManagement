@@ -4,13 +4,13 @@
   </div>
 </ng-template>
 <ng-template #Requests>
-  <div class="content" *ngFor="let r of this.requests">
+  <div class="content" *ngFor="let r of this.requests" id="{{this.requester.id}}">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
       <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%">
         <mat-card class="mat-elevation-z4">
           <mat-card-header>
             <mat-card-title>Forspørgsel sendt af:</mat-card-title>
-            <mat-card-subtitle></mat-card-subtitle>
+            <mat-card-subtitle> {{this.requester.email}}</mat-card-subtitle>
           </mat-card-header>
           <img mat-card-image src="{{this.requester.profilePicture}}" class="profilePicture">
           <mat-card-content>
