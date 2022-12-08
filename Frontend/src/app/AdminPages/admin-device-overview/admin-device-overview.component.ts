@@ -21,7 +21,10 @@ export class AdminDeviceOverviewComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private deviceService: DeviceService, public userService: UserService, private popup: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(private deviceService: DeviceService,
+              public userService: UserService,
+              private popup: MatDialog,
+              private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit(){

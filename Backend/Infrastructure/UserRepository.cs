@@ -69,8 +69,6 @@ public class UserRepository : IUserRepository
         return userToUpdate;
     }
     
-    
-
     public User DeleteUser(int userId)
     {
         var user = _context.Users.FirstOrDefault(u => u.Id == userId);

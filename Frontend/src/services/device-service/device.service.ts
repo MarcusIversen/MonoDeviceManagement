@@ -43,7 +43,7 @@ export class DeviceService {
     return httpResponse.data;
   }
 
-  async createDevice(dto: { serialNumber: string; requestValue: String; dateOfIssue: string; deviceName: string; userId: any; dateOfTurnIn: string; status: string }) {
+  async createDevice(dto: { serialNumber: string; requestValue: String; dateOfIssue?: string; deviceName: string; userId: any; dateOfTurnIn?: string; status: string }) {
     const httpResult = await customAxios.post('device', dto);
     return httpResult.data;
   }
@@ -84,4 +84,7 @@ export class DeviceService {
     return httpResult.data;
   }
 
+  async sendError(dto: {subject: string; body: string; deviceName: any}) {
+
+  }
 }

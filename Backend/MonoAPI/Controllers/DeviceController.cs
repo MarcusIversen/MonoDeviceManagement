@@ -27,7 +27,19 @@ public class DeviceController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetDeviceById(int id)
     {
-        return Ok(_service.GetDevice(id));
+        try
+        {
+            return Ok(_service.GetDevice(id));
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound("No device found at id: " + id);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+        
     }
 
     [Authorize ("AdminPolicy")]
@@ -56,7 +68,7 @@ public class DeviceController : ControllerBase
         {
             return Ok(_service.UpdateDevice(id, dto));
         }
-        catch (KeyNotFoundException e)
+        catch (KeyNotFoundException)
         {
             return NotFound("No device found at id: " + id);
         }
@@ -70,7 +82,18 @@ public class DeviceController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteDevice(int id)
     {
-        return Ok(_service.DeleteDevice(id));
+        try
+        {
+            return Ok(_service.DeleteDevice(id));
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound("No device found at id: " + id);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
     }
 
 

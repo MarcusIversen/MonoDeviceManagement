@@ -60,19 +60,22 @@ export class AdminDeviceRegistrationComponent implements OnInit{
       dateOfIssue: new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10),
       dateOfTurnIn: new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10)
     }
+    
+    if(devicePartThree.dateOfIssueControl && devicePartThree.dateOfTurnInControl != null ){
+      dto.dateOfIssue = new Date(new Date(devicePartThree.dateOfIssueControl).setHours(24)).toISOString().slice(0,10);
+      dto.dateOfTurnIn =  new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10);
+    }
 
     if (dto.status == "I brug"){
       dto.requestValue = "Accepteret";
-      await this.deviceService.createDevice(dto);
-
     }
 
     if (dto.status == "På lager"){
       dto.userId = null;
       dto.requestValue = "IkkeSendt";
-      await this.deviceService.createDevice(dto);
-
     }
+
+    await this.deviceService.createDevice(dto);
     this._snackBar.open('Enhed oprettet', 'Luk', {
       duration: 3000
     });

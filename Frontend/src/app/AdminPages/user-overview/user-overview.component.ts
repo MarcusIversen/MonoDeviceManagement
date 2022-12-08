@@ -10,6 +10,7 @@ import {SendMailComponent} from "../send-mail/send-mail.component";
 import {CreateUserComponent} from "../create-user/create-user.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../../../Models/Interfaces/user";
+import {EditUserComponent} from "../edit-user/edit-user.component";
 
 @Component({
   selector: 'app-user-overview',
@@ -33,7 +34,10 @@ export class UserOverviewComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private userService: UserService, public deviceService: DeviceService, private popup: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(private userService: UserService,
+              public deviceService: DeviceService,
+              private popup: MatDialog,
+              private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit(){
@@ -63,7 +67,19 @@ export class UserOverviewComponent implements OnInit{
   }
 
   editUser(row: any) {
-
+    const data = this.popup.open(EditUserComponent, {
+      data : {
+        user : row
+      }
+    });
+    data.afterClosed().subscribe(()=>{
+      this.userService.getUsers().then(async () => {
+        const users = await this.userService.getUsersTypeUser();
+        this.dataSource = new MatTableDataSource(users);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    });
 
   }
 
@@ -90,11 +106,9 @@ export class UserOverviewComponent implements OnInit{
     data.afterClosed().subscribe(()=>{
       this.userService.getUsersTypeUser().then(() => {
         this.dataSource.data = this.userService.getRoleUsers;
-        this._snackBar.open('Bruger oprettet', 'Luk', {
-          duration: 3000
-        });
         return this.dataSource.data;
       });
     });
   }
+
 }

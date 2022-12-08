@@ -97,7 +97,6 @@ app.UseCors(options =>
 });
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();

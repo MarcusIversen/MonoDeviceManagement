@@ -12,7 +12,6 @@ namespace Application;
 
 public class UserService : IUserService
 {
-
     private IUserRepository _repository;
     private IMapper _mapper;
     private IValidator<PutUserDTO> _putUserValidator;
@@ -60,7 +59,6 @@ public class UserService : IUserService
 
         return _repository.GetUserByEmail(email);
     }
-
     
     public User UpdateUser(int userId, PutUserDTO user)
     {
@@ -99,9 +97,9 @@ public class UserService : IUserService
         {
             mail.From = new MailAddress(_appSettings.Email);
             mail.To.Add(new MailAddress(toMail));
-            mail.Subject = subject;
+            mail.Subject = subject.Replace("\n", "<br>").Replace("\r", "<br>");
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            mail.Body = body;
+            mail.Body = body.Replace("\n", "<br>").Replace("\r", "<br>");
             mail.BodyEncoding = System.Text.Encoding.UTF8;
             mail.IsBodyHtml = true;
             using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587))
@@ -109,6 +107,7 @@ public class UserService : IUserService
                 client.Credentials = new NetworkCredential(_appSettings.Email, _appSettings.Password);
                 client.EnableSsl = true;
                 client.Send(mail);
+                Console.WriteLine(mail);
             }
         }
     }
@@ -136,16 +135,6 @@ public class UserService : IUserService
             throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
         }
 
-        /*if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8)
-        {
-            throw new ArgumentException("Password cannot be null, empty and must have a minimum length greater than 7");
-        }
-
-        if (user.Role is not ("Admin" or "User"))
-        {
-            throw new ArgumentException("Role cannot be null and must be Admin or User");
-        }*/
-        
         if (user.Id < 1)
         {
             throw new ArgumentException("Id cannot be null or less than 1");

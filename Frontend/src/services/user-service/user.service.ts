@@ -82,7 +82,7 @@ export class UserService {
     return httpResult.data;
   }
 
-  async sendMail(dto: { subject: string; body: string; email: any }) {
+  async sendMail(dto: any) {
     const httpResult = await customAxios.post('/User/sendEmail', dto)
     return httpResult.data;
   }

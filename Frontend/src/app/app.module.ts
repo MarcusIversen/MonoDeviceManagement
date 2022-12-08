@@ -12,7 +12,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {SideNavUserComponent} from './side-nav-user/side-nav-user.component';
 import {DeviceOverviewComponent} from './userPages/device-overview/device-overview.component';
 import {UserProfileInfoComponent} from './userPages/profile-info/user-profile-info.component';
-import {NotFoundComponent} from './userPages/not-found/not-found.component';
 import {LoginComponent} from './login/login.component';
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -42,16 +41,17 @@ import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-p
 import { RequestDeviceOverviewComponent } from './userPages/request-device-overview/request-device-overview.component';
 import { ReportErrorComponent } from './userPages/report-error/report-error.component';
 import { RequestsComponent } from './AdminPages/requests/requests.component';
+import { EditUserComponent } from './AdminPages/edit-user/edit-user.component';
 
 // @ts-ignore
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     SideNavAdminComponent,
     SideNavUserComponent,
     DeviceOverviewComponent,
     UserProfileInfoComponent,
-    NotFoundComponent,
     LoginComponent,
     RegisterComponent,
     AdminDeviceOverviewComponent,
@@ -65,7 +65,6 @@ import { RequestsComponent } from './AdminPages/requests/requests.component';
     SideNavUserComponent,
     DeviceOverviewComponent,
     UserProfileInfoComponent,
-    NotFoundComponent,
     LoginComponent,
     RegisterComponent,
     LoadingSpinnerComponent,
@@ -79,6 +78,7 @@ import { RequestsComponent } from './AdminPages/requests/requests.component';
     RequestDeviceOverviewComponent,
     ReportErrorComponent,
     RequestsComponent
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -109,8 +109,7 @@ import { RequestsComponent } from './AdminPages/requests/requests.component';
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
     MatSnackBar
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule {
 }
