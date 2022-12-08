@@ -26,7 +26,7 @@ const routes: Routes=[
       {path: 'brugere', component: UserOverviewComponent},
       {path: 'profil-information', component: AdminProfileInfoComponent},
       {path: 'fejlmeldinger', component: ErrorHandlingComponent},
-      {path: 'forspørgsler', component: RequestsComponent},
+      {path: 'forespørgsler', component: RequestsComponent},
       {path: '**', component: AdminDeviceOverviewComponent} //When you write a non-existing url
     ]
   },

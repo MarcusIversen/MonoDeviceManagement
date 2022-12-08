@@ -1,62 +1,64 @@
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Skærm" #input>
-</mat-form-field>
+<div class="content">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Skærm" #input>
+  </mat-form-field>
 
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
 
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
-      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-    </ng-container>
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
 
-    <!-- DeviceName Column -->
-    <ng-container matColumnDef="deviceName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Enhed</th>
-      <td mat-cell *matCellDef="let row"> {{row.deviceName}} </td>
-    </ng-container>
+      <!-- DeviceName Column -->
+      <ng-container matColumnDef="deviceName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Enhed</th>
+        <td mat-cell *matCellDef="let row"> {{row.deviceName}} </td>
+      </ng-container>
 
-    <!-- SerialNumber Column -->
-    <ng-container matColumnDef="serialNumber">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Serie nummer</th>
-      <td mat-cell *matCellDef="let row"> {{row.serialNumber}} </td>
-    </ng-container>
+      <!-- SerialNumber Column -->
+      <ng-container matColumnDef="serialNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Serie nummer</th>
+        <td mat-cell *matCellDef="let row"> {{row.serialNumber}} </td>
+      </ng-container>
 
-    <!-- Status Column -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
-      <td mat-cell *matCellDef="let row"> {{row.status}} </td>
-    </ng-container>
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+        <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+      </ng-container>
 
-    <!-- User Column -->
-    <ng-container matColumnDef="user">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bruger</th>
-      <td mat-cell *matCellDef="let row">
-        <div *ngIf="row.user == null"> Ingen bruger tilknyttet</div>
-        <div *ngIf="row.user != null">{{row.user.email}}</div>
-      </td>
-    </ng-container>
+      <!-- User Column -->
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bruger</th>
+        <td mat-cell *matCellDef="let row">
+          <div *ngIf="row.user == null"> Ingen bruger tilknyttet</div>
+          <div *ngIf="row.user != null">{{row.user.email}}</div>
+        </td>
+      </ng-container>
 
-    <!-- viewReport Column -->
-    <ng-container matColumnDef="viewReport">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fejlmelding</th>
-      <td mat-cell *matCellDef="let row">
-        <mat-action-list>
-          <mat-icon id="viewReportBtn" (click)="viewReport(row)">pageview</mat-icon>
-        </mat-action-list>
-      </td>
-    </ng-container>
+      <!-- viewReport Column -->
+      <ng-container matColumnDef="viewReport">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fejlmelding</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-action-list>
+            <mat-icon id="viewReportBtn" (click)="viewReport(row)">pageview</mat-icon>
+          </mat-action-list>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    </tr>
-  </table>
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
 </div>
