@@ -39,7 +39,6 @@ public class DeviceController : ControllerBase
         {
             return StatusCode(500, e.Message);
         }
-        
     }
 
     [Authorize ("AdminPolicy")]
@@ -77,7 +76,7 @@ public class DeviceController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
     [Authorize ("AdminPolicy")]
     [HttpDelete("{id}")]
     public IActionResult DeleteDevice(int id)
@@ -113,6 +112,12 @@ public class DeviceController : ControllerBase
     public IActionResult GetRequestValueDevices(string value)
     {
         return Ok(_service.GetDevicesWithRequestValue(value));
+    }
+    
+    [HttpGet("/Malfunctioned")]
+    public IActionResult GetDevicesWithStatusMalfunction()
+    {
+        return Ok(_service.GetDevicesWithStatusMalfunction());
     }
 
     //[Authorize ("AdminPolicy")]

@@ -58,13 +58,20 @@ export class DeviceService {
     return httpResult.data;
   }
 
-  async updateDevice(dto: { serialNumber: any; requestValue: String; id: any; dateOfIssue: string; deviceName: any; userId: any; dateOfTurnIn: string; status: any }, id: number) {
-    const httpResult = await customAxios.put('Device/' + `${id}`, dto)
+
+  async updateDevice(dto: { serialNumber: any; errorSubject: string; errorDescription: string; id: any; dateOfIssue: string; deviceName: any; userId: any; dateOfTurnIn: string; status: any }, id: number) {
+    const httpResult = await customAxios.put('Device/'+`${id}`, dto)
     return httpResult.data;
   }
 
   async getNotAssignedDevices() {
     const httpResponse = await customAxios.get<any>('NotAssigned/');
+    this.devices = httpResponse.data;
+    return httpResponse.data;
+  }
+
+  async getDevicesWithStatusMalfunctioned() {
+    const httpResponse = await customAxios.get<any>('Malfunctioned');
     this.devices = httpResponse.data;
     return httpResponse.data;
   }
@@ -84,7 +91,4 @@ export class DeviceService {
     return httpResult.data;
   }
 
-  async sendError(dto: {subject: string; body: string; deviceName: any}) {
-
-  }
 }

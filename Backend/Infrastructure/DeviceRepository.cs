@@ -34,7 +34,6 @@ public class DeviceRepository : IDeviceRepository
         return _context.Devices.FirstOrDefault(d=>d.SerialNumber == serialNumber) ?? throw new KeyNotFoundException("There is no device with serial number" + serialNumber);
     }
     
-
     public Device UpdateDevice(int deviceId, Device device)
     {
         var dev = _context.Devices.FirstOrDefault(d => d.Id == deviceId);
@@ -48,6 +47,9 @@ public class DeviceRepository : IDeviceRepository
             dev.DateOfTurnIn = device.DateOfTurnIn;
             dev.RequestValue = device.RequestValue;
             dev.RequesterId = device.RequesterId;
+            dev.ErrorSubject = device.ErrorSubject;
+            dev.ErrorDescription = device.ErrorDescription;
+
             _context.Update(dev);
             _context.SaveChanges();
         }
@@ -73,4 +75,5 @@ public class DeviceRepository : IDeviceRepository
         _context.Database.EnsureDeleted();
         _context.Database.EnsureCreated();
     }
+    
 }

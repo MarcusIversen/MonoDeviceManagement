@@ -1,7 +1,14 @@
 <mat-card>
   <form [formGroup]="errorReportForm" (ngSubmit)="sendErrorReport()">
     <label>
-      Email:
+      Enhedens ID:
+      <br>
+      <mat-form-field>
+        <input matInput deviceId="deviceId" type="text" formControlName="IdForm" readonly>
+      </mat-form-field>
+    </label>
+    <label>
+      Enhedens navn:
       <br>
       <mat-form-field>
         <input matInput deviceName="deviceName" type="text" formControlName="nameForm" readonly>
@@ -28,6 +35,6 @@
       </mat-form-field>
     </label>
     <br>
-    <button id="btnSend" mat-raised-button type="send">Send</button>
+    <button id="btnSend" mat-raised-button type="send">Indsend fejlmelding til administrator</button>
   </form>
 </mat-card>

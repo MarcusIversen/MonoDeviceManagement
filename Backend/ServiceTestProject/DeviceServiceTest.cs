@@ -234,6 +234,42 @@ public class DeviceServiceTest
 
     #endregion
     
+    public static IEnumerable<Object[]> ListOfDevicesWithStatusMalfunction_TestCase()
+    {
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestValue = "IkkeSendt"};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "I brug", RequestValue = "IkkeSendt"};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "På lager", RequestValue = "Sendt"};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestValue = "Sendt"};
+        
+        yield return new Object[]
+        {
+            new Device[]
+            {
+            },
+            new List<Device>()
+        };
+
+        yield return new object[]
+        {
+
+            new Device[]
+            {
+                device1, device2, device3
+            },
+            new List<Device>() { device1 }
+        };
+
+        yield return new object[]
+        {
+            new Device[]
+            {
+                device1, device2, device3, device4
+            },
+            new List<Device>() { device1, device4 }
+        };
+    }
+
+
     [Fact]
     public void CreateDeviceServiceTest()
     {
@@ -732,6 +768,32 @@ public class DeviceServiceTest
     }
     
     #endregion
+    
+    [Theory]
+    [MemberData(nameof(ListOfDevicesWithStatusMalfunction_TestCase))]
+    public void GetDevicesWithStatusMalfunctionTest(Device[] data, List<Device> expectedResult)
+    {
+        var fakeRepo = data;
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+        mockRepository.Setup(r => r.GetDevices()).Returns(fakeRepo);
+
+        // Act 
+        var actual = service.GetDevicesWithStatusMalfunction();
+
+        // Assert
+        Assert.Equal(expectedResult, actual);
+        Assert.True(Enumerable.SequenceEqual(expectedResult, actual));
+        mockRepository.Verify(r => r.GetDevices(), Times.Once);
+    }
+    
     
     
 }
