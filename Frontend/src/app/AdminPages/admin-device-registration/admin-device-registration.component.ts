@@ -70,4 +70,8 @@ export class AdminDeviceRegistrationComponent implements OnInit{
       duration: 3000
     });
   }
+
+  restartRegistration() {
+    window.location.reload();
+  }
 }

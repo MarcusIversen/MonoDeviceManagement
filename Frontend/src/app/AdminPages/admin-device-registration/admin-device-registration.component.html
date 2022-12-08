@@ -1,5 +1,6 @@
+<h1 style="color: dimgrey; font-size: 2.5rem; margin-left: 10px;">Enheds Registrering</h1>
+<br>
 <mat-stepper orientation="vertical" #stepper>
-
   <!-- Device column -->
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
@@ -81,12 +82,22 @@
   <!-- Done -->
   <br>
   <mat-step>
-    <ng-template matStepLabel>Færdig</ng-template>
+    <ng-template matStepLabel>Færddiggør registrering</ng-template>
     <br>
-    <p>Du er nu færdig med registreringen.</p>
+    <p>Du er nu ved at fuldføre registreringen af en enhed.</p>
     <div>
       <button mat-raised-button matStepperPrevious>Tilbage</button>
-      <button mat-raised-button (click)="createDevice() && stepper.reset()">Fuldfør registrering</button>
+      <button mat-raised-button matStepperNext (click)="createDevice()">Registrer enhed</button>
     </div>
   </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Fuldført</ng-template>
+    <br>
+    <p>Du har nu fuldført registreringen af en enhed.</p>
+    <div>
+      <button mat-raised-button (click)="restartRegistration()">Registrer nyt device</button>
+    </div>
+  </mat-step>
+
 </mat-stepper>
