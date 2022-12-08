@@ -40,8 +40,8 @@ export class RequestsComponent implements OnInit{
       status: device.status,
       userId: device.userId,
       requestValue: 'IkkeSendt',
-      dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
-      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
+      dateOfIssue: device.dateOfIssue,
+      dateOfTurnIn: device.dateOfTurnIn,
       requesterId: null,
       errorSubject: device.errorSubject,
       errorDescription: device.errorDescription
@@ -49,6 +49,7 @@ export class RequestsComponent implements OnInit{
 
     await this.deviceService.updateDevice(dto, device.id);
     this.requests = this.requests.filter(d => d.id != device.id);
+    window.location.reload();
     return this.requests;
   }
 
@@ -62,8 +63,8 @@ export class RequestsComponent implements OnInit{
       status: device.status,
       userId: requester.id,
       requestValue: 'Accepteret',
-      dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
-      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
+      dateOfIssue: new Date(new Date().setHours(24)).toISOString().slice(0,10),
+      dateOfTurnIn: device.dateOfTurnIn,
       requesterId: null,
       errorSubject: device.errorSubject,
       errorDescription: device.errorDescription
@@ -71,6 +72,7 @@ export class RequestsComponent implements OnInit{
 
     await this.deviceService.updateDevice(dto, device.id);
     this.requests = this.requests.filter(d => d.id != device.id);
+    window.location.reload();
     return this.requests;
   }
 }

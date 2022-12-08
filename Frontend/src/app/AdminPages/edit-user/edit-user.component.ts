@@ -5,7 +5,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DeviceService} from "../../../services/device-service/device.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {UserOverviewComponent} from "../user-overview/user-overview.component";
 import {CreateUserComponent} from "../create-user/create-user.component";
 
 @Component({
