@@ -81,8 +81,8 @@ import { ViewReportComponent } from './AdminPages/view-report/view-report.compon
     ReportErrorComponent,
     EditUserComponent,
     ErrorHandlingComponent,
-    ViewReportComponent
-    RequestsComponent
+    ViewReportComponent,
+    RequestsComponent,
     EditUserComponent
   ],
   imports: [

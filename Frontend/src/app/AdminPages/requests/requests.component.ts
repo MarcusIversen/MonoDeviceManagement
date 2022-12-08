@@ -42,7 +42,9 @@ export class RequestsComponent implements OnInit{
       requestValue: 'IkkeSendt',
       dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
       dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
-      requesterId: null
+      requesterId: null,
+      errorSubject: device.errorSubject,
+      errorDescription: device.errorDescription
     }
 
     await this.deviceService.updateDevice(dto, device.id);
@@ -62,7 +64,9 @@ export class RequestsComponent implements OnInit{
       requestValue: 'Accepteret',
       dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
       dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
-      requesterId: null
+      requesterId: null,
+      errorSubject: device.errorSubject,
+      errorDescription: device.errorDescription
     }
 
     await this.deviceService.updateDevice(dto, device.id);
