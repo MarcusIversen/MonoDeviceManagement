@@ -11,7 +11,6 @@ import {UserService} from "../../../services/user-service/user.service";
 })
 export class RequestsComponent implements OnInit{
   requests: Device[] = [];
-  requester: User;
   Users: User[] = [];
 
 
@@ -27,7 +26,7 @@ export class RequestsComponent implements OnInit{
 
   async showRequester(){
     for (const r of this.requests) {
-      this.requester = await this.userService.getUserById(r.requesterId);
+      this.Users.push(await this.userService.getUserById(r.requesterId))
     }
   }
 
@@ -40,9 +39,10 @@ export class RequestsComponent implements OnInit{
       serialNumber: device.serialNumber,
       status: device.status,
       userId: device.userId,
-      requestValue: new String('IkkeSendt'),
+      requestValue: 'IkkeSendt',
       dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
-      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10)
+      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
+      requesterId: null
     }
 
     await this.deviceService.updateDevice(dto, device.id);
@@ -50,23 +50,23 @@ export class RequestsComponent implements OnInit{
     return this.requests;
   }
 
-
-  async accept(r: Device, requester: User) {
+  async accept(r: Device) {
     let device = await this.deviceService.getDeviceById(r.id);
+    let requester = await this.userService.getUserById(r.requesterId);
     let dto = {
       id: device.id,
       deviceName: device.deviceName,
       serialNumber: device.serialNumber,
       status: device.status,
       userId: requester.id,
-      requestValue: new String('Accepteret'),
+      requestValue: 'Accepteret',
       dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
-      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10)
+      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
+      requesterId: null
     }
 
     await this.deviceService.updateDevice(dto, device.id);
     this.requests = this.requests.filter(d => d.id != device.id);
     return this.requests;
-
   }
 }
