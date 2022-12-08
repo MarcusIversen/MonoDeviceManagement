@@ -62,12 +62,14 @@ export class RequestDeviceOverviewComponent implements OnInit{
           requestValue: new String('Sendt'),
           requesterId: this.user.id,
           dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
-          dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10)
+          dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
+          errorSubject: device.errorSubject,
+          errorDescription: device.errorDescription
         }
 
         console.log(dto.requesterId);
 
-      await this.deviceService.updateDevice(dto, row.id);
+      await this.deviceService.updateDevice(dto, device.id);
       const devices = await this.deviceService.getIkkeSendtRequestValue();
       this.dataSource = new MatTableDataSource(devices);
     }

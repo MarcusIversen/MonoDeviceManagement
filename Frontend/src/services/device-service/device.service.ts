@@ -59,7 +59,7 @@ export class DeviceService {
   }
 
 
-  async updateDevice(dto: { serialNumber: any; errorSubject: string; errorDescription: string; id: any; dateOfIssue: string; deviceName: any; userId: any; dateOfTurnIn: string; status: any }, id: number) {
+  async updateDevice(dto: { serialNumber: any; errorSubject: any; requestValue: any; errorDescription: any; id: any; dateOfIssue: any; deviceName: any; userId: any; dateOfTurnIn: any; status: string }, id){
     const httpResult = await customAxios.put('Device/'+`${id}`, dto)
     return httpResult.data;
   }
