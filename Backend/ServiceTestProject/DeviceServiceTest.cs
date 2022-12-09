@@ -11,52 +11,8 @@ namespace ServiceTestProject;
 public class DeviceServiceTest
 {
     // Member data
-    
-    #region ListOfDevicesWithUser
 
-    public static IEnumerable<Object[]> ListOfDevicesWithUser_TestCase()
-    {
-        User user = new User
-        {
-            Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", Salt = "123123",
-            Hash = "123123", Role = "Admin", WorkNumber = "12345678"
-        };
-        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", UserId = user.Id};
-        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", UserId = user.Id};
-        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", UserId = user.Id};
-
-        yield return new Object[]
-        {
-            new Device[]
-            {
-            },
-            new List<Device>()
-        };
-        
-        yield return new object[]
-        {
-            new Device[]
-            {
-               device1
-            },
-            new List<Device>() { device1 }
-        };
-        
-        yield return new object[]
-        {
-            new Device[]
-            {
-                device1,
-                device2, 
-                device3
-            },
-            new List<Device>() { device1, device2, device3 }
-        };
-    }
-
-    #endregion
-    
-    #region GetAllDevicesTest
+    #region GetAllDevicesMemberData
 
     public static IEnumerable<Object[]> GetAllDevices_TestCase()
     {
@@ -95,8 +51,56 @@ public class DeviceServiceTest
     }
 
     #endregion
+    
+    #region ListOfDevicesWithUserMemberData
 
-    #region GetDeviceWithRequestValueTest
+    public static IEnumerable<Object[]> ListOfDevicesWithUser_TestCase()
+    {
+        User user = new User
+        {
+            Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", Salt = "123123",
+            Hash = "123123", Role = "Admin", WorkNumber = "12345678"
+        };
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", UserId = user.Id};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", UserId = user.Id};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", UserId = user.Id};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "3f"};
+        Device device5 = new Device { Id = 5, DeviceName = "Seed device5", SerialNumber = "1efdf4"};
+
+        yield return new Object[]
+        {
+            new Device[]
+            {
+            },
+            new List<Device>()
+        };
+        
+        yield return new object[]
+        {
+            new Device[]
+            {
+                device1, device4, device5
+            },
+            new List<Device>() { device1 }
+        };
+        
+        yield return new object[]
+        {
+            new Device[]
+            {
+                device1,
+                device2, 
+                device3,
+                device4,
+                device5
+            },
+            new List<Device>() { device1, device2, device3 }
+        };
+    }
+
+    #endregion
+
+    #region GetDeviceWithRequestValueMemberData
     
     public static IEnumerable<Object[]> GetAllIkkeSendt_TestCase()
     {
@@ -233,13 +237,15 @@ public class DeviceServiceTest
     }
 
     #endregion
-    
+
+    #region GetMalfunctionedMemberData
+
     public static IEnumerable<Object[]> ListOfDevicesWithStatusMalfunction_TestCase()
     {
-        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestValue = "IkkeSendt"};
-        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "I brug", RequestValue = "IkkeSendt"};
-        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "På lager", RequestValue = "Sendt"};
-        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestValue = "Sendt"};
+        Device device1 = new Device { Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "Defekt", RequestValue = "Accepteret"};
+        Device device2 = new Device { Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "I brug", RequestValue = "Accepteret"};
+        Device device3 = new Device { Id = 3, DeviceName = "Seed device3", SerialNumber = "54543", Status = "På lager", RequestValue = "Accepteret"};
+        Device device4 = new Device { Id = 4, DeviceName = "Seed device4", SerialNumber = "1122g", Status = "Defekt", RequestValue = "Accepteret"};
         
         yield return new Object[]
         {
@@ -269,6 +275,11 @@ public class DeviceServiceTest
         };
     }
 
+    #endregion
+    
+    //Tests
+
+    #region CreateDeviceService
 
     [Fact]
     public void CreateDeviceServiceTest()
@@ -289,6 +300,93 @@ public class DeviceServiceTest
         Assert.NotNull(service);
         Assert.True(service is DeviceService);
     }
+
+    [Theory]
+    [InlineData("repository cannot be null")]
+    public void CreateDeviceServiceWithMockRepoNullArgumentExceptionTest(string expectedMessage)
+    {
+        //Arrange
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        // Act 
+        var action = ()=> new DeviceService(null, mapper, postDeviceValidator, putDeviceValidator); ;
+        var ex = Assert.Throws<ArgumentException>(action);
+
+        // Assert
+        Assert.Equal(expectedMessage, ex.Message);
+    } 
+    
+    [Theory]
+    [InlineData("mapper cannot be null")]
+    public void CreateDeviceServiceWithMapperNullArgumentExceptionTest(string expectedMessage)
+    {
+        //Arrange
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        // Act 
+        var action = ()=> new DeviceService(mockRepository.Object, null, postDeviceValidator, putDeviceValidator); ;
+        var ex = Assert.Throws<ArgumentException>(action);
+
+        // Assert
+        Assert.Equal(expectedMessage, ex.Message);
+    } 
+    
+    [Theory]
+    [InlineData("postDeviceValidator cannot be null")]
+    public void CreateDeviceServiceWithPutValidatorNullArgumentExceptionTest(string expectedMessage)
+    {
+        //Arrange
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        // Act 
+        var action = ()=> new DeviceService(mockRepository.Object, mapper, null, putDeviceValidator); ;
+        var ex = Assert.Throws<ArgumentException>(action);
+
+        // Assert
+        Assert.Equal(expectedMessage, ex.Message);
+    } 
+    
+    [Theory]
+    [InlineData("putDeviceValidator cannot be null")]
+    public void CreateDeviceServiceWithPostValidatorNullArgumentExceptionTest(string expectedMessage)
+    {
+        //Arrange
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        // Act 
+        var action = ()=> new DeviceService(mockRepository.Object, mapper, postDeviceValidator, null); ;
+        var ex = Assert.Throws<ArgumentException>(action);
+
+        // Assert
+        Assert.Equal(expectedMessage, ex.Message);
+    }
+    
+
+    #endregion
 
     #region Read
 
@@ -321,7 +419,7 @@ public class DeviceServiceTest
     [Theory]
     [InlineData(1, 1)]      //Valid device
     [InlineData(2, 2)]      //Valid device
-    public void GetValidDeviceTest(int deviceId, int expectedValueId)
+    public void GetValidDeviceByIdTest(int deviceId, int expectedValueId)
     {
         // Arrange
         Device device1 = new Device { Id = deviceId, DeviceName = "Seed device1", SerialNumber = "1234553"};
@@ -347,6 +445,8 @@ public class DeviceServiceTest
 
         // Assert 
         Assert.Equal(expectedValueId, actual.Id);
+        Assert.Equal("Seed device1", actual.DeviceName);
+        Assert.Equal("1234553", actual.SerialNumber);
         mockRepository.Verify(r => r.GetDevice(deviceId), Times.Once);
     }
     
@@ -354,7 +454,7 @@ public class DeviceServiceTest
     [InlineData(0, "DeviceId cannot be less than 1 or null")]     //Invalid deviceId 0
     [InlineData(-1, "DeviceId cannot be less than 1 or null")]    //Invalid deviceId -1
     [InlineData(null, "DeviceId cannot be less than 1 or null")]  //Invalid deviceId null
-    public void GetInvalidDeviceTest(int deviceId, string expectedMessage )
+    public void GetInvalidDeviceByIdTest(int deviceId, string expectedMessage )
     {
         // Arrange
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
@@ -372,22 +472,86 @@ public class DeviceServiceTest
 
         // Assert
         var ex = Assert.Throws<ArgumentException>(action);
-        Assert.Equal("DeviceId cannot be less than 1 or null", ex.Message);
-        
+        Assert.Equal(expectedMessage, ex.Message);
         mockRepository.Verify(r => r.GetDevice(deviceId), Times.Never);
     }
+
+    [Theory]
+    [InlineData("1123", 2)]
+    public void GetValidDeviceBySerialNumberTest(string serialNumber, int expectedValueId)
+    {
+        // Arrange
+        Device device1 = new Device
+        {
+            Id = 1, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "På lager",
+            RequestValue = "IkkeSendt"
+        };
+        Device device2 = new Device
+        {
+            Id = 2, DeviceName = "Seed device2", SerialNumber = "1123", Status = "På lager", RequestValue = "IkkeSendt"
+        };
+
+        var fakeRepo = new List<Device>();
+        fakeRepo.Add(device1);
+        fakeRepo.Add(device2);
+
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config => { config.CreateMap<PostDeviceDTO, Device>(); }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+
+        IDeviceService service =
+            new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+        mockRepository.Setup(r => r.GetDevice(serialNumber))
+            .Returns(fakeRepo.Find(d => d.SerialNumber == serialNumber));
+
+        // Act 
+        var actual = service.GetDevice(serialNumber);
+
+        // Assert 
+        Assert.Equal(expectedValueId, actual.Id);
+        Assert.Equal("Seed device2", actual.DeviceName);
+        Assert.Equal(serialNumber, actual.SerialNumber);
+        mockRepository.Verify(r => r.GetDevice(serialNumber), Times.Once);
+    }
+    
+    [Theory]
+    [InlineData("", "SerialNumber cannot be empty or null")]    //Invalid empty serialNumber
+    [InlineData(null, "SerialNumber cannot be empty or null")]  //Invalid null serialNumber
+    public void GetInvalidDeviceBySerialNumberTest(string serialNumber, string expectedMessage )
+    {
+        // Arrange
+        Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostDeviceDTO, Device>();
+        }).CreateMapper();
+        var postDeviceValidator = new PostDeviceValidator();
+        var putDeviceValidator = new PutDeviceValidator();
+        
+        IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
+
+        // Act 
+        Action action = () => service.GetDevice(serialNumber);  
+
+        // Assert
+        var ex = Assert.Throws<ArgumentException>(action);
+        Assert.Equal(expectedMessage, ex.Message);
+        mockRepository.Verify(r => r.GetDevice(serialNumber), Times.Never);
+    }
+
     #endregion
 
     #region Create
 
     [Theory]
-    [InlineData(1, "device1", "123")]
-    public void CreateValidDeviceTest(int deviceId, string deviceName, string serialNumber)
+    [InlineData(1, "device1", "123", "På lager", "IkkeSendt")]
+    public void CreateValidDeviceTest(int deviceId, string deviceName, string serialNumber, string status, string requestValue)
     {
         // Arrange
         List<Device> devices = new List<Device>();
-        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = "På lager"};
-        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, SerialNumber = serialNumber, Status = device.Status};
+        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = status, RequestValue = requestValue};
+        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, SerialNumber = serialNumber, Status = device.Status, RequestValue = requestValue};
         
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -412,15 +576,22 @@ public class DeviceServiceTest
         Assert.Equal(device.Id, createdDevice.Id);
         Assert.Equal(device.DeviceName, createdDevice.DeviceName);
         Assert.Equal(device.SerialNumber, createdDevice.SerialNumber);
+        Assert.Equal(device.RequestValue, createdDevice.RequestValue);
         mockRepository.Verify(r => r.AddDevice(It.IsAny<Device>()), Times.Once);
     }
     
     [Theory]
-    [InlineData(1, "", "12345678", "Device name cannot be empty or null")]                  //Invalid device with empty deviceName
-    [InlineData(1, null, "12345678", "Device name cannot be empty or null")]                //Invalid device with null as deviceName
-    [InlineData(2, "Monitor", "", "Device serialNumber cannot be empty or null")]           //Invalid device with empty deviceSerialNumber
-    [InlineData(2, "Monitor", null, "Device serialNumber cannot be empty or null")]         //Invalid device with empty deviceSerialNumber
-    public void CreateInvalidDeviceTest(int deviceId, string deviceName, string serialNumber, string expectedMessage)
+    [InlineData(1, "", "12345678", "På lager", "IkkeSendt", "Device name cannot be empty or null")]                  //Invalid device with empty deviceName
+    [InlineData(1, null, "12345678", "På lager", "IkkeSendt", "Device name cannot be empty or null")]                //Invalid device with null as deviceName
+    [InlineData(2, "Monitor", "", "På lager", "IkkeSendt", "Device serialNumber cannot be empty or null")]           //Invalid device with empty deviceSerialNumber
+    [InlineData(2, "Monitor", null, "På lager", "IkkeSendt", "Device serialNumber cannot be empty or null")]         //Invalid device with empty deviceSerialNumber
+    [InlineData(2, "Monitor", "12345678", null, "IkkeSendt", "Incorrect device status")]                             //Invalid device with null status
+    [InlineData(2, "Monitor", "12345678", "", "IkkeSendt", "Incorrect device status")]                               //Invalid device with empty status
+    [InlineData(2, "Monitor", "12345678","Pdvd", "IkkeSendt", "Incorrect device status")]                            //Invalid device with incorrect value status
+    [InlineData(2, "Monitor", "12345678", "På lager", null, "Incorrect device requestValue")]                        //Invalid device with null requestValue
+    [InlineData(2, "Monitor", "12345678", "På lager", "", "Incorrect device requestValue")]                          //Invalid device with empty requestValue
+    [InlineData(2, "Monitor", "12345678","På lager", "svs", "Incorrect device requestValue")]                        //Invalid device with incorrect value requestValue
+    public void CreateInvalidDeviceTest(int deviceId, string deviceName, string serialNumber, string status, string requestValue, string expectedMessage)
     {
         // Arrange
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
@@ -432,8 +603,8 @@ public class DeviceServiceTest
         var putDeviceValidator = new PutDeviceValidator();
         IDeviceService service = new DeviceService(mockRepository.Object, mapper, postDeviceValidator, putDeviceValidator);
 
-        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber};
-        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, SerialNumber = serialNumber };
+        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = serialNumber, Status = status, RequestValue = requestValue};
+        PostDeviceDTO dto = new PostDeviceDTO { DeviceName = deviceName, SerialNumber = serialNumber, Status = status, RequestValue = requestValue};
         // Act 
         var action = () => service.AddDevice(dto);
 
@@ -452,8 +623,8 @@ public class DeviceServiceTest
     public void UpdateValidDeviceTest(int id, string deviceName)
     {
         // Arrange
-        Device device = new Device { Id = id, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "På lager"};
-        PutDeviceDTO dto = new PutDeviceDTO {Id = device.Id, DeviceName = device.DeviceName, SerialNumber = device.SerialNumber, Status = device.Status };
+        Device device = new Device { Id = id, DeviceName = "Seed device1", SerialNumber = "1234553", Status = "På lager", RequestValue = "IkkeSendt"};
+        PutDeviceDTO dto = new PutDeviceDTO {Id = device.Id, DeviceName = device.DeviceName, SerialNumber = device.SerialNumber, Status = device.Status, RequestValue = device.RequestValue};
 
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -481,21 +652,24 @@ public class DeviceServiceTest
     }
     
     [Theory]
-    [InlineData(0, "Laptop", "12345678","På lager", "Device id cannot be null or less than 1")]        //Invalid device with id 0 
-    [InlineData(-1, "Computer", "12345678","På lager", "Device id cannot be null or less than 1")]     //Invalid device with id -1
-    [InlineData(null, "Computer", "12345678","På lager", "Device id cannot be null or less than 1")]   //Invalid device with null as id
-    [InlineData(1, "", "12345678","På lager", "Device name cannot be empty or null")]                  //Invalid device with empty deviceName
-    [InlineData(1, null, "12345678","På lager", "Device name cannot be empty or null")]                //Invalid device with null as deviceName
-    [InlineData(2, "Monitor", "","På lager",  "Device serialNumber cannot be empty or null")]          //Invalid device with empty deviceSerialNumber
-    [InlineData(2, "Monitor", null,"På lager", "Device serialNumber cannot be empty or null")]         //Invalid device with null deviceSerialNumber
-    [InlineData(2, "Monitor", "12345678","", "Incorrect device status")]                               //Invalid device with empty status
-    [InlineData(2, "Monitor", "12345678",null, "Incorrect device status")]                             //Invalid device with null status
-    [InlineData(2, "Monitor", "12345678", "I stykker", "Incorrect device status")]                     //Invalid device with invalid status message 
-    public void InvalidDeviceUpdateTest(int deviceId, string deviceName, string deviceSerialNumber, string status, string expectedMessage)
+    [InlineData(0, "Laptop", "12345678","På lager", "IkkeSendt", "Device id cannot be null or less than 1")]         //Invalid device with id 0 
+    [InlineData(-1, "Computer", "12345678","På lager", "IkkeSendt", "Device id cannot be null or less than 1")]      //Invalid device with id -1
+    [InlineData(null, "Computer", "12345678","På lager", "IkkeSendt", "Device id cannot be null or less than 1")]    //Invalid device with null as id
+    [InlineData(1, "", "12345678","På lager", "IkkeSendt", "Device name cannot be empty or null")]                   //Invalid device with empty deviceName
+    [InlineData(1, null, "12345678","På lager", "IkkeSendt", "Device name cannot be empty or null")]                 //Invalid device with null as deviceName
+    [InlineData(2, "Monitor", "","På lager", "IkkeSendt", "Device serialNumber cannot be empty or null")]            //Invalid device with empty deviceSerialNumber
+    [InlineData(2, "Monitor", null,"På lager", "IkkeSendt", "Device serialNumber cannot be empty or null")]          //Invalid device with null deviceSerialNumber
+    [InlineData(2, "Monitor", "12345678", "", "IkkeSendt", "Incorrect device status")]                               //Invalid device with empty status
+    [InlineData(2, "Monitor", "12345678", null, "IkkeSendt", "Incorrect device status")]                             //Invalid device with null status
+    [InlineData(2, "Monitor", "12345678", "I stykker", "IkkeSendt", "Incorrect device status")]                      //Invalid device with invalid status message 
+    [InlineData(2, "Monitor", "12345678","På lager", null, "Incorrect device requestValue")]                         //Invalid device with null requestValue
+    [InlineData(2, "Monitor", "12345678", "På lager", "", "Incorrect device requestValue")]                          //Invalid device with empty requestValue
+    [InlineData(2, "Monitor", "12345678", "På lager", "dcs", "Incorrect device requestValue")]                       //Invalid device with invalid value requestValue
+    public void InvalidDeviceUpdateTest(int deviceId, string deviceName, string deviceSerialNumber, string status, string requestValue, string expectedMessage)
     {
         // Arrange
-        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = deviceSerialNumber};
-        PutDeviceDTO dto = new PutDeviceDTO {Id = deviceId, DeviceName = deviceName, SerialNumber = deviceSerialNumber};
+        Device device = new Device{Id = deviceId, DeviceName = deviceName, SerialNumber = deviceSerialNumber, Status = status, RequestValue = requestValue};
+        PutDeviceDTO dto = new PutDeviceDTO {Id = deviceId, DeviceName = deviceName, SerialNumber = deviceSerialNumber, Status = status, RequestValue = requestValue};
         
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -521,8 +695,8 @@ public class DeviceServiceTest
     public void InvalidIdInputExceptionTest(int deviceId, string expectedMessage)
     {
         // Arrange
-        Device device = new Device{Id = 1, DeviceName = "deviceName", SerialNumber = "deviceSerialNumber"};
-        PutDeviceDTO dto = new PutDeviceDTO {Id = 1, DeviceName = "deviceName", SerialNumber = "deviceSerialNumber"};
+        Device device = new Device{Id = 1, DeviceName = "deviceName", SerialNumber = "deviceSerialNumber", Status = "På lager", RequestValue = "IkkeSendt"};
+        PutDeviceDTO dto = new PutDeviceDTO {Id = 1, DeviceName = "deviceName", SerialNumber = "deviceSerialNumber", Status = "På lager", RequestValue = "IkkeSendt"};
         
         Mock<IDeviceRepository> mockRepository = new Mock<IDeviceRepository>();
         var mapper = new MapperConfiguration(config =>
@@ -612,7 +786,7 @@ public class DeviceServiceTest
 
     #endregion
 
-    #region GetAssigned Devices
+    #region GetAssignedDevices
 
     [Theory]
     [MemberData(nameof(ListOfDevicesWithUser_TestCase))]
@@ -664,8 +838,7 @@ public class DeviceServiceTest
         mockRepository.Verify(r => r.GetDevices(), Times.Never);
     }
     #endregion
-
-
+    
     #region GetRequestValueTests
 
     [Theory]
@@ -768,7 +941,9 @@ public class DeviceServiceTest
     }
     
     #endregion
-    
+
+    #region GetMalfunctionedDevicesTest
+
     [Theory]
     [MemberData(nameof(ListOfDevicesWithStatusMalfunction_TestCase))]
     public void GetDevicesWithStatusMalfunctionTest(Device[] data, List<Device> expectedResult)
@@ -793,7 +968,7 @@ public class DeviceServiceTest
         Assert.True(Enumerable.SequenceEqual(expectedResult, actual));
         mockRepository.Verify(r => r.GetDevices(), Times.Once);
     }
-    
-    
+
+    #endregion
     
 }

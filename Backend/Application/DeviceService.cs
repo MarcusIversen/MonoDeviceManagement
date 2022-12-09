@@ -93,11 +93,6 @@ public class DeviceService : IDeviceService
         return _repository.GetDevices().Where(d => d.UserId == userId).ToList();
     }
 
-    public List<Device> GetNotAssignedDevices()
-    {
-        return _repository.GetDevices().Where(d => d.UserId == null).ToList();
-    }
-
     public List<Device> GetDevicesWithRequestValue(string value)
     {
         if (string.IsNullOrEmpty(value)) throw new ArgumentException("Value cannot be null or empty");
@@ -126,10 +121,15 @@ public class DeviceService : IDeviceService
         {
             throw new ArgumentException("Device serialNumber cannot be empty or null");
         }
-
+        
         if (device.Status is not ("I brug" or "På lager" or "Defekt"))
         {
             throw new ArgumentException("Incorrect device status");
+        }
+        
+        if (device.RequestValue is not ("IkkeSendt" or "Sendt" or "Accepteret"))
+        {
+            throw new ArgumentException("Incorrect device requestValue");
         }
     }
 
@@ -154,6 +154,11 @@ public class DeviceService : IDeviceService
         if (device.Status is not ("I brug" or "På lager" or "Defekt"))
         {
             throw new ArgumentException("Incorrect device status");
+        }
+        
+        if (device.RequestValue is not ("IkkeSendt" or "Sendt" or "Accepteret"))
+        {
+            throw new ArgumentException("Incorrect device requestValue");
         }
     }
 }

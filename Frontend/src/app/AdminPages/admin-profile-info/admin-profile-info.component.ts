@@ -35,7 +35,6 @@ export class AdminProfileInfoComponent implements OnInit {
     if (token) {
       let decodedToken = jwtDecode(token) as Token;
       this.user = await this.userService.getUserByEmail(decodedToken.email);
-      console.log(this.user)
       this.id = this.user.id;
       this.firstName = this.user.firstName;
       this.lastName = this.user.lastName;

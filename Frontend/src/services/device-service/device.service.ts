@@ -65,12 +65,6 @@ export class DeviceService {
     return httpResult.data;
   }
 
-  async getNotAssignedDevices() {
-    const httpResponse = await customAxios.get<any>('NotAssigned/');
-    this.devices = httpResponse.data;
-    return httpResponse.data;
-  }
-
   async getDevicesWithStatusMalfunctioned() {
     const httpResponse = await customAxios.get<any>('Malfunctioned');
     this.devices = httpResponse.data;

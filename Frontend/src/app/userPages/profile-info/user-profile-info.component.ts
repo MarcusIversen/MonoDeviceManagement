@@ -43,7 +43,6 @@ export class UserProfileInfoComponent implements OnInit {
       this.privateMail = this.user.privateMail;
       this.privateNumber = this.user.privateNumber;
       this.profilePicture = this.user.profilePicture;
-      console.log(this.user);
     }
   }
 
