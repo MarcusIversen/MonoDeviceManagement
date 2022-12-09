@@ -9,7 +9,7 @@ namespace MonoAPI.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthenticationService _authentication;
-    
+
     public AuthController(IAuthenticationService authentication)
     {
         _authentication = authentication;
@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    
+
     [HttpPost]
     [Route("register")]
     public ActionResult Register(PostUserDTO dto)
@@ -42,10 +42,10 @@ public class AuthController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    
+
     [HttpPut]
     [Route("update-password/{id}")]
-    public ActionResult UpdatePassword([FromRoute]int id, [FromBody]PutPasswordDTO dto)
+    public ActionResult UpdatePassword([FromRoute] int id, [FromBody] PutPasswordDTO dto)
     {
         try
         {
@@ -58,6 +58,4 @@ public class AuthController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    
-    
 }

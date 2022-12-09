@@ -17,7 +17,7 @@ public class DeviceRepository : IDeviceRepository
     {
         _context.Devices.Add(device);
         _context.SaveChanges();
-        return device;    
+        return device;
     }
 
     public IEnumerable<Device> GetDevices()
@@ -29,11 +29,13 @@ public class DeviceRepository : IDeviceRepository
     {
         return _context.Devices.FirstOrDefault(d => d.Id == deviceId);
     }
+
     public Device GetDevice(string serialNumber)
     {
-        return _context.Devices.FirstOrDefault(d=>d.SerialNumber == serialNumber) ?? throw new KeyNotFoundException("There is no device with serial number" + serialNumber);
+        return _context.Devices.FirstOrDefault(d => d.SerialNumber == serialNumber) ??
+               throw new KeyNotFoundException("There is no device with serial number" + serialNumber);
     }
-    
+
     public Device UpdateDevice(int deviceId, Device device)
     {
         var dev = _context.Devices.FirstOrDefault(d => d.Id == deviceId);
@@ -75,5 +77,4 @@ public class DeviceRepository : IDeviceRepository
         _context.Database.EnsureDeleted();
         _context.Database.EnsureCreated();
     }
-    
 }

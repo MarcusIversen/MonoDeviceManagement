@@ -47,7 +47,7 @@ public class AuthenticationService : IAuthenticationService
             {
                 throw new ArgumentException(validate.ToString());
             }
-            
+
             var salt = RandomNumberGenerator.GetBytes(32).ToString();
             var user = new User
             {
@@ -68,7 +68,7 @@ public class AuthenticationService : IAuthenticationService
 
         throw new Exception("Email  " + dto.Email + "is already taken");
     }
-    
+
     public string UpdatePassword(int userId, PutPasswordDTO dto)
     {
         try
@@ -86,7 +86,6 @@ public class AuthenticationService : IAuthenticationService
 
             _repository.UpdateUserPassword(userId, user);
             return GenerateToken(user);
-
         }
         catch (Exception e)
         {
@@ -94,21 +93,22 @@ public class AuthenticationService : IAuthenticationService
             throw;
         }
     }
-    
+
     private string GenerateToken(User user)
     {
         var key = Encoding.UTF8.GetBytes(_appSettings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[] 
-            {   
+            Subject = new ClaimsIdentity(new[]
+            {
                 new Claim("email", user.Email),
                 new Claim("role", user.Role),
                 new Claim("firstName", user.FirstName),
                 new Claim("lastName", user.LastName)
             }),
             Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials =
+                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
         var tokenHandler = new JwtSecurityTokenHandler();
         return tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
@@ -121,6 +121,7 @@ public class AuthenticationService : IAuthenticationService
         {
             return GenerateToken(user);
         }
+
         throw new Exception("Invalid login");
     }
 
@@ -137,7 +138,7 @@ public class AuthenticationService : IAuthenticationService
             throw new ArgumentException("Id cannot be null or empty");
         }
     }
-    
+
     private void ThrowsIfPostUserIsInvalid(PostUserDTO user)
     {
         if (string.IsNullOrEmpty(user.Email))
@@ -157,7 +158,8 @@ public class AuthenticationService : IAuthenticationService
 
         if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8)
         {
-            throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
+            throw new ArgumentException(
+                "Work number cannot be null, empty and must have a minimum length greater than 7");
         }
 
         if (string.IsNullOrEmpty(user.Password) || user.Password.Length < 8)

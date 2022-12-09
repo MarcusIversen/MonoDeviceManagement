@@ -23,19 +23,19 @@ public class UserService : IUserService
         IValidator<PutUserDTO> putUserValidator,
         IOptions<AppSettings> appSettings)
     {
-        _repository = repository;
-        _mapper = mapper;
-        _putUserValidator = putUserValidator;
-        _appSettings = appSettings.Value;
+        _repository = repository ?? throw new ArgumentException("repository cannot be null");
+        _mapper = mapper ?? throw new ArgumentException("mapper cannot be null");
+        _putUserValidator = putUserValidator ?? throw new ArgumentException("putUserValidator cannot be null");
+        _appSettings = appSettings.Value ?? throw new ArgumentException("appSettings cannot be null");
     }
-    
+
     public UserService(IUserRepository repository, IMapper mapper, IValidator<PutUserDTO> putUserValidator)
     {
         _repository = repository;
         _mapper = mapper;
         _putUserValidator = putUserValidator;
     }
-    
+
     public List<User> GetUsers()
     {
         return _repository.GetUsers().ToList();
@@ -47,6 +47,7 @@ public class UserService : IUserService
         {
             throw new ArgumentException("UserId cannot be less than 1 or null");
         }
+
         return _repository.GetUser(userId);
     }
 
@@ -59,7 +60,7 @@ public class UserService : IUserService
 
         return _repository.GetUserByEmail(email);
     }
-    
+
     public User UpdateUser(int userId, PutUserDTO user)
     {
         ThrowsIfPutUserIsInvalid(user);
@@ -83,6 +84,7 @@ public class UserService : IUserService
         {
             throw new ArgumentException("User id cannot be null or less than 1");
         }
+
         return _repository.DeleteUser(userId);
     }
 
@@ -132,13 +134,13 @@ public class UserService : IUserService
 
         if (string.IsNullOrEmpty(user.WorkNumber) || user.WorkNumber.Length < 8)
         {
-            throw new ArgumentException("Work number cannot be null, empty and must have a minimum length greater than 7");
+            throw new ArgumentException(
+                "Work number cannot be null, empty and must have a minimum length greater than 7");
         }
 
         if (user.Id < 1)
         {
             throw new ArgumentException("Id cannot be null or less than 1");
         }
-        
     }
 }
