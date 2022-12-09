@@ -394,6 +394,34 @@ public class UserServiceTest
         Assert.Equal(expectedMessage, ex.Message);
         mockRepository.Verify(r=> r.UpdateUser(userId, user),Times.Never);
     }
+    
+    [Theory]
+    [InlineData(2, "Id in the body and route are different")] //Invalid id not the same
+    public void InvalidIdInputExceptionTest(int userId, string expectedMessage)
+    {
+        // Arrange
+        User user = new User{Id = 1, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", WorkNumber = "12345678"};
+        PutUserDTO dto = new PutUserDTO {Id = user.Id, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName,  WorkNumber = user.WorkNumber};
+
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PutUserDTO, User>();
+        }).CreateMapper();
+        
+        var putUserValidator = new PutUserValidator();
+        
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
+        
+        // Act 
+        var action = () => service.UpdateUser(userId, dto);
+
+        // Assert
+        var ex = Assert.Throws<ArgumentException>(action);
+        
+        Assert.Equal(expectedMessage, ex.Message);
+        mockRepository.Verify(r=> r.UpdateUser(userId, user),Times.Never);
+    }
     #endregion
 
     #region Delete
