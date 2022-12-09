@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import axios from "axios";
+import {Device} from "../../Models/Interfaces/device";
 
 export const customAxios = axios.create({
   baseURL: 'https://localhost:7234',
@@ -83,6 +84,7 @@ export class DeviceService {
 
   async getSendtRequestValue() {
     const httpResult = await customAxios.get<any>('RequestValue/Sendt')
+    this.devices = httpResult.data;
     return httpResult.data;
   }
 

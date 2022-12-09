@@ -7,7 +7,6 @@ import {MatSort} from "@angular/material/sort";
 import jwtDecode from "jwt-decode";
 import {Device} from "../../../Models/Interfaces/device";
 import {Token} from "../../../Models/Token";
-import {RequestsComponent} from "../../AdminPages/requests/requests.component";
 
 @Component({
   selector: 'app-request-device-overview',
@@ -61,8 +60,8 @@ export class RequestDeviceOverviewComponent implements OnInit{
           userId: device.userId,
           requestValue: new String('Sendt'),
           requesterId: this.user.id,
-          dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
-          dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
+          dateOfIssue: device.dateOfIssue,
+          dateOfTurnIn: device.dateOfTurnIn,
           errorSubject: device.errorSubject,
           errorDescription: device.errorDescription
         }

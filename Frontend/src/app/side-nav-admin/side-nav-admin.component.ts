@@ -5,6 +5,7 @@ import {BreakpointObserver} from "@angular/cdk/layout";
 import jwtDecode from "jwt-decode";
 import {UserService} from "../../services/user-service/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {DeviceService} from "../../services/device-service/device.service";
 
 @Component({
   selector: 'app-side-nav-admin',
@@ -16,10 +17,12 @@ export class SideNavAdminComponent implements OnInit {
   profilePicture: any;
   private user: any;
 
+  requests: any[] = [];
+
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor(private router: Router, private observer: BreakpointObserver, public http: UserService, private snackBar: MatSnackBar) {
+  constructor(private router: Router, private observer: BreakpointObserver, public http: UserService, private snackBar: MatSnackBar, public deviceService: DeviceService) {
     let t = localStorage.getItem('token')
     if (t) {
       let decoded = jwtDecode(t) as any;
@@ -42,6 +45,7 @@ export class SideNavAdminComponent implements OnInit {
         this.profilePicture = this.user.profilePicture;
       }
     }
+    this.requests = await this.deviceService.getSendtRequestValue();
   }
 
   ngAfterViewInit() {

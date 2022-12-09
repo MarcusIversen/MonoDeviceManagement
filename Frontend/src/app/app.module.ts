@@ -40,12 +40,13 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {CreateUserComponent} from './AdminPages/create-user/create-user.component';
 import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.component";
 import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
-import {RequestDeviceOverviewComponent} from './userPages/request-device-overview/request-device-overview.component';
-import {ReportErrorComponent} from './userPages/report-error/report-error.component';
-import {RequestsComponent} from './AdminPages/requests/requests.component';
-import {EditUserComponent} from './AdminPages/edit-user/edit-user.component';
-import {ErrorHandlingComponent} from './AdminPages/error-handling/error-handling.component';
-import {ViewReportComponent} from './AdminPages/view-report/view-report.component';
+import { RequestDeviceOverviewComponent } from './userPages/request-device-overview/request-device-overview.component';
+import { ReportErrorComponent } from './userPages/report-error/report-error.component';
+import { RequestsComponent } from './AdminPages/requests/requests.component';
+import { EditUserComponent } from './AdminPages/edit-user/edit-user.component';
+import { ErrorHandlingComponent } from './AdminPages/error-handling/error-handling.component';
+import { ViewReportComponent } from './AdminPages/view-report/view-report.component';
+import {MatBadgeModule} from "@angular/material/badge";
 
 // @ts-ignore
 @NgModule({
@@ -111,7 +112,8 @@ import {ViewReportComponent} from './AdminPages/view-report/view-report.componen
     MatListModule,
     MatDialogModule,
     FlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    MatBadgeModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},

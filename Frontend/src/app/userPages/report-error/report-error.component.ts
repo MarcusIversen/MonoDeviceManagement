@@ -4,7 +4,6 @@ import {UserOverviewComponent} from "../../AdminPages/user-overview/user-overvie
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {DeviceService} from "../../../services/device-service/device.service";
 import {FormControl, FormGroup} from "@angular/forms";
-import {Device} from "../../../Models/Interfaces/device";
 
 @Component({
   selector: 'app-report-error',
