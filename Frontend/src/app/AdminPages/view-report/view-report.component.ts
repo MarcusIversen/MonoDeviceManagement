@@ -11,7 +11,7 @@ import {FormControl, FormGroup} from "@angular/forms";
   templateUrl: './view-report.component.html',
   styleUrls: ['./view-report.component.scss']
 })
-export class ViewReportComponent implements OnInit{
+export class ViewReportComponent implements OnInit {
   device: Device;
 
   viewReportForm = new FormGroup({
@@ -20,7 +20,9 @@ export class ViewReportComponent implements OnInit{
     bodyForm: new FormControl(this.data.device.errorDescription),
   });
 
-  constructor(private deviceService: DeviceService,  public dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data : any, private _snackBar: MatSnackBar) {
+  constructor(private deviceService: DeviceService,
+              private dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
+              private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
@@ -28,6 +30,7 @@ export class ViewReportComponent implements OnInit{
   }
 
   changeStatus() {
-
+    //TODO
   }
+
 }

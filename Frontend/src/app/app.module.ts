@@ -20,7 +20,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatMenuModule} from "@angular/material/menu";
 import {FlexLayoutModule} from "@angular/flex-layout"
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
-import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
+import {
+  AdminDeviceRegistrationComponent
+} from "./AdminPages/admin-device-registration/admin-device-registration.component";
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -38,12 +40,12 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {CreateUserComponent} from './AdminPages/create-user/create-user.component';
 import {LoadingSpinnerComponent} from "./shared/loading-spinner/loading-spinner.component";
 import {AdminProfileInfoComponent} from "./AdminPages/admin-profile-info/admin-profile-info.component";
-import { RequestDeviceOverviewComponent } from './userPages/request-device-overview/request-device-overview.component';
-import { ReportErrorComponent } from './userPages/report-error/report-error.component';
-import { RequestsComponent } from './AdminPages/requests/requests.component';
-import { EditUserComponent } from './AdminPages/edit-user/edit-user.component';
-import { ErrorHandlingComponent } from './AdminPages/error-handling/error-handling.component';
-import { ViewReportComponent } from './AdminPages/view-report/view-report.component';
+import {RequestDeviceOverviewComponent} from './userPages/request-device-overview/request-device-overview.component';
+import {ReportErrorComponent} from './userPages/report-error/report-error.component';
+import {RequestsComponent} from './AdminPages/requests/requests.component';
+import {EditUserComponent} from './AdminPages/edit-user/edit-user.component';
+import {ErrorHandlingComponent} from './AdminPages/error-handling/error-handling.component';
+import {ViewReportComponent} from './AdminPages/view-report/view-report.component';
 
 // @ts-ignore
 @NgModule({

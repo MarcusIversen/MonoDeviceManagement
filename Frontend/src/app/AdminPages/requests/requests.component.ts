@@ -9,27 +9,25 @@ import {UserService} from "../../../services/user-service/user.service";
   templateUrl: './requests.component.html',
   styleUrls: ['./requests.component.scss']
 })
-export class RequestsComponent implements OnInit{
+export class RequestsComponent implements OnInit {
   requests: Device[] = [];
   Users: User[] = [];
 
 
-
-  constructor(private deviceService: DeviceService, private userService: UserService) {
-
+  constructor(private deviceService: DeviceService,
+              private userService: UserService) {
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     this.requests = await this.deviceService.getSendtRequestValue();
-    this.showRequester();
+    await this.showRequester();
   }
 
-  async showRequester(){
+  async showRequester() {
     for (const r of this.requests) {
       this.Users.push(await this.userService.getUserById(r.requesterId))
     }
   }
-
 
   async decline(r: Device) {
     let device = await this.deviceService.getDeviceById(r.id);

@@ -14,14 +14,17 @@ import {ViewReportComponent} from "../view-report/view-report.component";
   templateUrl: './error-handling.component.html',
   styleUrls: ['./error-handling.component.scss']
 })
-export class ErrorHandlingComponent implements OnInit{
+export class ErrorHandlingComponent implements OnInit {
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'viewReport'];
   dataSource: MatTableDataSource<Device>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private deviceService: DeviceService, public userService: UserService, private popup: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(private deviceService: DeviceService,
+              private userService: UserService,
+              private popup: MatDialog,
+              private _snackBar: MatSnackBar) {
   }
 
 
@@ -41,12 +44,12 @@ export class ErrorHandlingComponent implements OnInit{
     }
   }
 
-
   viewReport(row) {
-    this.popup.open(ViewReportComponent,{
-      data : {
-        device : row
+    this.popup.open(ViewReportComponent, {
+      data: {
+        device: row
       }
     });
   }
+
 }

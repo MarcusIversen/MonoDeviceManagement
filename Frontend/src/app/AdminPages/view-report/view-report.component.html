@@ -1,7 +1,7 @@
 <mat-card>
   <form [formGroup]="viewReportForm" (ngSubmit)="changeStatus()">
     <label>
-      Enhedens navn:
+      Enhedens navn
       <br>
       <mat-form-field>
         <input matInput deviceName="deviceName" type="text" formControlName="nameForm" readonly>
@@ -9,7 +9,7 @@
     </label>
     <br>
     <label>
-      Emne:
+      Emne
       <br>
       <mat-form-field>
         <input matInput errorSubject="errorSubject" type="text" formControlName="subjectForm" readonly>
@@ -17,11 +17,11 @@
     </label>
     <br>
     <label>
-      Beskrivelse:
+      Beskrivelse
       <br>
       <mat-form-field>
         <textarea matInput
-                  errorDescription ="errorDescription"
+                  errorDescription="errorDescription"
                   cdkTextareaAutosize
                   #autosize="cdkTextareaAutosize"
                   cdkAutosizeMinRows="1"

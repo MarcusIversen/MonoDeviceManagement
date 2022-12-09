@@ -14,7 +14,6 @@ import {CreateUserComponent} from "../create-user/create-user.component";
   styleUrls: ['./edit-user.component.scss']
 })
 export class EditUserComponent implements OnInit {
-
   user: User;
   isLoading: boolean;
 
@@ -29,8 +28,8 @@ export class EditUserComponent implements OnInit {
   })
 
   constructor(private deviceService: DeviceService,
-              public userService: UserService,
-              public dialogRef: MatDialogRef<CreateUserComponent>,
+              private userService: UserService,
+              private dialogRef: MatDialogRef<CreateUserComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private _snackBar: MatSnackBar) {
   }

@@ -20,7 +20,7 @@ export class RegisterComponent {
   showSuccessMessage: boolean | undefined;
 
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService) {
   }
 
   async register() {
@@ -40,7 +40,7 @@ export class RegisterComponent {
       this.showSuccessMessage = true;
       console.log(token);
       localStorage.setItem('token', token)
-    },(error) =>{
+    }, (error) => {
       this.isLoading = false;
       this.showErrorMessage = true;
       this.showSuccessMessage = false;

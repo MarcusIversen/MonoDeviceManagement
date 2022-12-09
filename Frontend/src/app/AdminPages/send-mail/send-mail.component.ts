@@ -11,7 +11,7 @@ import {User} from "../../../Models/Interfaces/user";
   templateUrl: './send-mail.component.html',
   styleUrls: ['./send-mail.component.scss']
 })
-export class SendMailComponent implements OnInit{
+export class SendMailComponent implements OnInit {
   user: User;
 
   mailForm = new FormGroup({
@@ -21,7 +21,9 @@ export class SendMailComponent implements OnInit{
   });
 
 
-  constructor(private userService: UserService,  public dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data : any, private _snackBar: MatSnackBar) {
+  constructor(private userService: UserService,
+              private dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
+              private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
@@ -36,7 +38,6 @@ export class SendMailComponent implements OnInit{
       subject: email.subjectForm,
       body: email.bodyForm
     }
-    console.log(dto);
     await this.userService.sendMail(dto)
     this.dialogRef.close();
     this._snackBar.open('Mail sendt til: ' + dto.email, 'Luk', {
