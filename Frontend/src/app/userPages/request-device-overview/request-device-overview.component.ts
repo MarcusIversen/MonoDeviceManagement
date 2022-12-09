@@ -14,7 +14,7 @@ import {Token} from "../../../Models/Token";
   styleUrls: ['./request-device-overview.component.scss']
 })
 export class RequestDeviceOverviewComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'dateOfIssue', 'dateOfTurnIn', 'request'];
+  displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'request'];
   dataSource: MatTableDataSource<Device>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

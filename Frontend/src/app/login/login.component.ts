@@ -13,7 +13,7 @@ export class LoginComponent {
   email: any;
   password: any;
   firstName: any;
-  lastName:any;
+  lastName: any;
   isLoading: boolean | undefined;
   showErrorMessage: boolean | undefined;
 
@@ -22,7 +22,6 @@ export class LoginComponent {
   }
 
   async login() {
-
     this.isLoading = true;
 
     let dto = {
@@ -33,26 +32,25 @@ export class LoginComponent {
     }
 
     this.userService.login(dto).then(token => {
-      this.showErrorMessage = false;
-      console.log(token);
-      localStorage.setItem('token', token)
-      let decodedToken = jwtDecode(token) as Token;
-      if (decodedToken.role == 'Admin') {
-        this.router.navigate(['/administrator/enheder']);
-        this.isLoading = false;
-      } else if (decodedToken.role == 'User') {
-        this.router.navigate(['/bruger/enheder']);
-        this.isLoading = false;
-      }else if (decodedToken.role != 'User' || 'Admin'){
-        this.router.navigate(['/**'])
-        this.isLoading = false;
-      }
-    }, (error) =>{
+        this.showErrorMessage = false;
+        console.log(token);
+        localStorage.setItem('token', token)
+        let decodedToken = jwtDecode(token) as Token;
+        if (decodedToken.role == 'Admin') {
+          this.router.navigate(['/administrator/enheder']);
+          this.isLoading = false;
+        } else if (decodedToken.role == 'User') {
+          this.router.navigate(['/bruger/enheder']);
+          this.isLoading = false;
+        } else if (decodedToken.role != 'User' || 'Admin') {
+          this.router.navigate(['/**'])
+          this.isLoading = false;
+        }
+      }, (error) => {
         this.showErrorMessage = true;
         this.isLoading = false;
-    }
+      }
     )
-
   }
 
 

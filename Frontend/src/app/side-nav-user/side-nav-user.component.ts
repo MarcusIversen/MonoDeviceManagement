@@ -11,9 +11,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './side-nav-user.component.html',
   styleUrls: ['./side-nav-user.component.scss']
 })
-export class SideNavUserComponent implements OnInit{
+export class SideNavUserComponent implements OnInit {
 
-  profilePicture:any;
+  profilePicture: any;
   private user: any;
 
   @ViewChild(MatSidenav)
@@ -21,23 +21,22 @@ export class SideNavUserComponent implements OnInit{
 
   constructor(private router: Router, private observer: BreakpointObserver, public http: UserService, private snackBar: MatSnackBar) {
     let t = localStorage.getItem('token')
-    if(t){
+    if (t) {
       let decoded = jwtDecode(t) as any;
       this.http.firstName = decoded.firstName;
       this.http.lastName = decoded.lastName;
-      if(decoded.role == "User"){
+      if (decoded.role == "User") {
         this.http.role = "Lærer"
-      }else{
+      } else {
         this.http.role = decoded.role;
       }
-
     }
 
   }
 
   async ngOnInit() {
     let t = localStorage.getItem('token')
-    if(t){
+    if (t) {
       let decoded = jwtDecode(t) as any;
       {
         this.user = await this.http.getUserByEmail(decoded.email)
@@ -46,12 +45,12 @@ export class SideNavUserComponent implements OnInit{
     }
   }
 
-  ngAfterViewInit(){
-    this.observer.observe(['(max-width: 1500px)']).subscribe((res)=> {
-      if(res.matches){
+  ngAfterViewInit() {
+    this.observer.observe(['(max-width: 1500px)']).subscribe((res) => {
+      if (res.matches) {
         this.sidenav.mode = 'over';
         this.sidenav.close();
-      }else {
+      } else {
         this.sidenav.mode = 'side';
         this.sidenav.open();
       }

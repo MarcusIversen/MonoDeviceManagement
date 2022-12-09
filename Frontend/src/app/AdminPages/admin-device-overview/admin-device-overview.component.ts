@@ -14,7 +14,7 @@ import {Device} from "../../../Models/Interfaces/device";
   templateUrl: './admin-device-overview.component.html',
   styleUrls: ['./admin-device-overview.component.scss']
 })
-export class AdminDeviceOverviewComponent implements OnInit{
+export class AdminDeviceOverviewComponent implements OnInit {
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'dateOfIssue', 'dateOfTurnIn', 'rediger'];
   dataSource: MatTableDataSource<Device>;
 
@@ -22,12 +22,12 @@ export class AdminDeviceOverviewComponent implements OnInit{
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private deviceService: DeviceService,
-              public userService: UserService,
+              private userService: UserService,
               private popup: MatDialog,
               private _snackBar: MatSnackBar) {
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     const devices = await this.deviceService.getDevices();
     this.dataSource = new MatTableDataSource(devices);
     this.dataSource.paginator = this.paginator;
@@ -45,18 +45,17 @@ export class AdminDeviceOverviewComponent implements OnInit{
 
   editDevice(row: any) {
     const data = this.popup.open(EditDeviceComponent, {
-      data : {
-        device : row
+      data: {
+        device: row
       }
     });
-    data.afterClosed().subscribe(()=>{
-       this.deviceService.getDevices().then(() => {
-         this.dataSource.data = this.deviceService.devices;
+    data.afterClosed().subscribe(() => {
+      this.deviceService.getDevices().then(() => {
+        this.dataSource.data = this.deviceService.devices;
 
-         return this.dataSource.data;
-       });
+        return this.dataSource.data;
+      });
     });
-
   }
 
   async deleteDevice(row: any) {
@@ -69,7 +68,7 @@ export class AdminDeviceOverviewComponent implements OnInit{
     }
   }
 
-  async getUserOnDevice(row: any){
+  async getUserOnDevice(row: any) {
     return await this.userService.getUserById(row.userId);
   }
 

@@ -9,7 +9,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './admin-device-registration.component.html',
   styleUrls: ['./admin-device-registration.component.scss']
 })
-export class AdminDeviceRegistrationComponent implements OnInit{
+export class AdminDeviceRegistrationComponent implements OnInit {
   users: any[] = [];
 
   deviceNameControl = new FormControl('', [Validators.required]);
@@ -37,15 +37,16 @@ export class AdminDeviceRegistrationComponent implements OnInit{
   })
 
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private deviceService: DeviceService, private _snackBar: MatSnackBar) {
-
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private deviceService: DeviceService,
+              private _snackBar: MatSnackBar) {
   }
 
   async ngOnInit() {
     this.users = await this.userService.getUsersTypeUser();
   }
 
-  //TODO IsoToString cannot be null fix pls
   async createDevice() {
     const devicePartOne = this.firstFormGroup.value;
     const devicePartTwo = this.secondFormGroup.value;
@@ -65,11 +66,11 @@ export class AdminDeviceRegistrationComponent implements OnInit{
       dto.dateOfTurnIn =  new Date(new Date(devicePartThree.dateOfTurnInControl).setHours(24)).toISOString().slice(0,10);
     }
 
-    if (dto.status == "I brug"){
+    if (dto.status == "I brug") {
       dto.requestValue = "Accepteret";
     }
 
-    if (dto.status == "På lager"){
+    if (dto.status == "På lager") {
       dto.userId = null;
       dto.requestValue = "IkkeSendt";
     }

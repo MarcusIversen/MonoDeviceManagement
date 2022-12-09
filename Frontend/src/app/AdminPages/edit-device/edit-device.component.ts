@@ -12,7 +12,7 @@ import {Device} from "../../../Models/Interfaces/device";
   templateUrl: './edit-device.component.html',
   styleUrls: ['./edit-device.component.scss']
 })
-export class EditDeviceComponent implements OnInit{
+export class EditDeviceComponent implements OnInit {
   device: Device;
   users: any[] = [];
 
@@ -27,17 +27,18 @@ export class EditDeviceComponent implements OnInit{
     dateOfTurnIn: new FormControl(this.data.device.dateOfTurnIn),
     errorSubject: new FormControl(''),
     errorDescription: new FormControl('')
-})
+  })
 
 
   constructor(
     private deviceService: DeviceService,
-    public userService: UserService,
-    public dialogRef: MatDialogRef<AdminDeviceRegistrationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data : any,
-    private _snackBar: MatSnackBar) {}
+    private userService: UserService,
+    private dialogRef: MatDialogRef<AdminDeviceRegistrationComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _snackBar: MatSnackBar) {
+  }
 
-  async ngOnInit(){
+  async ngOnInit() {
     this.dialogRef.updateSize("515px", "635px");
     this.device = await this.deviceService.getDeviceById(this.data.device.id);
     this.editDevice.patchValue({
@@ -60,16 +61,16 @@ export class EditDeviceComponent implements OnInit{
       serialNumber: device.serialNumber,
       status: device.status,
       userId: device.userId,
-      requestValue: new String('IkkeSendt'),
-      dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0,10),
-      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0,10),
+      requestValue: String('IkkeSendt'),
+      dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
+      dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
       errorSubject: device.errorSubject,
       errorDescription: device.errorDescription
     }
 
     let d = await this.deviceService.updateDevice(dto, device.id)
     this.deviceService.devices.map(obj => {
-      if (obj == device.id){
+      if (obj == device.id) {
         obj = d;
         return obj;
       }

@@ -20,7 +20,8 @@
       <label for="firstName">Fornavn</label>
     </div>
     <div class="floating-label">
-      <input [(ngModel)]="lastName" placeholder="Efternavn" type="lastName" name="lastName" id="lastName" autocomplete="off">
+      <input [(ngModel)]="lastName" placeholder="Efternavn" type="lastName" name="lastName" id="lastName"
+             autocomplete="off">
       <label for="email">Efternavn</label>
     </div>
     <div class="floating-label">
@@ -47,7 +48,7 @@
     <div style=" margin-left:  auto; display:  flex;">
       <span *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></span>
       <span style="margin-top: 15px; margin-right: 10px;" *ngIf="showSuccessMessage">Bruger hermed oprettet!</span>
-    <button type="submit" (click)="register()">Opret bruger</button>
+      <button type="submit" (click)="register()">Opret bruger</button>
     </div>
     <br>
     <div style="margin-left: 165px">Allerede oprettet? <a href="//localhost:4200" class="discrete">Login her</a>

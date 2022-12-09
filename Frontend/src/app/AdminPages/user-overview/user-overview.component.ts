@@ -24,7 +24,7 @@ import {EditUserComponent} from "../edit-user/edit-user.component";
     ]),
   ],
 })
-export class UserOverviewComponent implements OnInit{
+export class UserOverviewComponent implements OnInit {
   displayedColumns: string[] = ['id', 'email', 'firstName', 'lastName', 'role', 'workNumber', 'privateNumber', 'privateMail', 'rediger'];
   dataSource: MatTableDataSource<User>;
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
@@ -40,7 +40,7 @@ export class UserOverviewComponent implements OnInit{
               private _snackBar: MatSnackBar) {
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     const users = await this.userService.getUsersTypeUser();
     this.dataSource = new MatTableDataSource(users);
     this.dataSource.paginator = this.paginator;
@@ -56,11 +56,10 @@ export class UserOverviewComponent implements OnInit{
     }
   }
 
-  async getDeviceOnUser(id: number){
+  async getDeviceOnUser(id: number) {
     return await this.deviceService.getDeviceOnUser(id);
   }
 
-  //TODO style enheder
   async onSelect(row: any) {
     this.assignedDevices = await this.getDeviceOnUser(row.id);
     return this.assignedDevices;
@@ -68,11 +67,11 @@ export class UserOverviewComponent implements OnInit{
 
   editUser(row: any) {
     const data = this.popup.open(EditUserComponent, {
-      data : {
-        user : row
+      data: {
+        user: row
       }
     });
-    data.afterClosed().subscribe(()=>{
+    data.afterClosed().subscribe(() => {
       this.userService.getUsers().then(async () => {
         const users = await this.userService.getUsersTypeUser();
         this.dataSource = new MatTableDataSource(users);
@@ -84,9 +83,9 @@ export class UserOverviewComponent implements OnInit{
   }
 
   async sendMail(row: any) {
-    this.popup.open(SendMailComponent,{
-      data : {
-        user : row
+    this.popup.open(SendMailComponent, {
+      data: {
+        user: row
       }
     });
   }
@@ -103,7 +102,7 @@ export class UserOverviewComponent implements OnInit{
 
   async createUser() {
     const data = this.popup.open(CreateUserComponent);
-    data.afterClosed().subscribe(()=>{
+    data.afterClosed().subscribe(() => {
       this.userService.getUsersTypeUser().then(() => {
         this.dataSource.data = this.userService.getRoleUsers;
         return this.dataSource.data;

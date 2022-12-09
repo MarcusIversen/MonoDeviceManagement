@@ -10,7 +10,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
 })
-export class CreateUserComponent implements OnInit{
+export class CreateUserComponent implements OnInit {
   firstName: string = '';
   lastName: string = '';
   email: string = '';
@@ -25,11 +25,13 @@ export class CreateUserComponent implements OnInit{
     workNumberForm: new FormControl(''),
   });
 
-  constructor(private userService: UserService, private _snackBar: MatSnackBar,  public dialogRef: MatDialogRef<UserOverviewComponent>, @Inject(MAT_DIALOG_DATA) public data : any) {
+  constructor(private userService: UserService,
+              private _snackBar: MatSnackBar,
+              private dialogRef: MatDialogRef<UserOverviewComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   async ngOnInit() {
-
   }
 
   async createUserAsAdmin() {

@@ -12,9 +12,9 @@ import {DeviceService} from "../../services/device-service/device.service";
   templateUrl: './side-nav-admin.component.html',
   styleUrls: ['./side-nav-admin.component.scss']
 })
-export class SideNavAdminComponent implements OnInit{
+export class SideNavAdminComponent implements OnInit {
 
-  profilePicture:any;
+  profilePicture: any;
   private user: any;
 
   requests: any[] = [];
@@ -24,13 +24,13 @@ export class SideNavAdminComponent implements OnInit{
 
   constructor(private router: Router, private observer: BreakpointObserver, public http: UserService, private snackBar: MatSnackBar, public deviceService: DeviceService) {
     let t = localStorage.getItem('token')
-    if(t){
+    if (t) {
       let decoded = jwtDecode(t) as any;
       this.http.firstName = decoded.firstName;
       this.http.lastName = decoded.lastName;
-      if(decoded.role == "User"){
+      if (decoded.role == "User") {
         this.http.role = "Lærer"
-      }else{
+      } else {
         this.http.role = decoded.role;
       }
     }
@@ -38,7 +38,7 @@ export class SideNavAdminComponent implements OnInit{
 
   async ngOnInit() {
     let t = localStorage.getItem('token')
-    if(t){
+    if (t) {
       let decoded = jwtDecode(t) as any;
       {
         this.user = await this.http.getUserByEmail(decoded.email)
@@ -47,12 +47,13 @@ export class SideNavAdminComponent implements OnInit{
     }
     this.requests = await this.deviceService.getSendtRequestValue();
   }
-  ngAfterViewInit(){
-    this.observer.observe(['(max-width: 1500px)']).subscribe((res)=> {
-      if(res.matches){
+
+  ngAfterViewInit() {
+    this.observer.observe(['(max-width: 1500px)']).subscribe((res) => {
+      if (res.matches) {
         this.sidenav.mode = 'over';
         this.sidenav.close();
-      }else {
+      } else {
         this.sidenav.mode = 'side';
         this.sidenav.open();
       }

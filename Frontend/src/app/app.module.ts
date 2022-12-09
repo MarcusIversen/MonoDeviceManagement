@@ -20,7 +20,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatMenuModule} from "@angular/material/menu";
 import {FlexLayoutModule} from "@angular/flex-layout"
 import {AdminDeviceOverviewComponent} from "./AdminPages/admin-device-overview/admin-device-overview.component";
-import {AdminDeviceRegistrationComponent} from "./AdminPages/admin-device-registration/admin-device-registration.component";
+import {
+  AdminDeviceRegistrationComponent
+} from "./AdminPages/admin-device-registration/admin-device-registration.component";
 import {UserOverviewComponent} from "./AdminPages/user-overview/user-overview.component";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
