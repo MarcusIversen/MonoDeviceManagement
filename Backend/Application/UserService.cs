@@ -31,9 +31,9 @@ public class UserService : IUserService
 
     public UserService(IUserRepository repository, IMapper mapper, IValidator<PutUserDTO> putUserValidator)
     {
-        _repository = repository;
-        _mapper = mapper;
-        _putUserValidator = putUserValidator;
+        _repository = repository ?? throw new ArgumentException("repository cannot be null");
+        _mapper = mapper ?? throw new ArgumentException("mapper cannot be null");
+        _putUserValidator = putUserValidator ?? throw new ArgumentException("putUserValidator cannot be null");
     }
 
     public List<User> GetUsers()
@@ -53,7 +53,7 @@ public class UserService : IUserService
 
     public User GetUserByEmail(string email)
     {
-        if (email == null || email == "")
+        if (string.IsNullOrEmpty(email))
         {
             throw new ArgumentException("Email cannot be null or empty");
         }

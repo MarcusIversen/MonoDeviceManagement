@@ -23,8 +23,6 @@ public interface IDeviceService
     
     List<Device> AssignedDevices(int userId);
 
-    List<Device> GetNotAssignedDevices();
-    
     List<Device> GetDevicesWithRequestValue(string value);
     
     List<Device> GetDevicesWithStatusMalfunction();

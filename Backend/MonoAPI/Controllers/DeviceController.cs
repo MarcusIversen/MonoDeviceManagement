@@ -102,12 +102,6 @@ public class DeviceController : ControllerBase
         return Ok(_service.AssignedDevices(id));
     }
 
-    [HttpGet("/NotAssigned")]
-    public IActionResult GetNotAssignedDevices()
-    {
-        return Ok(_service.GetNotAssignedDevices());
-    }
-
     [HttpGet("/RequestValue/{value}")]
     public IActionResult GetRequestValueDevices(string value)
     {

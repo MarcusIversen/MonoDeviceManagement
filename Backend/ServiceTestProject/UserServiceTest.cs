@@ -10,8 +10,8 @@ namespace ServiceTestProject;
 
 public class UserServiceTest
 {
-    
-    #region GetAllUsersTest
+    //MemberData
+    #region GetAllUsersMemberData
 
     public static IEnumerable<Object[]> GetAllUsers_TestCase()
     {
@@ -51,7 +51,7 @@ public class UserServiceTest
 
     #endregion
 
-    #region GetRoleTypeUserTest
+    #region GetRoleTypeUserMemberData
     public static IEnumerable<Object[]> GetRoleTypeUser_TestCase()
     {
         User user1 = new User { Id = 1, Email = "Test@mail.com", FirstName = "Kristian", LastName = "Hansen", WorkNumber = "12345678", Role = "User", Hash = "Hash", Salt = "Salt"};
@@ -92,6 +92,10 @@ public class UserServiceTest
 
     #endregion
     
+    // Tests
+
+    #region CreateUserService
+
     [Fact]
     public void CreateUserServiceTest()
     {
@@ -110,7 +114,69 @@ public class UserServiceTest
         Assert.NotNull(service);
         Assert.True(service is UserService);
     }
+    
+    [Theory]
+    [InlineData("repository cannot be null")]
+    public void CreateUserServiceWithMockRepoNullArgumentExceptionTest(string expectedMessage)
+    {
+        //Arrange
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostUserDTO, User>();
+        }).CreateMapper();
+        var putUserValidator = new PutUserValidator();
 
+        //Act
+        var action = ()=> new UserService(null, mapper, putUserValidator);
+        var ex = Assert.Throws<ArgumentException>(action);
+
+        // Assert
+        Assert.Equal(expectedMessage, ex.Message);
+    } 
+    
+    [Theory]
+    [InlineData("mapper cannot be null")]
+    public void CreateUserServiceWithMapperNullArgumentExceptionTest(string expectedMessage)
+    {
+        //Arrange
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostUserDTO, User>();
+        }).CreateMapper();
+        var putUserValidator = new PutUserValidator();
+
+        //Act
+        var action = ()=> new UserService(mockRepository.Object, null, putUserValidator);
+        var ex = Assert.Throws<ArgumentException>(action);
+
+        // Assert
+        Assert.Equal(expectedMessage, ex.Message);
+    } 
+    
+    [Theory]
+    [InlineData("putUserValidator cannot be null")]
+    public void CreateUserServiceWithPutValidatorNullArgumentExceptionTest(string expectedMessage)
+    {
+        //Arrange
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostUserDTO, User>();
+        }).CreateMapper();
+        var putUserValidator = new PutUserValidator();
+
+        //Act
+        var action = ()=> new UserService(mockRepository.Object, mapper, null);
+        var ex = Assert.Throws<ArgumentException>(action);
+
+        // Assert
+        Assert.Equal(expectedMessage, ex.Message);
+    }
+
+    #endregion
+    
     #region Read
 
     [Theory]
@@ -141,7 +207,7 @@ public class UserServiceTest
     [Theory]
     [InlineData(1, 1)]      //Valid user
     [InlineData(2, 2)]      //Valid user
-    public void GetValidUserTest(int userId, int expectedValueId)
+    public void GetValidUserByIdTest(int userId, int expectedValueId)
     {
         // Arrange
         User user1 = new User { Id = userId, Email = "andy@mail.com", FirstName = "Andy", LastName = "Nguyen", WorkNumber = "12345678", Hash = "Hash", Salt = "Salt"};
@@ -174,7 +240,7 @@ public class UserServiceTest
     [InlineData(0, "UserId cannot be less than 1 or null")]     //Invalid UserID 0
     [InlineData(-1, "UserId cannot be less than 1 or null")]    //Invalid UserID -1
     [InlineData(null, "UserId cannot be less than 1 or null")]  //Invalid UserID null
-    public void GetInvalidUserTest(int userId, string expectedMessage)
+    public void GetInvalidUserByIdTest(int userId, string expectedMessage)
     {
         // Arrange
         Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
@@ -194,6 +260,63 @@ public class UserServiceTest
         Assert.Equal("UserId cannot be less than 1 or null", ex.Message);
         
         mockRepository.Verify(r => r.GetUser(userId), Times.Never);
+    }
+    
+    [Theory]
+    [InlineData("andy@mail.com", 1)]      //Valid user
+    public void GetValidUserByEmailTest(string email, int expectedValueId)
+    {
+        // Arrange
+        User user1 = new User { Id = 1, Email = email, FirstName = "Andy", LastName = "Nguyen", WorkNumber = "12345678", Hash = "Hash", Salt = "Salt"};
+        User user2 = new User { Id = 3, Email = "Kristian@mail.com", FirstName = "Kristian", LastName = "Hansen", WorkNumber = "87654321", Hash = "Hash", Salt = "Salt"};
+
+        var fakeRepo = new List<User>();
+        fakeRepo.Add(user1);
+        fakeRepo.Add(user2);
+        
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostUserDTO, User>();
+        }).CreateMapper();
+        
+        var putUserValidator = new PutUserValidator();
+        
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
+        mockRepository.Setup(r => r.GetUserByEmail(email)).Returns(fakeRepo.Find(u => u.Email == email));
+        
+        // Act 
+        var actual = service.GetUserByEmail(email);
+
+        // Assert 
+        Assert.Equal(expectedValueId, actual.Id);
+        Assert.Equal(email, actual.Email);
+        mockRepository.Verify(r => r.GetUserByEmail(email), Times.Once);
+    }
+    
+    [Theory]
+    [InlineData(null, "Email cannot be null or empty")]    //Invalid null email
+    [InlineData("", "Email cannot be null or empty")]      //Invalid empty email
+    public void GetInvalidUserByEmailTest(string email, string expectedMessage)
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepository = new Mock<IUserRepository>();
+        var mapper = new MapperConfiguration(config =>
+        {
+            config.CreateMap<PostUserDTO, User>();
+        }).CreateMapper();
+        var putUserValidator = new PutUserValidator();
+        
+        IUserService service = new UserService(mockRepository.Object, mapper, putUserValidator);
+
+        // Act 
+        Action action = () => service.GetUserByEmail(email);  
+
+        // Assert
+        var ex = Assert.Throws<ArgumentException>(action);
+        Assert.Equal(expectedMessage, ex.Message);
+        
+        mockRepository.Verify(r => r.GetUserByEmail(email), Times.Never);
     }
 
     #endregion
@@ -339,7 +462,7 @@ public class UserServiceTest
 
     #endregion
     
-    #region Get Role type user only
+    #region GetRoletypeUserOnlyTest
 
     [Theory]
     [MemberData(nameof(GetRoleTypeUser_TestCase))]
