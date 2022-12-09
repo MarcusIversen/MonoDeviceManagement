@@ -17,13 +17,13 @@ public class DeviceController : ControllerBase
     {
         _service = service;
     }
-    
+
     [HttpGet]
     public IActionResult GetDevices()
     {
         return Ok(_service.GetDevices());
     }
-    
+
     [HttpGet("{id}")]
     public IActionResult GetDeviceById(int id)
     {
@@ -41,7 +41,7 @@ public class DeviceController : ControllerBase
         }
     }
 
-    [Authorize ("AdminPolicy")]
+    [Authorize("AdminPolicy")]
     [HttpPost]
     public IActionResult CreateDevice(PostDeviceDTO dto)
     {
@@ -59,7 +59,7 @@ public class DeviceController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
     [HttpPut("{id}")]
     public IActionResult UpdateDevice(int id, PutDeviceDTO dto)
     {
@@ -77,7 +77,7 @@ public class DeviceController : ControllerBase
         }
     }
 
-    [Authorize ("AdminPolicy")]
+    [Authorize("AdminPolicy")]
     [HttpDelete("{id}")]
     public IActionResult DeleteDevice(int id)
     {
@@ -101,19 +101,19 @@ public class DeviceController : ControllerBase
     {
         return Ok(_service.AssignedDevices(id));
     }
-    
+
     [HttpGet("/NotAssigned")]
     public IActionResult GetNotAssignedDevices()
     {
         return Ok(_service.GetNotAssignedDevices());
     }
-    
+
     [HttpGet("/RequestValue/{value}")]
     public IActionResult GetRequestValueDevices(string value)
     {
         return Ok(_service.GetDevicesWithRequestValue(value));
     }
-    
+
     [HttpGet("/Malfunctioned")]
     public IActionResult GetDevicesWithStatusMalfunction()
     {

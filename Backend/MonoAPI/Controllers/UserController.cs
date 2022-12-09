@@ -17,14 +17,14 @@ public class UserController : ControllerBase
         _service = service;
     }
 
-    [Authorize ("AdminPolicy")]
+    [Authorize("AdminPolicy")]
     [HttpGet]
     public IActionResult GetUsers()
     {
         return Ok(_service.GetUsers());
-    } 
-    
-    [Authorize ("AdminPolicy")]
+    }
+
+    [Authorize("AdminPolicy")]
     [HttpGet("{id}")]
     public IActionResult GetUser(int id)
     {
@@ -41,8 +41,8 @@ public class UserController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
-    [Authorize ("AdminPolicy")]
+
+    [Authorize("AdminPolicy")]
     [HttpGet]
     [Route("RoleType")]
     public IActionResult GetUsersByRole()
@@ -52,7 +52,7 @@ public class UserController : ControllerBase
 
 
     [AllowAnonymous]
-    [HttpGet ("email/{email}")]
+    [HttpGet("email/{email}")]
     public IActionResult GetUserByEmail(string email)
     {
         try
@@ -68,7 +68,7 @@ public class UserController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
 
     [AllowAnonymous]
     [HttpPut("update/{id}")]
@@ -87,8 +87,8 @@ public class UserController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
-    [Authorize ("AdminPolicy")]
+
+    [Authorize("AdminPolicy")]
     [HttpDelete("{id}")]
     public IActionResult DeleteUser(int id)
     {
@@ -106,7 +106,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [Authorize ("AdminPolicy")]
+    [Authorize("AdminPolicy")]
     [HttpPost]
     [Route("sendEmail")]
     //Cannot send email when connected to the school internet 
