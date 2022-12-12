@@ -71,6 +71,12 @@ export class DeviceService {
     return httpResponse.data;
   }
 
+  async getNotAssignedDevices() {
+    const httpResponse = await customAxios.get<any>('NotAssigned/');
+    this.devices = httpResponse.data;
+    return httpResponse.data;
+  }
+
   async getIkkeSendtRequestValue() {
     const httpResult = await customAxios.get<any>('RequestValue/IkkeSendt')
     return httpResult.data;

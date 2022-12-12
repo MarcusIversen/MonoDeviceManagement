@@ -1,32 +1,32 @@
 <mat-card>
   <form [formGroup]="viewReportForm" (ngSubmit)="changeStatus()">
-    <label>
-      Enhedens navn
+    <mat-card-title>Fejlmeldings Rapport</mat-card-title>
+    <div class="content">
+      <label>
+        <mat-form-field style="width: 300px;">
+          <mat-label>Enheds Navn</mat-label>
+          <input matInput deviceName="deviceName" type="text" formControlName="nameForm" readonly>
+        </mat-form-field>
+      </label>
       <br>
-      <mat-form-field>
-        <input matInput deviceName="deviceName" type="text" formControlName="nameForm" readonly>
-      </mat-form-field>
-    </label>
-    <br>
-    <label>
-      Emne
+      <label>
+        <mat-form-field style="width: 300px;">
+          <mat-label>Emne</mat-label>
+          <input matInput errorSubject="errorSubject" type="text" formControlName="subjectForm" readonly>
+        </mat-form-field>
+      </label>
       <br>
-      <mat-form-field>
-        <input matInput errorSubject="errorSubject" type="text" formControlName="subjectForm" readonly>
-      </mat-form-field>
-    </label>
-    <br>
-    <label>
-      Beskrivelse
-      <br>
-      <mat-form-field>
+      <label>
+        <mat-form-field style="width: 450px; height: 200px;">
+          <mat-label>Beskrivelse</mat-label>
         <textarea matInput
                   errorDescription="errorDescription"
                   cdkTextareaAutosize
                   #autosize="cdkTextareaAutosize"
                   cdkAutosizeMinRows="1"
                   cdkAutosizeMaxRows="max" formControlName="bodyForm" readonly></textarea>
-      </mat-form-field>
-    </label>
+        </mat-form-field>
+      </label>
+    </div>
   </form>
 </mat-card>

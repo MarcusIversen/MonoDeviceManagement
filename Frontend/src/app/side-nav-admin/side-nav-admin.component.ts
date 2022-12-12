@@ -18,6 +18,7 @@ export class SideNavAdminComponent implements OnInit {
   private user: any;
 
   requests: any[] = [];
+  errors: any[] = [];
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -46,6 +47,7 @@ export class SideNavAdminComponent implements OnInit {
       }
     }
     this.requests = await this.deviceService.getSendtRequestValue();
+    this.errors = await this.deviceService.getDevicesWithStatusMalfunctioned();
   }
 
   ngAfterViewInit() {
