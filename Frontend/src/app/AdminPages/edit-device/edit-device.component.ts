@@ -64,11 +64,17 @@ export class EditDeviceComponent implements OnInit {
       serialNumber: device.serialNumber,
       status: device.status,
       userId: device.userId,
-      requestValue: String('IkkeSendt'),
+      requestValue: '',
       dateOfIssue: new Date(new Date(device.dateOfIssue).setHours(24)).toISOString().slice(0, 10),
       dateOfTurnIn: new Date(new Date(device.dateOfTurnIn).setHours(24)).toISOString().slice(0, 10),
       errorSubject: device.errorSubject,
       errorDescription: device.errorDescription
+    }
+
+    if(dto.status == "I brug" || dto.status == "Defekt") {
+      dto.requestValue = "Accepteret"
+    }else if (dto.status == "På lager"){
+      dto.requestValue = "IkkeSendt"
     }
 
     let d = await this.deviceService.updateDevice(dto, device.id)

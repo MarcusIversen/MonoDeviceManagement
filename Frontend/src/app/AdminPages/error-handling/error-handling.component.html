@@ -58,9 +58,8 @@
       <ng-container matColumnDef="changeStatus">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Status på fejl</th>
         <td mat-cell *matCellDef="let row">
-            <mat-select formControlName="statusControl" placeholder="{{row.status}}" style="width: 100px">
+            <mat-select placeholder="{{row.status}}" style="width: 100px">
               <mat-option value="I brug" (click)="changeStatus(row, 'I brug')">Afklaret</mat-option>
-              <mat-option value="På lager" (click)="changeStatus(row, 'På lager')">På lager</mat-option>
               <mat-option value="Defekt" (click)="changeStatus(row, 'Defekt')">Defekt</mat-option>
             </mat-select>
         </td>
@@ -69,7 +68,6 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
         <td mat-cell *matCellDef="let row">
           <span *ngIf="row.status == 'I brug'"><mat-icon style="color: #00ff34">verified_user</mat-icon></span>
-          <span *ngIf="row.status == 'På lager'"><mat-icon style="color: #007aff">person</mat-icon></span>
           <span *ngIf="row.status == 'Defekt'"><mat-icon style="color: #ff0004">cancel</mat-icon></span>
         </td>
       </ng-container>
