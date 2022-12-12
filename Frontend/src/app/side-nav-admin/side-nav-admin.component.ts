@@ -48,9 +48,7 @@ export class SideNavAdminComponent implements OnInit {
     }
     this.requests = await this.deviceService.getSendtRequestValue();
     this.errors = await this.deviceService.getDevicesWithStatusMalfunctioned();
-  }
 
-  ngAfterViewInit() {
     this.observer.observe(['(max-width: 1500px)']).subscribe((res) => {
       if (res.matches) {
         this.sidenav.mode = 'over';
@@ -62,6 +60,9 @@ export class SideNavAdminComponent implements OnInit {
     });
   }
 
+  /**
+   * Method for logging out, removing token from localstorage and reroutes to loginPage again.
+   */
   logOut() {
     this.router.navigate(['']).then(() => {
       this.snackBar.open('Du er hermed logget ud', undefined, {duration: 3000})

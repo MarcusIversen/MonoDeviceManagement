@@ -53,6 +53,9 @@ export class EditDeviceComponent implements OnInit {
     this.users = await this.userService.getUsersTypeUser();
   }
 
+  /**
+   * Method for saving device info, status or user changes.
+   */
   async save() {
     const device = this.editDevice.value;
     let dto = {

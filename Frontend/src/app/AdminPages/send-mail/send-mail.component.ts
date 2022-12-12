@@ -31,6 +31,9 @@ export class SendMailComponent implements OnInit {
     this.user = await this.userService.getUserById(this.data.user.id);
   }
 
+  /**
+   * Method for sending email.
+   */
   async sendMail() {
     const email = this.mailForm.value;
     let dto = {

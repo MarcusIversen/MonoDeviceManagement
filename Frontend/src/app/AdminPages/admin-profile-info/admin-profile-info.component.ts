@@ -46,6 +46,10 @@ export class AdminProfileInfoComponent implements OnInit {
     }
   }
 
+  /**
+   * File selecter method for uploading profile picture.
+   * @param event
+   */
   selectFile({event}: { event: any }) {
     if (event.target.files) {
       var reader = new FileReader();
@@ -58,6 +62,9 @@ export class AdminProfileInfoComponent implements OnInit {
   }
 
 
+  /**
+   * Method for saving profile info changes.
+   */
   async saveChanges() {
     let dto = {
       id: this.id,
@@ -81,6 +88,9 @@ export class AdminProfileInfoComponent implements OnInit {
     window.location.reload();
   }
 
+  /**
+   * Method for updating a password.
+   */
   async updatePassword() {
     if (this.newPassword == this.confirmPassword) {
       let dto = {

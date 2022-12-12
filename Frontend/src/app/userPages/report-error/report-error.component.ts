@@ -27,6 +27,9 @@ export class ReportErrorComponent implements OnInit{
     this.dialogRef.updateSize("500px", "624px");
   }
 
+  /**
+   * Method for sending an error report for a device.
+   */
   async sendErrorReport() {
     let device = await this.deviceService.getDeviceById(this.errorReportForm.value.IdForm);
     let dto = {

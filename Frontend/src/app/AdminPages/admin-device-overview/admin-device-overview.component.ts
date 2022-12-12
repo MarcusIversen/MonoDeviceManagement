@@ -34,6 +34,9 @@ export class AdminDeviceOverviewComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  /**
+   * Method for searching for devices in the overview table.
+   **/
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -43,6 +46,10 @@ export class AdminDeviceOverviewComponent implements OnInit {
     }
   }
 
+
+  /**
+   * Method for edit button, opening new component to edit device.
+   **/
   editDevice(row: any) {
     const data = this.popup.open(EditDeviceComponent, {
       data: {
@@ -58,6 +65,9 @@ export class AdminDeviceOverviewComponent implements OnInit {
     });
   }
 
+  /**
+   * Method for delete button, to delete a device.
+   */
   async deleteDevice(row: any) {
     if (confirm('Vil du slette ' + row.deviceName + ' ' + row.serialNumber + '? Denne handling kan ikke fortrydes')) {
       const device = await this.deviceService.deleteDevice(row.id);
@@ -67,9 +77,4 @@ export class AdminDeviceOverviewComponent implements OnInit {
       });
     }
   }
-
-  async getUserOnDevice(row: any) {
-    return await this.userService.getUserById(row.userId);
-  }
-
 }

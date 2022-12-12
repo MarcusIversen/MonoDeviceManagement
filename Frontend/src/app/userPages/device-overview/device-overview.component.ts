@@ -41,6 +41,10 @@ export class DeviceOverviewComponent implements OnInit{
     }
   }
 
+  /**
+   * Method for searching in device-overview table.
+   * @param event
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,6 +54,11 @@ export class DeviceOverviewComponent implements OnInit{
     }
   }
 
+  /**
+   * Method for reporting error for a device.
+   * Opens ReportErrorComponent.
+   * @param row
+   */
   reportError(row) {
     this.popup.open(ReportErrorComponent,{
       data : {

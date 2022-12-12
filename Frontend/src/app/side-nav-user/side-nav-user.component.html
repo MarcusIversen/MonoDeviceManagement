@@ -1,9 +1,5 @@
 <mat-toolbar class="mat-elevation-z8">
   <mat-toolbar-row>
-    <span style="margin-left: 5px; margin-right: 10px;"><img
-      src="https://cdn.discordapp.com/attachments/1042375108494377041/1050332261150621766/Lille_logo.png"
-      width="65" height="55"></span>
-    Mono Device Management
     <button
       mat-icon-button
       *ngIf="sidenav.mode === 'over'"
@@ -12,6 +8,10 @@
       <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
       <mat-icon *ngIf="sidenav.opened">close</mat-icon>
     </button>
+    <span style="margin-left: 5px; margin-right: 10px;"><img
+      src="https://cdn.discordapp.com/attachments/1042375108494377041/1050332261150621766/Lille_logo.png"
+      width="65" height="55"></span>
+    Mono Device Management
     <span class="spacer"></span>
     <img class="profile-picture" height="30" width="30"
          [src]="profilePicture?? 'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'">

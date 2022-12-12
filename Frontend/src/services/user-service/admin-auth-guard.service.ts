@@ -13,6 +13,12 @@ export class AdminAuthGuardService implements CanActivate {
   constructor(private router: Router) {
   }
 
+  /**
+   * Method for checking token for Role.
+   * If you are admin, you will have access to admin functions.
+   * @param route
+   * @param state
+   */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let token = localStorage.getItem('token');
     if(token) {

@@ -23,6 +23,7 @@ const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {
+    //Administrator paths
     path: 'administrator', component: SideNavAdminComponent, canActivate: [AdminAuthGuardService], children: [
       {path: 'enheder', component: AdminDeviceOverviewComponent},
       {path: 'enheds-registrering', component: AdminDeviceRegistrationComponent},
@@ -34,6 +35,7 @@ const routes: Routes = [
     ]
   },
   {
+    //User paths
     path: 'bruger', component: SideNavUserComponent, canActivate: [UserAuthGuardService], children: [
       {path: 'mine-enheder', component: DeviceOverviewComponent},
       {path: 'forespørg-enhed', component: RequestDeviceOverviewComponent},

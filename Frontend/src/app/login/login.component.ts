@@ -21,6 +21,9 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router) {
   }
 
+  /**
+   * Method for logging in.
+   */
   async login() {
     this.isLoading = true;
 
