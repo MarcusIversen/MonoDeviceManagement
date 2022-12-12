@@ -24,7 +24,7 @@ export class ReportErrorComponent implements OnInit{
   }
 
   async ngOnInit() {
-    this.dialogRef.updateSize('50%', '80%');
+    this.dialogRef.updateSize("500px", "624px");
   }
 
   async sendErrorReport() {

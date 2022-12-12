@@ -70,7 +70,12 @@
     </button>
     <button mat-button class="menu-button" routerLink="/administrator/fejlmeldinger">
       <mat-icon>warning</mat-icon>
-      <span>Fejlmeldinger</span>
+      <div *ngIf="this.errors.length < 1">
+        <span>Fejlmeldinger</span>
+      </div>
+      <div *ngIf="this.errors.length > 0">
+        <span [matBadge]="this.errors.length" matBadgeColor="warn" matBadgeSize="small" matBadgePosition="above after">Fejlmeldinger</span>
+      </div>
     </button>
   </mat-sidenav>
   <mat-sidenav-content>

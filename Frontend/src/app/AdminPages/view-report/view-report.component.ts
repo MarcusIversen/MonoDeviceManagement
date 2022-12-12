@@ -26,7 +26,7 @@ export class ViewReportComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.dialogRef.updateSize('50%', '80%');
+    this.dialogRef.updateSize("502px", "495px");
   }
 
   changeStatus() {
