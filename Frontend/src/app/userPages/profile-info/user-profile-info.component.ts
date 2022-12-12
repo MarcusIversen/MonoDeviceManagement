@@ -46,6 +46,10 @@ export class UserProfileInfoComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for fileSelecter, used to upload profile picture for account.
+   * @param event
+   */
   selectFile({event}: { event: any }) {
     if (event.target.files) {
       var reader = new FileReader();
@@ -56,7 +60,9 @@ export class UserProfileInfoComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Method for updating password.
+   */
   async updatePassword() {
     if (this.newPassword == this.confirmPassword) {
       let dto = {
@@ -88,6 +94,9 @@ export class UserProfileInfoComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for saving all profile info changes.
+   */
   async saveChanges() {
     let dto = {
       id: this.id,

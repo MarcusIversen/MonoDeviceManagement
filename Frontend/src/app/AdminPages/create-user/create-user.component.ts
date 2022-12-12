@@ -10,7 +10,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
 })
-export class CreateUserComponent implements OnInit {
+export class CreateUserComponent{
   firstName: string = '';
   lastName: string = '';
   email: string = '';
@@ -31,9 +31,10 @@ export class CreateUserComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
-  async ngOnInit() {
-  }
-
+  /**
+   * Method for creating a user, as an admin.
+   * As an admin, creating a user always sets role as 'User'.
+   */
   async createUserAsAdmin() {
     const user = this.userForm.value;
     let dto = {

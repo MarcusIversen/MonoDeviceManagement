@@ -40,6 +40,7 @@ export class ErrorHandlingComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  //Method for searching in the error-report table.
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -50,6 +51,7 @@ export class ErrorHandlingComponent implements OnInit {
   }
 
 
+  //Method for viewReport button, opens component for report.
   viewReport(row) {
     this.popup.open(ViewReportComponent, {
       data: {
@@ -58,6 +60,11 @@ export class ErrorHandlingComponent implements OnInit {
     });
   }
 
+  /**
+   * Method for changing status of a reported error.
+   * @param row
+   * @param text
+   */
   async changeStatus(row: any, text: string) {
     row.status = text;
     let device = await this.deviceService.getDeviceById(row.id);
@@ -82,6 +89,9 @@ export class ErrorHandlingComponent implements OnInit {
     await this.deviceService.updateDevice(dto, device.id);
   }
 
+  /**
+   * Method for reloading page, which updates table.
+   */
   reload() {
     window.location.reload();
   }

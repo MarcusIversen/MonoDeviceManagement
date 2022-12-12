@@ -48,6 +48,9 @@ export class EditUserComponent implements OnInit {
     this.isLoading = false;
   }
 
+  /**
+   * Method for saving a user info.
+   */
   async save() {
     const user = this.editUser.value;
     let dto = {

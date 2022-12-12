@@ -23,6 +23,9 @@ export class RegisterComponent {
   constructor(private userService: UserService) {
   }
 
+  /**
+   * Method for registering only as a user, not admin.
+   **/
   async register() {
     this.isLoading = true;
     let dto = {

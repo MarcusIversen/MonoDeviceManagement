@@ -39,6 +39,10 @@ export class RequestDeviceOverviewComponent implements OnInit{
     }
   }
 
+  /**
+   * Method for searching in the request-device table.
+   * @param event
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -48,6 +52,10 @@ export class RequestDeviceOverviewComponent implements OnInit{
     }
   }
 
+  /**
+   * Method for request button, making a request for a device.
+   * @param row
+   */
   async requestDevice(row: any) {
     if (confirm('Vil du forespørge' + row.deviceName)) {
       let device = await this.deviceService.getDeviceById(row.id);

@@ -43,9 +43,7 @@ export class SideNavUserComponent implements OnInit {
         this.profilePicture = this.user.profilePicture;
       }
     }
-  }
 
-  ngAfterViewInit() {
     this.observer.observe(['(max-width: 1500px)']).subscribe((res) => {
       if (res.matches) {
         this.sidenav.mode = 'over';
@@ -57,6 +55,9 @@ export class SideNavUserComponent implements OnInit {
     });
   }
 
+  /**
+   * Method for logging out, removing token from localstorage and reroutes to loginPage again.
+   */
   logOut() {
     this.router.navigate(['']).then(() => {
       this.snackBar.open('Du er hermed logget ud', undefined, {duration: 3000})

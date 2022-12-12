@@ -47,6 +47,10 @@ export class UserOverviewComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  /**
+   * Method for searching in user-overview table.
+   * @param event
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -56,15 +60,27 @@ export class UserOverviewComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for getting a users assigned devices.
+   * @param id
+   */
   async getDeviceOnUser(id: number) {
     return await this.deviceService.getDeviceOnUser(id);
   }
 
+  /**
+   * Method for showing users assigned devices, when clicked.
+   * @param row
+   */
   async onSelect(row: any) {
     this.assignedDevices = await this.getDeviceOnUser(row.id);
     return this.assignedDevices;
   }
 
+  /**
+   * Method for edit button, opens EditUserComponent to edit user.
+   * @param row
+   */
   editUser(row: any) {
     const data = this.popup.open(EditUserComponent, {
       data: {
@@ -82,6 +98,10 @@ export class UserOverviewComponent implements OnInit {
 
   }
 
+  /**
+   * Method for sending email.
+   * @param row
+   */
   async sendMail(row: any) {
     this.popup.open(SendMailComponent, {
       data: {
@@ -90,6 +110,10 @@ export class UserOverviewComponent implements OnInit {
     });
   }
 
+  /**
+   * Method for delete button, deletes a user form overview table.
+   * @param row
+   */
   async deleteUser(row: any) {
     if (confirm('Vil du slette ' + row.firstName + ' ' + row.lastName + '? Denne handling kan ikke fortrydes')) {
       const user = await this.userService.deleteUser(row.id);
@@ -100,6 +124,9 @@ export class UserOverviewComponent implements OnInit {
     }
   }
 
+  /**
+   * Method for creating a user.
+   */
   async createUser() {
     const data = this.popup.open(CreateUserComponent);
     data.afterClosed().subscribe(() => {

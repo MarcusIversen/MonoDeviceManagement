@@ -47,6 +47,9 @@ export class AdminDeviceRegistrationComponent implements OnInit {
     this.users = await this.userService.getUsersTypeUser();
   }
 
+  /**
+   * Method for creating device.
+   */
   async createDevice() {
     const devicePartOne = this.firstFormGroup.value;
     const devicePartTwo = this.secondFormGroup.value;
@@ -81,6 +84,10 @@ export class AdminDeviceRegistrationComponent implements OnInit {
     });
   }
 
+  /**
+   * Method for refreshing page to restart device creation.
+   * Refresh page is used to avoid red fields in mat stepper.
+   */
   restartRegistration() {
     window.location.reload();
   }

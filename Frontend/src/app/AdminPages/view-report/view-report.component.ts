@@ -29,8 +29,4 @@ export class ViewReportComponent implements OnInit {
     this.dialogRef.updateSize("502px", "495px");
   }
 
-  changeStatus() {
-    //TODO
-  }
-
 }
