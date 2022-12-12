@@ -109,7 +109,8 @@ public class UserController : ControllerBase
     [Authorize("AdminPolicy")]
     [HttpPost]
     [Route("sendEmail")]
-    //Cannot send email when connected to the school internet 
+    //This doesn't work when connected to the school internet
+    //You must put your own email and password into the appsettings.json file for this to work.
     public void SendEmail(EmailDTO email)
     {
         _service.SendEmail(email.Email, email.Subject, email.Body);

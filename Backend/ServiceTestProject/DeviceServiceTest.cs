@@ -10,7 +10,7 @@ namespace ServiceTestProject;
 
 public class DeviceServiceTest
 {
-    // Member data
+    //MemberData
 
     #region GetAllDevicesMemberData
 
