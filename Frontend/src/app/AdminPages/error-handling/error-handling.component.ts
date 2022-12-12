@@ -8,7 +8,6 @@ import {UserService} from "../../../services/user-service/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ViewReportComponent} from "../view-report/view-report.component";
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-error-handling',
@@ -19,7 +18,6 @@ export class ErrorHandlingComponent implements OnInit {
   displayedColumns: string[] = ['id', 'deviceName', 'serialNumber', 'status', 'user', 'viewReport', 'changeStatus', 'statusIcon'];
   dataSource: MatTableDataSource<Device>;
 
-  statusControl = new FormControl();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -40,7 +38,9 @@ export class ErrorHandlingComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  //Method for searching in the error-report table.
+  /**
+   * Method for searching in the error-report table.
+   */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -51,7 +51,10 @@ export class ErrorHandlingComponent implements OnInit {
   }
 
 
-  //Method for viewReport button, opens component for report.
+  /**
+   * Method for viewReport button, opens component for report.
+   * @param row
+   */
   viewReport(row) {
     this.popup.open(ViewReportComponent, {
       data: {
