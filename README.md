@@ -8,10 +8,15 @@
 <br>
 
 <Strong><em>Inventory management:</em></Strong> MDM allows you to maintain a detailed inventory of all your devices, including information such as device name, status, serial number, dateOfTurIn og dateOfIssue.
+<br>
 <Strong><em>Device assignment:</em></Strong> With MDM, you can easily assign devices to employees and keep track of who is using which device.
+<br>
 <Strong><em>Remote management:</em></Strong> MDM provides tools for remotely managing your devices, including the ability to remotely retrieve information from a device.
+<br>
 <Strong><em>Requestable:</em></Strong> With MDM, you can easily and remotely as an user request a device, which an admin can approve or deny.
+<br>
 <Strong><em>Error detection:</em></Strong> With MDM, you can easily and remotely as an user send an error about a potential defect, which an admin can look at 
+<br>
 
 <br>
 <br>
