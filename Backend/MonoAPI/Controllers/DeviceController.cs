@@ -114,8 +114,7 @@ public class DeviceController : ControllerBase
         return Ok(_service.GetDevicesWithStatusMalfunction());
     }
 
-    //[Authorize ("AdminPolicy")]
-    [AllowAnonymous]
+    [Authorize ("AdminPolicy")]
     [HttpGet]
     [Route("rebuildDB")]
     public void RebuildDB()

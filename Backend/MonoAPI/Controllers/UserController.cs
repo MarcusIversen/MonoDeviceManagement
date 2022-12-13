@@ -51,7 +51,7 @@ public class UserController : ControllerBase
     }
 
 
-    [AllowAnonymous]
+    
     [HttpGet("email/{email}")]
     public IActionResult GetUserByEmail(string email)
     {
@@ -70,7 +70,7 @@ public class UserController : ControllerBase
     }
 
 
-    [AllowAnonymous]
+    
     [HttpPut("update/{id}")]
     public IActionResult UpdateUser(int id, PutUserDTO dto)
     {
