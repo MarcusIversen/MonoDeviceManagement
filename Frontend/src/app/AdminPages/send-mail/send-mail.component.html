@@ -1,0 +1,33 @@
+<mat-card>
+  <form [formGroup]="mailForm" (ngSubmit)="sendMail()" class="content">
+    <mat-card-title>Send Email</mat-card-title>
+    <label>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput email="email" type="text" formControlName="emailForm" readonly>
+      </mat-form-field>
+    </label>
+    <br>
+    <label>
+      <mat-form-field>
+        <mat-label>Emne</mat-label>
+        <input matInput type="text" placeholder="Emne" formControlName="subjectForm" required>
+      </mat-form-field>
+    </label>
+    <br>
+    <label>
+
+      <mat-form-field style="width: 700px; height: 300px;">
+        <mat-label>Indhold</mat-label>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="max" placeholder="Indhold" formControlName="bodyForm" required></textarea>
+      </mat-form-field>
+    </label>
+    <br>
+    <button id="btnSend" mat-raised-button type="submit">Send mail</button>
+  </form>
+</mat-card>

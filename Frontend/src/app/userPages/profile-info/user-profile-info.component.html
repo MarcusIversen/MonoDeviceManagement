@@ -1,0 +1,137 @@
+
+<ng-container>
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="42.5%">
+      <mat-card>
+        <div class="content">
+          <mat-card-title>Profil detaljer</mat-card-title>
+          <br>
+          <div>
+            <img
+              style="padding: 10px;
+              border-radius: 100%;"
+              width="140"
+              height="140"
+              [src]="profilePicture??'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'">
+            <span>
+            <button mat-mini-fab (click)="inputElement.click()">
+            <mat-icon>edit</mat-icon>
+          </button>
+            Rediger profilbillede
+          </span>
+          </div>
+          <input #inputElement accept="image/png,image/jpeg" type="file" hidden (change)="selectFile({event : $event})">
+        </div>
+        <br>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="firstName" placeholder="Fornavn" name="firstName" id="firstName"
+                 autocomplete="off">
+          <mat-label>Fornavn</mat-label>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="lastName" placeholder="Efternavn" name="lastName" id="lastName"
+                 autocomplete="off">
+          <mat-label>Efternavn</mat-label>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="email" placeholder="Email" type="email" name="email" id="email"
+                 autocomplete="off">
+          <mat-label>Email</mat-label>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="workNumber" placeholder="Firma telefon" name="workNumber" id="workNumber"
+                 autocomplete="off">
+          <mat-label>Firma telefon</mat-label>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="privateMail" placeholder="Privat email" name="privateEmail" id="privateEmail"
+                 autocomplete="off">
+          <mat-label>Privat email</mat-label>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="privateNumber" placeholder="Privat telefon" name="privateNumber"
+                 id="privateNumber"
+                 autocomplete="off">
+          <mat-label>Privat telefon</mat-label>
+        </mat-form-field>
+        <div *ngIf="showErrorMessage">
+          <h3 style="color: coral; margin-left: 30px;">Der er sket en fejl</h3>
+        </div>
+        <div>
+          <button class="save-button" mat-raised-button (click)="saveChanges()">Gem oplysninger</button>
+          <span style="margin-left: 8px;" *ngIf="saveChangesLoading"><app-loading-spinner></app-loading-spinner></span>
+        </div>
+      </mat-card>
+
+      <div fxFlex="200%">
+        <mat-card style="margin-left: 30px;">
+          <div class="content">
+            <mat-card-title>Skift kodeord</mat-card-title>
+            <br>
+            <br>
+            <mat-form-field style="margin-left: 15px;">
+              <input matInput [(ngModel)]="newPassword" placeholder="Indtast nyt kodeord" type="password" name="new"
+                     autocomplete="off">
+              <mat-label>Nyt kodeord</mat-label>
+            </mat-form-field>
+            <br>
+            <mat-form-field style="margin-left: 15px;">
+              <input matInput [(ngModel)]="confirmPassword" placeholder="Genindtast nyt kodeord" type="password"name="repeatNew"
+                     id="repeatNewCode"
+                     autocomplete="off">
+              <mat-label>Genindtast nyt kodeord</mat-label>
+            </mat-form-field>
+            <br>
+            <div *ngIf="showPasswordErrorMismatch">
+              <h3 style="color: coral; margin-left: 15px;">Kodeord matcher ikke hinanden</h3>
+            </div>
+            <div *ngIf="showPasswordErrorValidate">
+              <h3 style="color: coral; margin-left: 15px;">Kodeord skal minimum fylde 8 karakterer</h3>
+            </div>
+            <div>
+              <button class="save-button" mat-raised-button style="margin-left: 15px;" (click)="updatePassword()">
+                Bekræft ny kode
+              </button>
+              <span *ngIf="newPasswordLoading"><app-loading-spinner></app-loading-spinner></span>
+              <span *ngIf="showPasswordChangeSuccess">Kodeord er skiftet med success!!</span>
+            </div>
+          </div>
+        </mat-card>
+        <br>
+        <mat-card style="margin-left: 30px;">
+          <div class="content">
+            <mat-card-title>Oplever du problemer?</mat-card-title>
+            <br>
+            <br>
+            <mat-card-content>Har du problemer med din konto eller dine enheder?</mat-card-content>
+            <mat-card-content>Kontakt en admin for at løse dit problem</mat-card-content>
+            <br>
+            <mat-card-subtitle style="margin-left: 15px;">Dette program er udviklet af:</mat-card-subtitle>
+            <mat-card-content>-Marcus Iversen, EASV Esbjerg</mat-card-content>
+            <mat-card-content>-Andy Lam Nguyen, EASV Esbjerg</mat-card-content>
+            <mat-card-content>-Kristian Hollænder, EASV Esbjerg</mat-card-content>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <img style="margin-left: 15px;" src="https://cdn.discordapp.com/attachments/1042375108494377041/1042375669365084220/unknown.png" height="90%" width="90%">
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>
+          <br>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</ng-container>
+

@@ -1,0 +1,33 @@
+<div class="content">
+  <h1 style="color: dimgrey; font-size: 2.5rem;">Enheds Forespørgsler</h1>
+  <br>
+  <ng-template [ngIf]="this.requests.length < 1" [ngIfElse]="Requests">
+    <div>
+      <p style="color: #2b2bad; font-size: 24px">Ingen nuværende forespørgsler</p>
+    </div>
+  </ng-template>
+  <ng-template #Requests>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div fxLayout fxFlex="100%" style="margin-right: 30px;"
+           *ngFor="let r of this.requests; let indexOfelement=index;">
+        <mat-card class="request-card" style="width: 350px;">
+          <mat-card-header>
+            <mat-card-title>Forspørgsel sendt af:</mat-card-title>
+            <mat-card-subtitle>{{this.Users[indexOfelement].email}}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <img style="border-radius: 50%" mat-card-image src="{{this.Users[indexOfelement].profilePicture}}"
+                 class="profilePicture">
+            <mat-card-subtitle style="color: #000000">Enhed: {{r.deviceName}}</mat-card-subtitle>
+            <mat-card-subtitle style="color: #000000">Serienummer: {{r.serialNumber}}</mat-card-subtitle>
+            <mat-card-actions>
+              <button id="Accepter" title="Accepter" mat-raised-button (click)="accept(r)">Accepter</button>
+              <button id="Afvis" title="Afvis" mat-raised-button (click)="decline(r)">Afvis</button>
+            </mat-card-actions>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </ng-template>
+</div>

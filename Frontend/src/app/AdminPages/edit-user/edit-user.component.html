@@ -1,0 +1,57 @@
+<mat-card>
+  <form [formGroup]="editUser" (ngSubmit)="save()" class="content">
+    <mat-card-title>Rediger bruger</mat-card-title>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div fxFlex="25%" style>
+        <label for="id">
+          <mat-form-field>
+            <input matInput id="Id" type="text" formControlName="id" readonly>
+            <mat-label>Bruger-ID</mat-label>
+          </mat-form-field>
+        </label>
+        <label>
+          <mat-form-field>
+            <mat-label>Fornavn</mat-label>
+            <input matInput type="string" placeholder="Fornavn" formControlName="firstName">
+          </mat-form-field>
+        </label>
+        <label>
+          <mat-form-field appearance="fill">
+            <mat-label>Firma telefon</mat-label>
+            <input matInput type="string" placeholder="Firma telefon" formControlName="workNumber">
+          </mat-form-field>
+        </label>
+        <label>
+          <mat-form-field appearance="fill" style="width: 480px">
+            <mat-label>Privat email</mat-label>
+            <input matInput type="string" placeholder="Privat email" formControlName="privateMail">
+          </mat-form-field>
+        </label>
+      </div>
+      <div fxFlex="25%" style="margin-left: 120px;">
+        <label>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Arbejds mail" formControlName="email">
+            <mat-label>Email</mat-label>
+          </mat-form-field>
+        </label>
+        <label>
+          <mat-form-field appearance="fill">
+            <mat-label>Efternavn</mat-label>
+            <input matInput type="string" placeholder="Efternavn" formControlName="lastName">
+          </mat-form-field>
+        </label>
+        <label>
+          <mat-form-field appearance="fill">
+            <mat-label>Privat telefon</mat-label>
+            <input matInput type="string" placeholder="Privat telefon" formControlName="privateNumber">
+          </mat-form-field>
+        </label>
+      </div>
+    </div>
+    <div>
+      <button class="save-button" id="btnSave" mat-raised-button type="submit">Gem ændringer</button>
+      <span *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></span>
+    </div>
+  </form>
+</mat-card>

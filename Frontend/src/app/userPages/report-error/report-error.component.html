@@ -1,0 +1,41 @@
+<mat-card>
+  <form [formGroup]="errorReportForm" (ngSubmit)="sendErrorReport()">
+    <mat-card-title>Rapporter Enhedsfejl</mat-card-title>
+    <div class="content">
+      <label>
+        <mat-form-field>
+          <mat-label>Enheds-ID</mat-label>
+          <input matInput deviceId="deviceId" type="text" formControlName="IdForm" readonly>
+        </mat-form-field>
+      </label>
+      <label>
+        <mat-form-field>
+          <mat-label>Enheds navn</mat-label>
+          <input matInput deviceName="deviceName" type="text" formControlName="nameForm" readonly>
+        </mat-form-field>
+      </label>
+      <br>
+      <label>
+        <mat-form-field style="width: 450px;">
+          <mat-label>Emne</mat-label>
+          <input matInput type="text" placeholder="Defekt skærm..." formControlName="subjectForm" required>
+        </mat-form-field>
+      </label>
+      <br>
+      <label>
+        <mat-form-field style="width: 450px; height: 200px;">
+          <mat-label>Beskrivelse</mat-label>
+          <textarea
+            matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="max" placeholder="Enheden er begyndt at..." formControlName="bodyForm"
+            required></textarea>
+        </mat-form-field>
+      </label>
+      <br>
+      <button class="save-button" id="btnSend" mat-raised-button type="send">Fuldfør fejlmelding</button>
+    </div>
+  </form>
+</mat-card>
