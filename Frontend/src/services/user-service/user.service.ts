@@ -3,6 +3,7 @@ import axios from "axios";
 
 
 export const customAxios = axios.create({
+  //baseURL: 'https://localhost:7234',
   baseURL: 'https://monodevicemanagementapi.azurewebsites.net/',
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`

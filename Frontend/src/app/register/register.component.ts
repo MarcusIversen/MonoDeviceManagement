@@ -20,7 +20,7 @@ export class RegisterComponent {
   showSuccessMessage: boolean | undefined;
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   /**
@@ -48,5 +48,10 @@ export class RegisterComponent {
       this.showErrorMessage = true;
       this.showSuccessMessage = false;
     })
+  }
+
+  async NavigateToLogin() {
+    this.isLoading = true;
+    await this.router.navigate([''])
   }
 }
