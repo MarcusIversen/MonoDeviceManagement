@@ -91,9 +91,9 @@ if (app.Environment.IsDevelopment())
 app.UseCors(options =>
 {
     options.SetIsOriginAllowed(origin => true)
-        .AllowAnyOrigin()
         .AllowAnyHeader()
-        .AllowAnyMethod();
+        .AllowAnyMethod()
+        .AllowCredentials();
 });
 
 app.UseAuthentication();
