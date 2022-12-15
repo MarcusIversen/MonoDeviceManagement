@@ -1,0 +1,25 @@
+[debug] [2022-12-15T18:16:22.534Z] ----------------------------------------------------------------------
+[debug] [2022-12-15T18:16:22.539Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ivers\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-12-15T18:16:22.540Z] CLI Version:   11.18.0
+[debug] [2022-12-15T18:16:22.540Z] Platform:      win32
+[debug] [2022-12-15T18:16:22.540Z] Node Version:  v18.10.0
+[debug] [2022-12-15T18:16:22.548Z] Time:          Thu Dec 15 2022 19:16:22 GMT+0100 (Centraleuropæisk normaltid)
+[debug] [2022-12-15T18:16:22.548Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-12-15T18:16:22.783Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-12-15T18:16:22.783Z] > authorizing via signed-in user (monodevicenoreply@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\ivers\RiderProjects\3. Semester Eksamen\MonoDeviceManagement\Frontend
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
