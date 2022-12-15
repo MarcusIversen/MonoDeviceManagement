@@ -115,17 +115,14 @@ public class DeviceController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost]
+    [HttpGet]
     [Route("rebuildDB/{password}")]
-    public IActionResult RebuildDB(string password)
+    public void RebuildDB(string password)
     {
         if (password == "dsfghfdsafghjfdsadewrtyuikljmnbgfdrtyujkjhmnbvcfdcsefrgthnbvcxdsaefrghbvcxdsadefrgbvcxsaadf")
         {
             _service.RebuildDB();
-            return Ok();
         }
-
-        return StatusCode(422, "Invalid kodeord");
 
     }
 }
