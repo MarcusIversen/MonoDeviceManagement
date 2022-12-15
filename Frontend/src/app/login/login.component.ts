@@ -56,5 +56,10 @@ export class LoginComponent {
     )
   }
 
+  async NavigateToRegister(){
+    this.isLoading = true;
+    this.router.navigate(['/registrer'])
+  }
+
 
 }
