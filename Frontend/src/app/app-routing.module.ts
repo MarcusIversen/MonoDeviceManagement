@@ -21,7 +21,7 @@ import {RequestsComponent} from "./AdminPages/requests/requests.component";
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'registrer', component: RegisterComponent},
   {
     //Administrator paths
     path: 'administrator', component: SideNavAdminComponent, canActivate: [AdminAuthGuardService], children: [
