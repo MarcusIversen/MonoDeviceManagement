@@ -114,11 +114,18 @@ public class DeviceController : ControllerBase
         return Ok(_service.GetDevicesWithStatusMalfunction());
     }
 
-    [Authorize ("AdminPolicy")]
-    [HttpGet]
-    [Route("rebuildDB")]
-    public void RebuildDB()
+    [AllowAnonymous]
+    [HttpPost]
+    [Route("rebuildDB/{password}")]
+    public IActionResult RebuildDB(string password)
     {
-        _service.RebuildDB();
+        if (password == "dsfghfdsafghjfdsadewrtyuikljmnbgfdrtyujkjhmnbvcfdcsefrgthnbvcxdsaefrghbvcxdsadefrgbvcxsaadf")
+        {
+            _service.RebuildDB();
+            return Ok();
+        }
+
+        return StatusCode(422, "Invalid kodeord");
+
     }
 }
