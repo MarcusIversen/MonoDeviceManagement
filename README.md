@@ -30,3 +30,5 @@
 <p>If you have any questions or need help getting started, our support team is here to assist you. Simply contact us through the in-app support system, and we'll be happy to help.</p>
 
 <strong>We hope you enjoy using Mono Device Management!</strong>
+
+We have deployed our web application through firebase check it out: <Strong><em>https://monodevicemanagement.web.app/</em></Strong>
